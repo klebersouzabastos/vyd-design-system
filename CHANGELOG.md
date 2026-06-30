@@ -27,11 +27,15 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 ### Alterado
 
-- **Símbolo oficial da marca**: `brand/vyd-symbol.svg`, `vyd-symbol-mono.svg`,
-  `vyd-lockup.svg`, `vyd-lockup-negative.svg` e o brand inline de `demo/index.html`
-  passam a usar a geometria **exata** do brand guide selecionado (cubo isométrico em
-  **wireframe** com a **face-topo** destacada), no lugar da aproximação de 3 faces.
-  Os ícones em `brand/icons/` mantêm a variante de faces sólidas (legibilidade ≤16px).
+- **Símbolo oficial da marca — padrão único.** Toda a marca passa a usar a geometria
+  **exata** do brand guide selecionado (cubo isométrico em **wireframe** com a
+  **face-topo** destacada), eliminando a antiga aproximação de 3 faces sólidas. Cobre:
+  - SVGs de logo: `brand/vyd-symbol.svg`, `vyd-symbol-mono.svg`, `vyd-lockup.svg`,
+    `vyd-lockup-negative.svg`;
+  - **ícones** `brand/icons/` — `favicon.svg` reescrito no wireframe (arestas 2 / 1.2
+    para legibilidade ≤16px) e **todos os PNG/ICO regenerados** (`npm run icons`);
+  - brand inline de `demo/index.html` e o cubo de `demo/app-shell-preview.svg`;
+  - o componente `CubeMark` de `@vyd/react`.
 
 ## [0.1.0] — 2026-06-29
 

@@ -1,15 +1,14 @@
 # VYD — Brand assets
 
-> **Status: export oficial.** Os SVGs de logo (`vyd-symbol`, `vyd-symbol-mono`,
-> `vyd-lockup`, `vyd-lockup-negative`) usam a geometria **exata** do brand guide
-> selecionado: cubo isométrico em **wireframe** com a **face-topo** preenchida
-> (módulo 3D / BIM-volume), arestas internas marcando o módulo. Cores na escala
+> **Status: export oficial — padrão único.** Toda a marca usa a geometria **exata**
+> do brand guide selecionado: cubo isométrico em **wireframe** com a **face-topo**
+> preenchida (módulo 3D / BIM-volume), arestas internas marcando o módulo. Vale para
+> os SVGs de logo (`vyd-symbol`, `vyd-symbol-mono`, `vyd-lockup`, `vyd-lockup-negative`)
+> **e** para os ícones (`icons/`, derivados de `favicon.svg`). Cores na escala
 > blueprint, on-brand.
 >
-> Os **ícones** em `icons/` (favicon/PWA) mantêm uma variante de **faces tonais
-> sólidas** — mesma geometria, sem traços finos — porque a ≤16px o wireframe perde
-> legibilidade. Regenere-os a partir do oficial só se quiser unificar o estilo
-> (ver "Regenerar os ícones").
+> Os ícones usam o **mesmo** símbolo wireframe, apenas com as arestas levemente
+> reforçadas (2 / 1.2) para legibilidade a ≤16px — sem mudar o desenho nem as cores.
 
 ## Logo
 
@@ -52,12 +51,10 @@ não recolorir fora da escala blueprint, sem sombra/gradiente, sem rotação.
 
 ## Regenerar os ícones
 
-Os PNGs/ICO são derivados de `icons/favicon.svg`. Depois de trocar o SVG (ex. pelo
-export oficial), rode:
+Os PNGs/ICO são derivados de `icons/favicon.svg` (já no símbolo oficial). Se editar
+o SVG, regenere com:
 
 ```bash
 pip install cairosvg pillow
 npm run icons          # = python3 build/make-icons.py
 ```
-
-Substitua primeiro `icons/favicon.svg` e `vyd-symbol.svg` pelo export oficial.
