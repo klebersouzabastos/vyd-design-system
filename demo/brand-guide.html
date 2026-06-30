@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="pt-BR" data-vyd-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VYD — Brand &amp; UI Style Guide</title>
+  <link rel="icon" href="../brand/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Em um app real: @vyd/design-system/theme.css -->
+  <link rel="stylesheet" href="../dist/theme.css">
+  <style>
+    /* ---------------------------------------------------------------
+       Documento do brand guide. Layout próprio (g-*), mas TODO valor
+       sai dos tokens --vyd-*. A seção de componentes usa as classes
+       reais (.vyd-btn, .vyd-input, .vyd-card, .vyd-ribbon-item).
+       --------------------------------------------------------------- */
+    body { background: var(--vyd-bg-chrome); }
+    .g-hair { --g-hair: color-mix(in srgb, var(--vyd-border-default) 60%, transparent); }
+    .g-doc {
+      max-width: 1400px; margin: 0 auto;
+      padding: var(--vyd-space-8) var(--vyd-space-8) calc(var(--vyd-space-9) + var(--vyd-space-7));
+      color: var(--vyd-text-primary);
+      font-family: var(--vyd-font-sans);
+      font-size: var(--vyd-text-base);
+      line-height: var(--vyd-lh-normal);
+    }
+    .g-mono { font-family: var(--vyd-font-mono); font-variant-numeric: tabular-nums; }
+
+    /* masthead */
+    .g-masthead {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      border-bottom: 1px solid var(--vyd-border-default);
+      padding-bottom: var(--vyd-space-7); margin-bottom: var(--vyd-space-4);
+    }
+    .g-brand { display: flex; align-items: center; gap: 18px; }
+    .g-word { font-size: var(--vyd-text-3xl); font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .g-sub { font-family: var(--vyd-font-mono); font-size: var(--vyd-text-xs); letter-spacing: 0.04em; color: var(--vyd-text-secondary); margin-top: 7px; }
+    .g-meta { text-align: right; font-family: var(--vyd-font-mono); font-size: var(--vyd-text-xs); color: var(--vyd-text-secondary); line-height: 1.7; }
+    .g-lede { font-size: var(--vyd-text-md); color: var(--vyd-text-secondary); max-width: 760px; margin: 18px 0 12px; line-height: 1.55; }
+    .g-lede b { color: var(--vyd-text-primary); font-weight: 600; }
+
+    .g-nav { display: flex; gap: 10px; margin: 0 0 30px; }
+
+    /* grid + panels */
+    .g-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .g-full { grid-column: 1 / -1; }
+    .g-panel { background: var(--vyd-bg-panel); border: 1px solid var(--vyd-border-default); border-radius: var(--vyd-radius-md); overflow: hidden; }
+    .g-head { display: flex; justify-content: space-between; align-items: center; padding: 11px 16px; border-bottom: 1px solid var(--vyd-border-default); }
+    .g-title { font-size: var(--vyd-text-xs); font-weight: 600; letter-spacing: 0.14em; color: var(--vyd-text-secondary); text-transform: uppercase; }
+    .g-num { font-family: var(--vyd-font-mono); font-size: var(--vyd-text-xs); color: var(--vyd-border-default); }
+    .g-body { padding: 16px; }
+    .g-eyebrow { font-family: var(--vyd-font-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--vyd-text-secondary); margin-bottom: 11px; }
+    .g-split { display: grid; gap: 1px; background: var(--vyd-border-default); }
+
+    /* 01 logo */
+    .g-logo3 { grid-template-columns: 1fr 1fr 1fr; }
+    .g-cell { padding: 36px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+    .g-cell--pos { background: var(--vyd-bg-chrome); }
+    .g-cell--neg { background: var(--vyd-text-primary); }
+    .g-cell--con { background: var(--vyd-bg-canvas); }
+    .g-lockup { display: flex; align-items: center; gap: 14px; }
+    .g-lockup .g-word { font-size: 30px; }
+    .g-cell--neg .g-word { color: var(--vyd-blueprint-900); }
+    .g-cap { font-family: var(--vyd-font-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--vyd-text-secondary); text-align: center; line-height: 1.6; }
+
+    /* 02 palette */
+    .g-sw-grid { display: grid; gap: 10px; margin-bottom: 22px; }
+    .g-sw-4 { grid-template-columns: repeat(4, 1fr); }
+    .g-sw-6 { grid-template-columns: repeat(6, 1fr); }
+    .g-sw-3 { grid-template-columns: repeat(3, 1fr); }
+    .g-sw { border: 1px solid var(--vyd-border-default); border-radius: var(--vyd-radius); overflow: hidden; }
+    .g-sw__chip { height: 64px; }
+    .g-sw__meta { padding: 8px 10px; }
+    .g-sw__name { font-size: 12px; font-weight: 600; }
+    .g-sw__tok { font-family: var(--vyd-font-mono); font-size: 10px; color: var(--vyd-text-secondary); margin-top: 3px; }
+    .g-feed { display: flex; align-items: center; gap: 11px; border: 1px solid var(--vyd-border-default); border-radius: var(--vyd-radius); padding: 11px 13px; }
+    .g-feed__dot { width: 30px; height: 30px; border-radius: var(--vyd-radius); flex: none; }
+
+    /* 03 typography */
+    .g-type-row { display: flex; align-items: baseline; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid color-mix(in srgb, var(--vyd-border-default) 55%, transparent); }
+    .g-type-row:last-child { border-bottom: 0; }
+    .g-spec { font-family: var(--vyd-font-mono); font-size: 10px; color: var(--vyd-text-secondary); white-space: nowrap; padding-left: 16px; }
+    .g-data { background: var(--vyd-bg-canvas); border: 1px solid var(--vyd-border-default); border-radius: var(--vyd-radius); padding: 13px 15px; font-family: var(--vyd-font-mono); font-variant-numeric: tabular-nums; font-size: 13px; line-height: 1.9; }
+    .g-data .row { display: flex; justify-content: space-between; }
+    .g-data .k { color: var(--vyd-text-secondary); }
+
+    /* 04 spacing & radii */
+    .g-scale { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; }
+    .g-scale .row { display: flex; align-items: center; gap: 12px; }
+    .g-bar { height: 14px; background: var(--vyd-action-primary); }
+    .g-radii { display: flex; gap: 14px; }
+    .g-radii .item { text-align: center; }
+    .g-radii .box { width: 54px; height: 54px; background: var(--vyd-bg-canvas); border: 1px solid var(--vyd-blueprint-300); }
+    .g-note { margin-top: 18px; font-size: 12px; color: var(--vyd-text-secondary); line-height: 1.55; border-top: 1px solid color-mix(in srgb, var(--vyd-border-default) 55%, transparent); padding-top: 14px; }
+    .g-note b { color: var(--vyd-text-primary); font-weight: 600; }
+
+    /* 05 components */
+    .g-comp { grid-template-columns: 1fr 1fr 1.1fr 1.3fr; }
+    .g-comp .cell { background: var(--vyd-bg-panel); padding: 18px; }
+    .g-stack { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .g-hint { font-family: var(--vyd-font-mono); font-size: 9px; color: var(--vyd-text-secondary); }
+    .g-field-label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--vyd-text-secondary); margin-bottom: 6px; }
+    .g-minicard__head { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; border-bottom: 1px solid var(--vyd-border-default); }
+    .g-ribbon-demo { display: flex; gap: 1px; background: var(--vyd-border-default); border: 1px solid var(--vyd-border-default); border-radius: var(--vyd-radius); overflow: hidden; width: fit-content; }
+    .g-ri { width: 78px; padding: 10px 8px 8px; display: flex; flex-direction: column; align-items: center; gap: 7px; background: var(--vyd-bg-panel); border-top: 2px solid transparent; }
+    .g-ri.is-hover { background: var(--vyd-bg-elevated); }
+    .g-ri.is-hover .g-ri__lb { color: var(--vyd-text-accent); }
+    .g-ri.is-active { background: var(--vyd-bg-elevated); padding: 8px; border-top-color: var(--vyd-action-primary); }
+    .g-ri.is-active .g-ri__lb { font-weight: 600; }
+    .g-ri__lb { font-size: 11px; color: var(--vyd-text-primary); }
+    .g-ri-legend { display: flex; gap: 1px; width: fit-content; margin-top: 8px; font-family: var(--vyd-font-mono); font-size: 9px; color: var(--vyd-text-secondary); }
+    .g-ri-legend span { width: 79px; text-align: center; }
+
+    /* 06 app shell embed */
+    .g-shell-wrap { padding: 16px; }
+    .g-shell-frame { width: 100%; height: 520px; border: 1px solid var(--vyd-border-default); border-radius: var(--vyd-radius-md); background: var(--vyd-bg-chrome); display: block; }
+    .g-shell-bar { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; font-family: var(--vyd-font-mono); font-size: 10px; color: var(--vyd-text-secondary); }
+
+    .g-foot { display: flex; justify-content: space-between; margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--vyd-border-default); font-family: var(--vyd-font-mono); font-size: 10px; color: var(--vyd-border-default); letter-spacing: 0.06em; }
+
+    a.g-link { color: var(--vyd-text-accent); text-decoration: none; }
+    a.g-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+<div class="g-doc">
+
+  <!-- ============ MASTHEAD ============ -->
+  <div class="g-masthead">
+    <div class="g-brand">
+      <svg width="56" height="56" viewBox="0 0 32 32" style="display:block">
+        <path d="M16 3 L28 10 L28 22 L16 29 L4 22 L4 10 Z" fill="none" stroke="#6B9CE0" stroke-width="1.5" stroke-linejoin="miter"/>
+        <path d="M16 3 L28 10 L16 16 L4 10 Z" fill="#1E5FC4"/>
+        <path d="M16 16 L16 29 M16 16 L28 10 M16 16 L4 10" fill="none" stroke="#3A4350" stroke-width="1"/>
+      </svg>
+      <div>
+        <div class="g-word">VYD</div>
+        <div class="g-sub">ENGINEERING SOFTWARE ECOSYSTEM</div>
+      </div>
+    </div>
+    <div class="g-meta">
+      <div>BRAND &amp; UI STYLE GUIDE</div>
+      <div>REV 1.0 · DESIGN SYSTEM</div>
+      <div>DARK / APP CHROME</div>
+    </div>
+  </div>
+
+  <p class="g-lede">
+    Sistema de identidade do ecossistema VYD — ferramentas profissionais de engenharia:
+    gestão de obras, gestão de pessoas, geração automatizada de documentos e BIM. Personalidade:
+    <b>técnica, sóbria, confiável, densa</b> — um instrumento de trabalho, não um SaaS.
+    Toda página deste guia é renderizada a partir dos tokens <span class="g-mono">--vyd-*</span> do repositório.
+  </p>
+  <div class="g-nav">
+    <a class="vyd-btn vyd-btn--ghost g-link" href="index.html">Abrir app shell ↗</a>
+    <a class="vyd-btn vyd-btn--ghost g-link" href="../docs/USAGE.md">Guia de uso ↗</a>
+  </div>
+
+  <div class="g-grid">
+
+    <!-- ---- 01 LOGO ---- -->
+    <section class="g-panel g-full">
+      <div class="g-head"><div class="g-title">Logo · Monograma &amp; Símbolo</div><div class="g-num">01</div></div>
+      <div class="g-split g-logo3">
+        <div class="g-cell g-cell--pos">
+          <div class="g-lockup">
+            <svg width="44" height="44" viewBox="0 0 32 32"><path d="M16 3 L28 10 L28 22 L16 29 L4 22 L4 10 Z" fill="none" stroke="#6B9CE0" stroke-width="1.5" stroke-linejoin="miter"/><path d="M16 3 L28 10 L16 16 L4 10 Z" fill="#1E5FC4"/><path d="M16 16 L16 29 M16 16 L28 10 M16 16 L4 10" fill="none" stroke="#3A4350" stroke-width="1"/></svg>
+            <div class="g-word">VYD</div>
+          </div>
+          <div class="g-cap">POSITIVA · SOBRE CHROME</div>
+        </div>
+        <div class="g-cell g-cell--neg">
+          <div class="g-lockup">
+            <svg width="44" height="44" viewBox="0 0 32 32"><path d="M16 3 L28 10 L28 22 L16 29 L4 22 L4 10 Z" fill="none" stroke="#143F86" stroke-width="1.5" stroke-linejoin="miter"/><path d="M16 3 L28 10 L16 16 L4 10 Z" fill="#1E5FC4"/><path d="M16 16 L16 29 M16 16 L28 10 M16 16 L4 10" fill="none" stroke="#A9B4BF" stroke-width="1"/></svg>
+            <div class="g-word">VYD</div>
+          </div>
+          <div class="g-cap">NEGATIVA · SOBRE CLARO</div>
+        </div>
+        <div class="g-cell g-cell--con">
+          <svg width="76" height="76" viewBox="0 0 32 32"><path d="M16 3 L28 10 L28 22 L16 29 L4 22 L4 10 Z" fill="none" stroke="#6B9CE0" stroke-width="1" stroke-linejoin="miter"/><path d="M16 3 L28 10 L16 16 L4 10 Z" fill="#1E5FC4"/><path d="M16 16 L16 29 M16 16 L28 10 M16 16 L4 10" fill="none" stroke="#3A4350" stroke-width="0.7"/></svg>
+          <div class="g-cap">SÍMBOLO · CUBO ISOMÉTRICO<br>MÓDULO 3D · BIM / VOLUME</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- 02 PALETA ---- -->
+    <section class="g-panel g-full">
+      <div class="g-head"><div class="g-title">Paleta</div><div class="g-num">02</div></div>
+      <div class="g-body">
+        <div class="g-eyebrow">MARCA · AZUL-BLUEPRINT</div>
+        <div class="g-sw-grid g-sw-4">
+          <div class="g-sw"><div class="g-sw__chip" style="background:var(--vyd-blueprint-500)"></div><div class="g-sw__meta"><div class="g-sw__name">Primária</div><div class="g-sw__tok">--vyd-blueprint-500 · #1E5FC4</div></div></div>
+          <div class="g-sw"><div class="g-sw__chip" style="background:var(--vyd-blueprint-300)"></div><div class="g-sw__meta"><div class="g-sw__name">Clara</div><div class="g-sw__tok">--vyd-blueprint-300 · #6B9CE0</div></div></div>
+          <div class="g-sw"><div class="g-sw__chip" style="background:var(--vyd-blueprint-700)"></div><div class="g-sw__meta"><div class="g-sw__name">Escura</div><div class="g-sw__tok">--vyd-blueprint-700 · #143F86</div></div></div>
+          <div class="g-sw"><div class="g-sw__chip" style="background:var(--vyd-blueprint-900)"></div><div class="g-sw__meta"><div class="g-sw__name">Profunda</div><div class="g-sw__tok">--vyd-blueprint-900 · #0B2245</div></div></div>
+        </div>
+        <div class="g-eyebrow">NEUTROS · GRAFITE</div>
+        <div class="g-sw-grid g-sw-6">
+          <div class="g-sw"><div class="g-sw__chip" style="background:var(--vyd-neutral-0)"></div><div class="g-sw__meta"><div class="g-sw__name">Chrome</div><div class="g-sw__tok">neutral-0 · #0D1117</div></div></div>
+          <div class="g-sw"><div class="g-sw__chip" style="background:var(--vyd-neutral-50)"></div><div class="g-sw__meta"><div class="g-sw__name">Painel</div><div class="g-sw__tok">neutral-50 · #161B22</div></div></div>
+          <div class="g-sw"><div class="g-sw__chip" style="background:var(--vyd-neutral-100)"></div><div class="g-sw__meta"><div class="g-sw__name">Canvas</div><div class="g-sw__tok">neutral-100 · #1F2630</div></div></div>
+          <div class="g-sw"><div class="g-sw__chip" style="background:var(--vyd-neutral-300)"></div><div class="g-sw__meta"><div class="g-sw__name">Bordas</div><div class="g-sw__tok">neutral-300 · #3A4350</div></div></div>
+          <div class="g-sw"><div class="g-sw__chip" style="background:var(--vyd-neutral-500)"></div><div class="g-sw__meta"><div class="g-sw__name">Txt 2º</div><div class="g-sw__tok">neutral-500 · #7B8794</div></div></div>
+          <div class="g-sw"><div class="g-sw__chip" style="background:var(--vyd-neutral-800)"></div><div class="g-sw__meta"><div class="g-sw__name">Txt 1º</div><div class="g-sw__tok">neutral-800 · #E1E6EB</div></div></div>
+        </div>
+        <div class="g-eyebrow">FEEDBACK · APENAS PARA ESTADOS</div>
+        <div class="g-sw-grid g-sw-3" style="margin-bottom:0">
+          <div class="g-feed"><div class="g-feed__dot" style="background:var(--vyd-success)"></div><div><div class="g-sw__name">Sucesso</div><div class="g-sw__tok">--vyd-success · #2E9E6B</div></div></div>
+          <div class="g-feed"><div class="g-feed__dot" style="background:var(--vyd-warning)"></div><div><div class="g-sw__name">Alerta <span style="font-weight:400;color:var(--vyd-text-secondary);font-size:10px">âmbar de obra</span></div><div class="g-sw__tok">--vyd-warning · #D9920A</div></div></div>
+          <div class="g-feed"><div class="g-feed__dot" style="background:var(--vyd-danger)"></div><div><div class="g-sw__name">Erro</div><div class="g-sw__tok">--vyd-danger · #D24545</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- 03 TIPOGRAFIA ---- -->
+    <section class="g-panel">
+      <div class="g-head"><div class="g-title">Tipografia</div><div class="g-num">03</div></div>
+      <div class="g-body">
+        <div class="g-eyebrow">UI · INTER TIGHT</div>
+        <div>
+          <div class="g-type-row"><span style="font-size:var(--vyd-text-3xl);font-weight:800;letter-spacing:-0.03em">Display</span><span class="g-spec">3xl · 34 / 800</span></div>
+          <div class="g-type-row"><span style="font-size:var(--vyd-text-2xl);font-weight:700;letter-spacing:-0.02em">Título de seção</span><span class="g-spec">2xl · 26 / 700</span></div>
+          <div class="g-type-row"><span style="font-size:var(--vyd-text-xl);font-weight:600">Subtítulo</span><span class="g-spec">xl · 20 / 600</span></div>
+          <div class="g-type-row"><span style="font-size:var(--vyd-text-lg);font-weight:600">Cabeçalho de painel</span><span class="g-spec">lg · 16 / 600</span></div>
+          <div class="g-type-row"><span style="font-size:var(--vyd-text-base);font-weight:400">Corpo base — texto de interface</span><span class="g-spec">base · 13 / 400</span></div>
+          <div class="g-type-row"><span style="font-size:var(--vyd-text-xs);font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--vyd-text-secondary)">Caption / Rótulo</span><span class="g-spec">xs · 11 / 600 CAPS</span></div>
+        </div>
+        <div class="g-eyebrow" style="margin:18px 0 11px">DADOS · JETBRAINS MONO · TABULAR</div>
+        <div class="g-data">
+          <div class="row"><span class="k">ID-ELEMENTO</span><span>VYD-OBR-0421</span></div>
+          <div class="row"><span class="k">COTA</span><span>+12.450 m</span></div>
+          <div class="row"><span class="k">ÁREA</span><span>1.284,07 m²</span></div>
+          <div class="row"><span class="k">PROGRESSO</span><span style="color:var(--vyd-success)">87,5 %</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- 04 ESPAÇAMENTO & RAIOS ---- -->
+    <section class="g-panel">
+      <div class="g-head"><div class="g-title">Espaçamento &amp; Raios</div><div class="g-num">04</div></div>
+      <div class="g-body">
+        <div class="g-eyebrow">GRID DE ESPAÇAMENTO · BASE 4px</div>
+        <div class="g-scale">
+          <div class="row"><div class="g-bar" style="width:4px"></div><span class="g-mono" style="font-size:11px;color:var(--vyd-text-secondary)">04 · space-2</span></div>
+          <div class="row"><div class="g-bar" style="width:8px"></div><span class="g-mono" style="font-size:11px;color:var(--vyd-text-secondary)">08 · space-4</span></div>
+          <div class="row"><div class="g-bar" style="width:12px"></div><span class="g-mono" style="font-size:11px;color:var(--vyd-text-secondary)">12 · space-5</span></div>
+          <div class="row"><div class="g-bar" style="width:16px"></div><span class="g-mono" style="font-size:11px;color:var(--vyd-text-secondary)">16 · space-6</span></div>
+          <div class="row"><div class="g-bar" style="width:24px"></div><span class="g-mono" style="font-size:11px;color:var(--vyd-text-secondary)">24 · space-7</span></div>
+          <div class="row"><div class="g-bar" style="width:32px"></div><span class="g-mono" style="font-size:11px;color:var(--vyd-text-secondary)">32 · space-8</span></div>
+          <div class="row"><div class="g-bar" style="width:48px"></div><span class="g-mono" style="font-size:11px;color:var(--vyd-text-secondary)">48 · space-9</span></div>
+        </div>
+        <div class="g-eyebrow">RAIOS · CONTIDOS</div>
+        <div class="g-radii">
+          <div class="item"><div class="box" style="border-radius:var(--vyd-radius-sm)"></div><div class="g-mono" style="font-size:10px;color:var(--vyd-text-secondary);margin-top:7px">sm · 3px</div></div>
+          <div class="item"><div class="box" style="border-radius:var(--vyd-radius-md)"></div><div class="g-mono" style="font-size:10px;color:var(--vyd-text-secondary);margin-top:7px">md · 5px</div></div>
+          <div class="item"><div class="box" style="border-radius:var(--vyd-radius-lg)"></div><div class="g-mono" style="font-size:10px;color:var(--vyd-text-secondary);margin-top:7px">lg · 8px máx</div></div>
+        </div>
+        <div class="g-note">Hierarquia por <b>linha fina de 1px</b> e densidade — não por sombra. Sombras mínimas e duras quando necessárias. Item ativo: barra de acento azul 2px (padrão Autodesk).</div>
+      </div>
+    </section>
+
+    <!-- ---- 05 COMPONENTES (classes reais .vyd-*) ---- -->
+    <section class="g-panel g-full">
+      <div class="g-head"><div class="g-title">Componentes · classes <span class="g-mono" style="text-transform:none;letter-spacing:0">.vyd-*</span></div><div class="g-num">05</div></div>
+      <div class="g-split g-comp">
+        <div class="cell">
+          <div class="g-eyebrow" style="margin-bottom:14px">BOTÕES</div>
+          <div class="g-stack">
+            <button class="vyd-btn">Gerar documento</button>
+            <span class="g-hint">.vyd-btn · primário</span>
+            <button class="vyd-btn vyd-btn--ghost">Cancelar</button>
+            <span class="g-hint">.vyd-btn--ghost · fantasma</span>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="g-eyebrow" style="margin-bottom:14px">INPUT</div>
+          <label class="g-field-label">Código da obra</label>
+          <input class="vyd-input g-mono" style="width:100%" value="VYD-OBR-0421">
+          <div style="height:14px"></div>
+          <label class="g-field-label">Responsável</label>
+          <input class="vyd-input" style="width:100%" placeholder="Selecione…">
+          <div class="g-hint" style="margin-top:12px">.vyd-input · focus → anel + borda de acento</div>
+        </div>
+        <div class="cell">
+          <div class="g-eyebrow" style="margin-bottom:14px">CARD / PAINEL</div>
+          <div class="vyd-card" style="padding:0;overflow:hidden">
+            <div class="g-minicard__head">
+              <span style="font-size:12px;font-weight:600">Fundação · Bloco B</span>
+              <span class="g-mono" style="font-size:10px;color:var(--vyd-success)">ATIVA</span>
+            </div>
+            <div style="padding:11px 12px;font-family:var(--vyd-font-mono);font-variant-numeric:tabular-nums;font-size:12px;line-height:1.95">
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--vyd-text-secondary)">Cota</span><span>−2.300 m</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--vyd-text-secondary)">Volume</span><span>318,4 m³</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--vyd-text-secondary)">Prazo</span><span style="color:var(--vyd-warning)">−3 dias</span></div>
+            </div>
+          </div>
+          <div class="g-hint" style="margin-top:12px">.vyd-card</div>
+        </div>
+        <div class="cell">
+          <div class="g-eyebrow" style="margin-bottom:14px">ITEM DE RIBBON · ESTADOS</div>
+          <div class="g-ribbon-demo">
+            <div class="g-ri"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--vyd-text-primary)" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg><span class="g-ri__lb">Modelo</span></div>
+            <div class="g-ri is-hover"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--vyd-blueprint-300)" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg><span class="g-ri__lb">Modelo</span></div>
+            <div class="g-ri is-active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--vyd-blueprint-300)" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg><span class="g-ri__lb">Modelo</span></div>
+          </div>
+          <div class="g-ri-legend"><span>normal</span><span>hover</span><span style="color:var(--vyd-blueprint-300)">ativo</span></div>
+          <div class="g-hint" style="margin-top:12px;line-height:1.6">.vyd-ribbon-item · ativo = barra de acento 2px<br>(estados normal / hover / aria-selected)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- 06 APP SHELL (embute o demo Autodesk) ---- -->
+    <section class="g-panel g-full">
+      <div class="g-head"><div class="g-title">App Shell Invariante · padrão Autodesk</div><div class="g-num">06</div></div>
+      <div class="g-shell-wrap">
+        <iframe class="g-shell-frame" src="index.html" title="VYD app shell" loading="lazy"></iframe>
+        <div class="g-shell-bar">
+          <span>Top bar 44 · ribbon 88 · left rail 240 · right panel 300 · status bar 26 (px)</span>
+          <a class="g-link" href="index.html">abrir em tela cheia ↗</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="g-foot">
+    <span>VYD · ENGINEERING SOFTWARE ECOSYSTEM</span>
+    <span>BRAND &amp; UI STYLE GUIDE — DARK CHROME — TOKENS --vyd-*</span>
+  </div>
+
+</div>
+</body>
+</html>

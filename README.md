@@ -31,11 +31,19 @@ dist/          GERADO pelo build (não editar)
   └─ tokens.resolved.json valores resolvidos (hex/px)
 tailwind/      Entry-point do preset (re-export de dist)
 brand/         Logo (positiva/negativa/mono) + icons/ (favicon, PWA)
-demo/          Exemplo do app shell montado (index.html) + preview
+demo/          brand-guide.html (guia visual completo) + index.html (app shell) + preview
 docs/          USAGE · BRAND · BRIEF · PUBLISH
 react/         @vyd/react — componentes React (wrappers sobre .vyd-*)
 examples/      Apps de exemplo consumindo o sistema (react-vite, nextjs)
 ```
+
+## Ver o guia (sem instalar nada)
+
+Abra **`demo/brand-guide.html`** no navegador — é o **Brand & UI Style Guide**
+completo (logo, paleta, tipografia, espaçamento, componentes) renderizado a partir
+dos tokens `--vyd-*`, com o **app shell** embutido na seção 06. O app shell isolado
+fica em `demo/index.html`. Ambos consomem o `dist/` já commitado, então não precisam
+de build.
 
 ## Regra de ouro
 
