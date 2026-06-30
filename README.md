@@ -33,6 +33,8 @@ tailwind/      Entry-point do preset (re-export de dist)
 brand/         Logo (positiva/negativa/mono) + icons/ (favicon, PWA)
 demo/          Exemplo do app shell montado (index.html) + preview
 docs/          USAGE · BRAND · BRIEF · PUBLISH
+react/         @vyd/react — componentes React (wrappers sobre .vyd-*)
+examples/      Apps de exemplo consumindo o sistema (react-vite, nextjs)
 ```
 
 ## Regra de ouro
@@ -71,6 +73,21 @@ module.exports = { presets: [vyd], content: ["./src/**/*.{js,jsx,ts,tsx,html}"] 
 ```html
 <button class="bg-action-primary text-on-accent rounded-md px-5 py-3">Salvar</button>
 ```
+
+**React** — importe o CSS uma vez e use os componentes de `@vyd/react` (wrappers
+finos sobre as mesmas classes `.vyd-*`):
+
+```tsx
+import "@vyd/design-system/theme.css";
+import { Button, Mono } from "@vyd/react";
+
+<Button onClick={save}>Salvar</Button>
+<Button variant="ghost">Cancelar</Button>
+<Mono>VYD-OBR-0421</Mono>;
+```
+
+Apps de exemplo prontos (app shell completo) em **`examples/react-vite`** e
+**`examples/nextjs`**. Detalhes em **[react/README.md](react/README.md)**.
 
 Passo a passo completo (incluindo uso programático em JS/TS) em
 **[docs/USAGE.md](docs/USAGE.md)**.

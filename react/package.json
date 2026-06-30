@@ -1,0 +1,21 @@
+{
+  "name": "@vyd/react",
+  "version": "0.1.0",
+  "description": "Componentes React (wrappers finos) do VYD Design System sobre as classes .vyd-* e o app shell.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.tsx"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.6.0"
+  }
+}

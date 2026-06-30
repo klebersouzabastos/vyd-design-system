@@ -1,22 +1,29 @@
 # VYD — Brand assets
 
-> **Status: aproximação token-based.** Recriam a direção selecionada no brand guide
-> (símbolo **cubo isométrico**, face-topo / BIM-volume). O SVG exato do guia vive num
-> sandbox isolado (`claudeusercontent.com`) e não é extraível por automação — exporte
-> pelo **Share/Export** do Claude Design e substitua estes arquivos quando quiser.
-> As cores saem todas dos tokens, então já estão on-brand.
+> **Status: export oficial.** Os SVGs de logo (`vyd-symbol`, `vyd-symbol-mono`,
+> `vyd-lockup`, `vyd-lockup-negative`) usam a geometria **exata** do brand guide
+> selecionado: cubo isométrico em **wireframe** com a **face-topo** preenchida
+> (módulo 3D / BIM-volume), arestas internas marcando o módulo. Cores na escala
+> blueprint, on-brand.
+>
+> Os **ícones** em `icons/` (favicon/PWA) mantêm uma variante de **faces tonais
+> sólidas** — mesma geometria, sem traços finos — porque a ≤16px o wireframe perde
+> legibilidade. Regenere-os a partir do oficial só se quiser unificar o estilo
+> (ver "Regenerar os ícones").
 
 ## Logo
 
 | Arquivo | Uso |
 |---|---|
-| `vyd-symbol.svg` | Símbolo (cubo) colorido — fundo escuro. |
-| `vyd-symbol-mono.svg` | Símbolo monocromático (`currentColor`, profundidade por opacidade). Stamps, print, fallback. |
+| `vyd-symbol.svg` | Símbolo (cubo wireframe + face-topo) — fundo escuro. |
+| `vyd-symbol-mono.svg` | Símbolo monocromático (`currentColor`). Stamps, print, fallback. |
 | `vyd-lockup.svg` | Símbolo + "VYD" + tagline — **positiva** (fundo chrome escuro). |
 | `vyd-lockup-negative.svg` | Lockup para **fundo claro** (wordmark em neutro escuro). |
 
-Cores (dos tokens): face-topo `--vyd-blueprint-400`, esquerda `--vyd-blueprint-500`,
-direita `--vyd-blueprint-700`, arestas `--vyd-blueprint-300`, wordmark `--vyd-text-primary`.
+Cores (dos tokens): arestas externas `--vyd-blueprint-300` (`#6B9CE0`), face-topo
+`--vyd-blueprint-500` (`#1E5FC4`), arestas internas `--vyd-neutral-300` (`#3A4350`),
+wordmark `--vyd-text-primary`. Na negativa: arestas `--vyd-blueprint-700`, internas
+neutro claro, wordmark neutro escuro.
 
 Regras: clear space ≥ uma face do cubo; tamanho mínimo símbolo 16px / lockup 96px;
 não recolorir fora da escala blueprint, sem sombra/gradiente, sem rotação.
