@@ -1,0 +1,117 @@
+# VYD Design System
+
+[![version](https://img.shields.io/badge/version-0.1.0-1E5FC4)](CHANGELOG.md)
+
+Fonte única de verdade visual do ecossistema **VYD** (Value Your Day) — ferramentas
+de software para empresas de engenharia (gestão de obras, gestão de pessoas, geração
+de documentos de engenharia, BIM). Estilo: **técnico, sóbrio, denso**. Acento:
+**azul-blueprint** (`#1E5FC4`).
+
+> Todo app importa os mesmos tokens. Mudou aqui → propaga em todos.
+
+## Por que existe
+
+Os apps são feitos em Lovable (Tailwind + React) e Claude Code (CSS puro ou Tailwind).
+Sem um sistema central, cada app diverge e perde-se o reconhecimento de marca
+tipo-Autodesk. Este repositório resolve isso com um **token source único** e um
+**pipeline de build** que gera os artefatos que cada app consome.
+
+## Estrutura
+
+```
+tokens/        Fonte de verdade (tokens.json + tokens.light.json)  ← EDITE AQUI
+css/           Primitivas (.vyd-*) + app shell (shell.css), feitas à mão
+build/         Pipeline Style Dictionary (lib.mjs, build.mjs, verify.mjs)
+dist/          GERADO pelo build (não editar)
+  ├─ theme.css            variáveis (dark+light) + primitivas  ← drop-in
+  ├─ variables.css        só as variáveis
+  ├─ tokens.tailwind.js   preset Tailwind (theme.extend)
+  ├─ tokens.js / .mjs     objeto JS (CJS/ESM)
+  ├─ tokens.d.ts          tipos
+  └─ tokens.resolved.json valores resolvidos (hex/px)
+tailwind/      Entry-point do preset (re-export de dist)
+brand/         Logo (positiva/negativa/mono) + icons/ (favicon, PWA)
+demo/          Exemplo do app shell montado (index.html) + preview
+docs/          USAGE · BRAND · BRIEF · PUBLISH
+```
+
+## Regra de ouro
+
+Apps consomem **tokens semânticos** (`--vyd-bg-panel`, `--vyd-action-primary`),
+**nunca** a escala bruta (`--vyd-neutral-50`). Assim, trocar tema ou rebrandizar =
+editar só este repo. Detalhes e snippets em **[docs/USAGE.md](docs/USAGE.md)**.
+
+## Build
+
+```bash
+npm install
+npm run build     # regenera dist/ a partir de tokens/tokens.json
+npm run verify    # confere que o contrato --vyd-* não quebrou
+# npm test        # build + verify
+```
+
+## Consumo (resumo)
+
+**CSS puro / Claude Code** — importe o CSS e use as variáveis:
+
+```css
+@import "@vyd/design-system/theme.css";
+```
+```html
+<button class="vyd-btn">Salvar</button>   <!-- tema claro: <html data-vyd-theme="light"> -->
+```
+
+**Tailwind / Lovable** — importe o CSS e estenda o preset:
+
+```js
+// tailwind.config.js
+const vyd = require("@vyd/design-system/tailwind");
+module.exports = { presets: [vyd], content: ["./src/**/*.{js,jsx,ts,tsx,html}"] };
+```
+```html
+<button class="bg-action-primary text-on-accent rounded-md px-5 py-3">Salvar</button>
+```
+
+Passo a passo completo (incluindo uso programático em JS/TS) em
+**[docs/USAGE.md](docs/USAGE.md)**.
+
+## App shell invariante (a "ribbon Autodesk")
+
+A casca é constante, o recheio muda. Dimensões fixas em TODA ferramenta
+(`--vyd-layout-*`):
+
+```
+┌──────────────────────────────────────────────────────────┐
+│ TOP BAR 44px — logo VYD + switcher de ferramenta + conta   │ ← idêntico
+├──────────────────────────────────────────────────────────┤
+│ RIBBON 88px — comandos agrupados (muda só o conteúdo)      │ ← estrutura fixa
+├────────┬────────────────────────────────────┬─────────────┤
+│ LEFT   │                                     │  RIGHT      │
+│ RAIL   │         CANVAS (a ferramenta)       │  PANEL      │
+│ 240px  │                                     │  300px      │
+├────────┴────────────────────────────────────┴─────────────┤
+│ STATUS BAR 26px                                            │ ← idêntico
+└──────────────────────────────────────────────────────────┘
+```
+
+Implementação pronta em `css/shell.css` (layout opt-in). Importe depois do theme:
+
+```css
+@import "@vyd/design-system/theme.css";
+@import "@vyd/design-system/shell.css";
+```
+
+Estrutura: `.vyd-app` › `.vyd-topbar` · `.vyd-ribbon` · `.vyd-leftrail` · `.vyd-canvas` ·
+`.vyd-rightpanel` · `.vyd-statusbar` (modificador `.vyd-app--rail-collapsed`).
+Exemplo montado em `demo/index.html`; preview em `demo/app-shell-preview.svg`.
+
+## Governança / versionamento
+
+SemVer. **Toda** mudança de token = build + bump de versão + entrada no
+[CHANGELOG.md](CHANGELOG.md). Apps fixam a versão (tag) que usam e atualizam
+conscientemente. Nunca edite tokens direto num app. Processo detalhado em
+[docs/USAGE.md](docs/USAGE.md#como-propor-uma-mudança-governança).
+
+## Licença
+
+[MIT](LICENSE) © K2+ / VYD

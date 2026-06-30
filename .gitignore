@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build scratch (the .clean temp dir used by the build)
+build/.clean/
+
+# Logs / env
+*.log
+npm-debug.log*
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Original upload wrapper (superseded by the structured repo)
+files.zip
+
+# NOTE: /dist IS committed on purpose (v0.1.0): apps consume built artifacts
+# straight from GitHub since there is no npm publish yet. Once publishing is
+# enabled, dist/ can be moved to npm-only and ignored here.

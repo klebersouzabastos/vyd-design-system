@@ -1,0 +1,90 @@
+/* =====================================================================
+   VYD Design System — build/verify.mjs
+   Self-contained checks (run after `npm run build`):
+     1. Every --vyd-* name implied by tokens.json is present in dist/theme.css
+        and dist/variables.css  (naming contract not broken).
+     2. The light theme emits its semantic overrides.
+     3. The on-accent correction is applied (no raw --vyd-neutral-1000 as btn text).
+     4. dist/tokens.tailwind.js, tokens.js, tokens.mjs require/parse and expose
+        the expected token references.
+   Exits non-zero on any failure.
+   ===================================================================== */
+
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+import { vydName, isSemantic } from './lib.mjs';
+
+const ROOT = process.env.VYD_ROOT || join(dirname(fileURLToPath(import.meta.url)), '..');
+const require = createRequire(import.meta.url);
+let failures = 0;
+const fail = (m) => { console.error('  ✗ ' + m); failures++; };
+const ok = (m) => console.log('  ✓ ' + m);
+
+/* --- flatten a token JSON to leaf paths --- */
+function flatten(node, prefix = [], out = []) {
+  if (node && typeof node === 'object') {
+    if ('value' in node && typeof node.value !== 'object') { out.push(prefix); return out; }
+    for (const [k, v] of Object.entries(node)) {
+      if (k.startsWith('_') || k === '$schema') continue;
+      flatten(v, [...prefix, k], out);
+    }
+  }
+  return out;
+}
+
+const tokens = JSON.parse(readFileSync(join(ROOT, 'tokens', 'tokens.json'), 'utf8'));
+const light = JSON.parse(readFileSync(join(ROOT, 'tokens', 'tokens.light.json'), 'utf8'));
+
+const expectedAll = flatten(tokens).map(vydName);
+const expectedLight = flatten(light).filter(isSemantic).map(vydName);
+
+const declared = (css) => new Set([...css.matchAll(/(--vyd-[\w-]+)\s*:/g)].map((m) => m[1]));
+
+/* --- 1 + 2: CSS contract --- */
+for (const file of ['theme.css', 'variables.css']) {
+  const css = readFileSync(join(ROOT, 'dist', file), 'utf8');
+  const have = declared(css);
+  const missing = expectedAll.filter((n) => !have.has('--' + n));
+  if (missing.length) fail(`${file}: faltam ${missing.length} variáveis: ${missing.slice(0, 6).join(', ')}…`);
+  else ok(`${file}: todas as ${expectedAll.length} variáveis do token source presentes`);
+
+  // light block must exist with its semantic overrides
+  const lightBlock = css.split('[data-vyd-theme="light"]')[1] || '';
+  const missLight = expectedLight.filter((n) => !lightBlock.includes('--' + n + ':'));
+  if (missLight.length) fail(`${file}: bloco light não emite ${missLight.join(', ')}`);
+  else ok(`${file}: bloco light com ${expectedLight.length} overrides`);
+}
+
+/* --- 3: on-accent correction --- */
+const theme = readFileSync(join(ROOT, 'dist', 'theme.css'), 'utf8');
+if (!theme.includes('--vyd-text-on-accent')) fail('theme.css não define --vyd-text-on-accent');
+else ok('--vyd-text-on-accent presente');
+if (/\.vyd-btn\s*\{[^}]*color:\s*var\(--vyd-neutral-1000\)/s.test(theme)) fail('.vyd-btn ainda usa --vyd-neutral-1000 (escala bruta)');
+else ok('.vyd-btn usa token semântico para a cor do texto');
+if (!theme.includes('--vyd-shadow-focus: 0 0 0 2px var(--vyd-blueprint-500)')) fail('shadow-focus não preservou a indireção var()');
+else ok('shadow-focus mantém var(--vyd-blueprint-500)');
+
+/* --- 4: JS artifacts --- */
+try {
+  const tw = require(join(ROOT, 'dist', 'tokens.tailwind.js'));
+  const c = tw.theme.extend.colors;
+  if (c['action-primary'] !== 'var(--vyd-action-primary)') throw new Error('colors.action-primary errado');
+  if (c['blueprint-500'] !== 'var(--vyd-blueprint-500)') throw new Error('colors.blueprint-500 errado');
+  if (tw.theme.extend.spacing['4'] !== 'var(--vyd-space-4)') throw new Error('spacing.4 errado');
+  if (tw.theme.extend.spacing['topbar-h'] !== 'var(--vyd-layout-topbar-h)') throw new Error('spacing.topbar-h errado');
+  ok('tokens.tailwind.js: preset válido (colors/spacing conferidos)');
+} catch (e) { fail('tokens.tailwind.js: ' + e.message); }
+
+try {
+  const vyd = require(join(ROOT, 'dist', 'tokens.js'));
+  if (vyd.color.action.primary !== 'var(--vyd-action-primary)') throw new Error('color.action.primary errado');
+  if (vyd.color.text.onAccent !== 'var(--vyd-text-on-accent)') throw new Error('color.text.onAccent errado');
+  if (vyd.font.sans !== 'var(--vyd-font-sans)') throw new Error('font.sans errado');
+  if (vyd.layout['topbar-h'] !== 'var(--vyd-layout-topbar-h)') throw new Error('layout.topbar-h errado');
+  ok('tokens.js: objeto válido (color/font/layout conferidos)');
+} catch (e) { fail('tokens.js: ' + e.message); }
+
+console.log(failures ? `\nVERIFY FALHOU (${failures})` : '\nVERIFY OK');
+process.exit(failures ? 1 : 0);

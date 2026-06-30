@@ -1,0 +1,135 @@
+/* =====================================================================
+   VYD DESIGN SYSTEM — css/primitives.css
+   Hand-authored component primitives. SOURCE OF TRUTH for these classes.
+   Rule: use ONLY semantic tokens (--vyd-bg-*, --vyd-text-*, --vyd-action-*,
+   --vyd-border-*) — never the raw scale. The build concatenates this file
+   into dist/theme.css after the generated variables.
+   Documented states per component: normal / hover / active / focus / disabled.
+   ===================================================================== */
+
+body {
+  font-family: var(--vyd-font-sans);
+  font-size: var(--vyd-text-base);
+  line-height: var(--vyd-lh-normal);
+  letter-spacing: var(--vyd-ls-tight);
+  color: var(--vyd-text-primary);
+  background: var(--vyd-bg-canvas);
+}
+
+/* Numeric / mono helper — tabular figures for cotas, IDs, medidas. */
+.vyd-mono {
+  font-family: var(--vyd-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------------
+   Botão primário
+   normal -> action-primary | hover -> action-primary-hover
+   active -> action-primary-active | focus -> focus ring
+   disabled -> bg-elevated + text-disabled, sem ponteiro
+   --------------------------------------------------------------------- */
+.vyd-btn {
+  font: var(--vyd-weight-medium) var(--vyd-text-base)/1 var(--vyd-font-sans);
+  padding: var(--vyd-space-3) var(--vyd-space-5);
+  border-radius: var(--vyd-radius-md);
+  border: var(--vyd-border-hairline) solid transparent;
+  background: var(--vyd-action-primary);
+  color: var(--vyd-text-on-accent);
+  cursor: pointer;
+  transition: background var(--vyd-duration-fast) var(--vyd-ease-standard);
+}
+.vyd-btn:hover          { background: var(--vyd-action-primary-hover); }
+.vyd-btn:active         { background: var(--vyd-action-primary-active); }
+.vyd-btn:focus-visible  { outline: none; box-shadow: var(--vyd-shadow-focus); }
+.vyd-btn:disabled,
+.vyd-btn[aria-disabled="true"] {
+  background: var(--vyd-bg-elevated);
+  color: var(--vyd-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Botão secundário / fantasma (o mais usado numa ribbon) */
+.vyd-btn--ghost {
+  background: transparent;
+  color: var(--vyd-text-primary);
+  border-color: var(--vyd-border-default);
+}
+.vyd-btn--ghost:hover          { background: var(--vyd-bg-elevated); }
+.vyd-btn--ghost:active         { background: var(--vyd-bg-elevated); border-color: var(--vyd-border-strong); }
+.vyd-btn--ghost:disabled,
+.vyd-btn--ghost[aria-disabled="true"] {
+  background: transparent;
+  color: var(--vyd-text-disabled);
+  border-color: var(--vyd-border-default);
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------
+   Input
+   normal -> border-default | focus -> focus ring + border-accent
+   disabled -> bg-elevated + text-disabled
+   --------------------------------------------------------------------- */
+.vyd-input {
+  font: var(--vyd-weight-regular) var(--vyd-text-base)/1.2 var(--vyd-font-sans);
+  padding: var(--vyd-space-3) var(--vyd-space-4);
+  border-radius: var(--vyd-radius-md);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  background: var(--vyd-bg-panel);
+  color: var(--vyd-text-primary);
+}
+.vyd-input::placeholder { color: var(--vyd-text-secondary); }
+.vyd-input:hover        { border-color: var(--vyd-border-strong); }
+.vyd-input:focus-visible {
+  outline: none;
+  box-shadow: var(--vyd-shadow-focus);
+  border-color: var(--vyd-border-accent);
+}
+.vyd-input:disabled {
+  background: var(--vyd-bg-elevated);
+  color: var(--vyd-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Card / painel */
+.vyd-card {
+  background: var(--vyd-bg-panel);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  border-radius: var(--vyd-radius-md);
+  padding: var(--vyd-space-6);
+}
+
+/* ---------------------------------------------------------------------
+   Item de ribbon (estado ativo = barra de acento, padrão Autodesk)
+   normal -> text-secondary | hover -> bg-elevated + text-primary
+   active/selected -> text-accent + barra de acento 2px
+   disabled -> text-disabled
+   --------------------------------------------------------------------- */
+.vyd-ribbon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--vyd-space-2);
+  padding: var(--vyd-space-3) var(--vyd-space-4);
+  border-radius: var(--vyd-radius-sm);
+  color: var(--vyd-text-secondary);
+  border-bottom: var(--vyd-border-thick) solid transparent;
+  cursor: pointer;
+}
+.vyd-ribbon-item:hover {
+  background: var(--vyd-bg-elevated);
+  color: var(--vyd-text-primary);
+}
+.vyd-ribbon-item:focus-visible { outline: none; box-shadow: var(--vyd-shadow-focus); }
+.vyd-ribbon-item[aria-selected="true"] {
+  color: var(--vyd-text-accent);
+  border-bottom-color: var(--vyd-border-accent);
+}
+.vyd-ribbon-item[aria-disabled="true"] {
+  color: var(--vyd-text-disabled);
+  cursor: not-allowed;
+}
+.vyd-ribbon-item .label {
+  font-size: var(--vyd-text-xs);
+  letter-spacing: var(--vyd-ls-wide);
+  text-transform: uppercase;
+}

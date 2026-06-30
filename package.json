@@ -1,0 +1,68 @@
+{
+  "name": "@vyd/design-system",
+  "version": "0.1.0",
+  "description": "VYD Design System — fonte única de verdade visual do ecossistema VYD (apps de engenharia). Estilo técnico, sóbrio, denso. Acento azul-blueprint.",
+  "license": "MIT",
+  "private": true,
+  "//private": "Guard contra publicação acidental no npm. Remova esta linha e 'private' para publicar (ver docs/USAGE.md).",
+  "author": "K2+ / VYD",
+  "type": "commonjs",
+  "main": "dist/tokens.js",
+  "module": "dist/tokens.mjs",
+  "types": "dist/tokens.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.mjs",
+      "require": "./dist/tokens.js"
+    },
+    "./theme.css": "./dist/theme.css",
+    "./variables.css": "./dist/variables.css",
+    "./shell.css": "./css/shell.css",
+    "./tailwind": "./dist/tokens.tailwind.js",
+    "./tokens.json": "./tokens/tokens.json",
+    "./dist/*": "./dist/*"
+  },
+  "files": [
+    "dist",
+    "css",
+    "tokens",
+    "build",
+    "brand",
+    "demo",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "node build/build.mjs",
+    "verify": "node build/verify.mjs",
+    "icons": "python3 build/make-icons.py",
+    "prebuild": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "test": "npm run build && npm run verify"
+  },
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "style-dictionary",
+    "tailwind-preset",
+    "css-variables",
+    "vyd"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/<owner>/vyd-design-system.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "style-dictionary": "^4.0.0"
+  }
+}

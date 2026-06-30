@@ -1,0 +1,125 @@
+/* =====================================================================
+   VYD DESIGN SYSTEM - variables.css  v0.1.0
+   GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
+   Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --vyd-blueprint-50: #EAF1FB;
+  --vyd-blueprint-100: #CBDDF5;
+  --vyd-blueprint-200: #9CBEEC;
+  --vyd-blueprint-300: #6B9CE0;
+  --vyd-blueprint-400: #3E7BD4;
+  --vyd-blueprint-500: #1E5FC4;
+  --vyd-blueprint-600: #184FA6;
+  --vyd-blueprint-700: #143F86;
+  --vyd-blueprint-800: #102F63;
+  --vyd-blueprint-900: #0B2245;
+  --vyd-neutral-0: #0D1117;
+  --vyd-neutral-50: #161B22;
+  --vyd-neutral-100: #1F2630;
+  --vyd-neutral-200: #2A323D;
+  --vyd-neutral-300: #3A4350;
+  --vyd-neutral-400: #5A6573;
+  --vyd-neutral-500: #7B8794;
+  --vyd-neutral-600: #9AA5B1;
+  --vyd-neutral-700: #C2CAD3;
+  --vyd-neutral-800: #E1E6EB;
+  --vyd-neutral-900: #F2F5F8;
+  --vyd-neutral-1000: #FFFFFF;
+  --vyd-success: #2E9E6B;
+  --vyd-warning: #D9920A;
+  --vyd-danger: #D24545;
+  --vyd-info: var(--vyd-blueprint-400);
+  --vyd-font-sans: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  --vyd-font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+  --vyd-text-xs: 11px;
+  --vyd-text-sm: 12px;
+  --vyd-text-base: 13px;
+  --vyd-text-md: 14px;
+  --vyd-text-lg: 16px;
+  --vyd-text-xl: 20px;
+  --vyd-text-2xl: 26px;
+  --vyd-text-3xl: 34px;
+  --vyd-weight-regular: 400;
+  --vyd-weight-medium: 500;
+  --vyd-weight-semibold: 600;
+  --vyd-weight-bold: 700;
+  --vyd-lh-tight: 1.2;
+  --vyd-lh-normal: 1.45;
+  --vyd-lh-relaxed: 1.6;
+  --vyd-ls-tight: -0.01em;
+  --vyd-ls-normal: 0;
+  --vyd-ls-wide: 0.04em;
+  --vyd-space-0: 0px;
+  --vyd-space-1: 2px;
+  --vyd-space-2: 4px;
+  --vyd-space-3: 6px;
+  --vyd-space-4: 8px;
+  --vyd-space-5: 12px;
+  --vyd-space-6: 16px;
+  --vyd-space-7: 24px;
+  --vyd-space-8: 32px;
+  --vyd-space-9: 48px;
+  --vyd-radius-none: 0px;
+  --vyd-radius-sm: 3px;
+  --vyd-radius-md: 5px;
+  --vyd-radius-lg: 8px;
+  --vyd-radius-full: 9999px;
+  --vyd-border-hairline: 1px;
+  --vyd-border-thick: 2px;
+  --vyd-shadow-none: none;
+  --vyd-shadow-sm: 0 1px 2px rgba(0,0,0,0.25);
+  --vyd-shadow-md: 0 2px 6px rgba(0,0,0,0.30);
+  --vyd-shadow-focus: 0 0 0 2px var(--vyd-blueprint-500);
+  --vyd-layout-topbar-h: 44px;
+  --vyd-layout-ribbon-h: 88px;
+  --vyd-layout-leftrail-w: 240px;
+  --vyd-layout-leftrail-w-min: 48px;
+  --vyd-layout-rightpanel-w: 300px;
+  --vyd-layout-statusbar-h: 26px;
+  --vyd-duration-fast: 120ms;
+  --vyd-duration-normal: 200ms;
+  --vyd-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+:root,
+[data-vyd-theme="dark"] {
+  --vyd-bg-chrome: var(--vyd-neutral-0);
+  --vyd-bg-panel: var(--vyd-neutral-50);
+  --vyd-bg-canvas: var(--vyd-neutral-100);
+  --vyd-bg-elevated: var(--vyd-neutral-200);
+  --vyd-text-primary: var(--vyd-neutral-800);
+  --vyd-text-secondary: var(--vyd-neutral-500);
+  --vyd-text-disabled: var(--vyd-neutral-400);
+  --vyd-text-inverse: var(--vyd-neutral-0);
+  --vyd-text-on-accent: var(--vyd-neutral-1000);
+  --vyd-text-accent: var(--vyd-blueprint-300);
+  --vyd-border-default: var(--vyd-neutral-300);
+  --vyd-border-strong: var(--vyd-neutral-400);
+  --vyd-border-accent: var(--vyd-blueprint-500);
+  --vyd-action-primary: var(--vyd-blueprint-500);
+  --vyd-action-primary-hover: var(--vyd-blueprint-400);
+  --vyd-action-primary-active: var(--vyd-blueprint-600);
+}
+
+[data-vyd-theme="light"] {
+  --vyd-bg-chrome: var(--vyd-neutral-900);
+  --vyd-bg-panel: var(--vyd-neutral-1000);
+  --vyd-bg-canvas: var(--vyd-neutral-1000);
+  --vyd-bg-elevated: var(--vyd-neutral-1000);
+  --vyd-text-primary: var(--vyd-neutral-100);
+  --vyd-text-secondary: var(--vyd-neutral-400);
+  --vyd-text-disabled: var(--vyd-neutral-500);
+  --vyd-text-inverse: var(--vyd-neutral-1000);
+  --vyd-text-on-accent: var(--vyd-neutral-1000);
+  --vyd-text-accent: var(--vyd-blueprint-600);
+  --vyd-border-default: var(--vyd-neutral-800);
+  --vyd-border-strong: var(--vyd-neutral-700);
+  --vyd-border-accent: var(--vyd-blueprint-500);
+  --vyd-action-primary: var(--vyd-blueprint-500);
+  --vyd-action-primary-hover: var(--vyd-blueprint-600);
+  --vyd-action-primary-active: var(--vyd-blueprint-700);
+}

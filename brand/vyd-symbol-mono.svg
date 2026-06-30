@@ -1,0 +1,10 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t">
+  <title id="t">VYD symbol (monocromático)</title>
+  <!-- Single-color isometric cube; depth via opacity. Uses currentColor, so
+       herda a cor do contexto (ex. color: var(--vyd-text-primary)). -->
+  <g fill="currentColor">
+    <path d="M60 24 L89.4 41 L60 58 L30.6 41 Z" opacity="1"/>
+    <path d="M30.6 41 L60 58 L60 92 L30.6 75 Z" opacity="0.72"/>
+    <path d="M89.4 41 L89.4 75 L60 92 L60 58 Z" opacity="0.5"/>
+  </g>
+</svg>

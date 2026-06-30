@@ -1,0 +1,261 @@
+/* =====================================================================
+   VYD DESIGN SYSTEM - theme.css  v0.1.0
+   GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
+   Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --vyd-blueprint-50: #EAF1FB;
+  --vyd-blueprint-100: #CBDDF5;
+  --vyd-blueprint-200: #9CBEEC;
+  --vyd-blueprint-300: #6B9CE0;
+  --vyd-blueprint-400: #3E7BD4;
+  --vyd-blueprint-500: #1E5FC4;
+  --vyd-blueprint-600: #184FA6;
+  --vyd-blueprint-700: #143F86;
+  --vyd-blueprint-800: #102F63;
+  --vyd-blueprint-900: #0B2245;
+  --vyd-neutral-0: #0D1117;
+  --vyd-neutral-50: #161B22;
+  --vyd-neutral-100: #1F2630;
+  --vyd-neutral-200: #2A323D;
+  --vyd-neutral-300: #3A4350;
+  --vyd-neutral-400: #5A6573;
+  --vyd-neutral-500: #7B8794;
+  --vyd-neutral-600: #9AA5B1;
+  --vyd-neutral-700: #C2CAD3;
+  --vyd-neutral-800: #E1E6EB;
+  --vyd-neutral-900: #F2F5F8;
+  --vyd-neutral-1000: #FFFFFF;
+  --vyd-success: #2E9E6B;
+  --vyd-warning: #D9920A;
+  --vyd-danger: #D24545;
+  --vyd-info: var(--vyd-blueprint-400);
+  --vyd-font-sans: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  --vyd-font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+  --vyd-text-xs: 11px;
+  --vyd-text-sm: 12px;
+  --vyd-text-base: 13px;
+  --vyd-text-md: 14px;
+  --vyd-text-lg: 16px;
+  --vyd-text-xl: 20px;
+  --vyd-text-2xl: 26px;
+  --vyd-text-3xl: 34px;
+  --vyd-weight-regular: 400;
+  --vyd-weight-medium: 500;
+  --vyd-weight-semibold: 600;
+  --vyd-weight-bold: 700;
+  --vyd-lh-tight: 1.2;
+  --vyd-lh-normal: 1.45;
+  --vyd-lh-relaxed: 1.6;
+  --vyd-ls-tight: -0.01em;
+  --vyd-ls-normal: 0;
+  --vyd-ls-wide: 0.04em;
+  --vyd-space-0: 0px;
+  --vyd-space-1: 2px;
+  --vyd-space-2: 4px;
+  --vyd-space-3: 6px;
+  --vyd-space-4: 8px;
+  --vyd-space-5: 12px;
+  --vyd-space-6: 16px;
+  --vyd-space-7: 24px;
+  --vyd-space-8: 32px;
+  --vyd-space-9: 48px;
+  --vyd-radius-none: 0px;
+  --vyd-radius-sm: 3px;
+  --vyd-radius-md: 5px;
+  --vyd-radius-lg: 8px;
+  --vyd-radius-full: 9999px;
+  --vyd-border-hairline: 1px;
+  --vyd-border-thick: 2px;
+  --vyd-shadow-none: none;
+  --vyd-shadow-sm: 0 1px 2px rgba(0,0,0,0.25);
+  --vyd-shadow-md: 0 2px 6px rgba(0,0,0,0.30);
+  --vyd-shadow-focus: 0 0 0 2px var(--vyd-blueprint-500);
+  --vyd-layout-topbar-h: 44px;
+  --vyd-layout-ribbon-h: 88px;
+  --vyd-layout-leftrail-w: 240px;
+  --vyd-layout-leftrail-w-min: 48px;
+  --vyd-layout-rightpanel-w: 300px;
+  --vyd-layout-statusbar-h: 26px;
+  --vyd-duration-fast: 120ms;
+  --vyd-duration-normal: 200ms;
+  --vyd-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+:root,
+[data-vyd-theme="dark"] {
+  --vyd-bg-chrome: var(--vyd-neutral-0);
+  --vyd-bg-panel: var(--vyd-neutral-50);
+  --vyd-bg-canvas: var(--vyd-neutral-100);
+  --vyd-bg-elevated: var(--vyd-neutral-200);
+  --vyd-text-primary: var(--vyd-neutral-800);
+  --vyd-text-secondary: var(--vyd-neutral-500);
+  --vyd-text-disabled: var(--vyd-neutral-400);
+  --vyd-text-inverse: var(--vyd-neutral-0);
+  --vyd-text-on-accent: var(--vyd-neutral-1000);
+  --vyd-text-accent: var(--vyd-blueprint-300);
+  --vyd-border-default: var(--vyd-neutral-300);
+  --vyd-border-strong: var(--vyd-neutral-400);
+  --vyd-border-accent: var(--vyd-blueprint-500);
+  --vyd-action-primary: var(--vyd-blueprint-500);
+  --vyd-action-primary-hover: var(--vyd-blueprint-400);
+  --vyd-action-primary-active: var(--vyd-blueprint-600);
+}
+
+[data-vyd-theme="light"] {
+  --vyd-bg-chrome: var(--vyd-neutral-900);
+  --vyd-bg-panel: var(--vyd-neutral-1000);
+  --vyd-bg-canvas: var(--vyd-neutral-1000);
+  --vyd-bg-elevated: var(--vyd-neutral-1000);
+  --vyd-text-primary: var(--vyd-neutral-100);
+  --vyd-text-secondary: var(--vyd-neutral-400);
+  --vyd-text-disabled: var(--vyd-neutral-500);
+  --vyd-text-inverse: var(--vyd-neutral-1000);
+  --vyd-text-on-accent: var(--vyd-neutral-1000);
+  --vyd-text-accent: var(--vyd-blueprint-600);
+  --vyd-border-default: var(--vyd-neutral-800);
+  --vyd-border-strong: var(--vyd-neutral-700);
+  --vyd-border-accent: var(--vyd-blueprint-500);
+  --vyd-action-primary: var(--vyd-blueprint-500);
+  --vyd-action-primary-hover: var(--vyd-blueprint-600);
+  --vyd-action-primary-active: var(--vyd-blueprint-700);
+}
+
+/* =====================================================================
+   VYD DESIGN SYSTEM — css/primitives.css
+   Hand-authored component primitives. SOURCE OF TRUTH for these classes.
+   Rule: use ONLY semantic tokens (--vyd-bg-*, --vyd-text-*, --vyd-action-*,
+   --vyd-border-*) — never the raw scale. The build concatenates this file
+   into dist/theme.css after the generated variables.
+   Documented states per component: normal / hover / active / focus / disabled.
+   ===================================================================== */
+
+body {
+  font-family: var(--vyd-font-sans);
+  font-size: var(--vyd-text-base);
+  line-height: var(--vyd-lh-normal);
+  letter-spacing: var(--vyd-ls-tight);
+  color: var(--vyd-text-primary);
+  background: var(--vyd-bg-canvas);
+}
+
+/* Numeric / mono helper — tabular figures for cotas, IDs, medidas. */
+.vyd-mono {
+  font-family: var(--vyd-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------------
+   Botão primário
+   normal -> action-primary | hover -> action-primary-hover
+   active -> action-primary-active | focus -> focus ring
+   disabled -> bg-elevated + text-disabled, sem ponteiro
+   --------------------------------------------------------------------- */
+.vyd-btn {
+  font: var(--vyd-weight-medium) var(--vyd-text-base)/1 var(--vyd-font-sans);
+  padding: var(--vyd-space-3) var(--vyd-space-5);
+  border-radius: var(--vyd-radius-md);
+  border: var(--vyd-border-hairline) solid transparent;
+  background: var(--vyd-action-primary);
+  color: var(--vyd-text-on-accent);
+  cursor: pointer;
+  transition: background var(--vyd-duration-fast) var(--vyd-ease-standard);
+}
+.vyd-btn:hover          { background: var(--vyd-action-primary-hover); }
+.vyd-btn:active         { background: var(--vyd-action-primary-active); }
+.vyd-btn:focus-visible  { outline: none; box-shadow: var(--vyd-shadow-focus); }
+.vyd-btn:disabled,
+.vyd-btn[aria-disabled="true"] {
+  background: var(--vyd-bg-elevated);
+  color: var(--vyd-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Botão secundário / fantasma (o mais usado numa ribbon) */
+.vyd-btn--ghost {
+  background: transparent;
+  color: var(--vyd-text-primary);
+  border-color: var(--vyd-border-default);
+}
+.vyd-btn--ghost:hover          { background: var(--vyd-bg-elevated); }
+.vyd-btn--ghost:active         { background: var(--vyd-bg-elevated); border-color: var(--vyd-border-strong); }
+.vyd-btn--ghost:disabled,
+.vyd-btn--ghost[aria-disabled="true"] {
+  background: transparent;
+  color: var(--vyd-text-disabled);
+  border-color: var(--vyd-border-default);
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------
+   Input
+   normal -> border-default | focus -> focus ring + border-accent
+   disabled -> bg-elevated + text-disabled
+   --------------------------------------------------------------------- */
+.vyd-input {
+  font: var(--vyd-weight-regular) var(--vyd-text-base)/1.2 var(--vyd-font-sans);
+  padding: var(--vyd-space-3) var(--vyd-space-4);
+  border-radius: var(--vyd-radius-md);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  background: var(--vyd-bg-panel);
+  color: var(--vyd-text-primary);
+}
+.vyd-input::placeholder { color: var(--vyd-text-secondary); }
+.vyd-input:hover        { border-color: var(--vyd-border-strong); }
+.vyd-input:focus-visible {
+  outline: none;
+  box-shadow: var(--vyd-shadow-focus);
+  border-color: var(--vyd-border-accent);
+}
+.vyd-input:disabled {
+  background: var(--vyd-bg-elevated);
+  color: var(--vyd-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Card / painel */
+.vyd-card {
+  background: var(--vyd-bg-panel);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  border-radius: var(--vyd-radius-md);
+  padding: var(--vyd-space-6);
+}
+
+/* ---------------------------------------------------------------------
+   Item de ribbon (estado ativo = barra de acento, padrão Autodesk)
+   normal -> text-secondary | hover -> bg-elevated + text-primary
+   active/selected -> text-accent + barra de acento 2px
+   disabled -> text-disabled
+   --------------------------------------------------------------------- */
+.vyd-ribbon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--vyd-space-2);
+  padding: var(--vyd-space-3) var(--vyd-space-4);
+  border-radius: var(--vyd-radius-sm);
+  color: var(--vyd-text-secondary);
+  border-bottom: var(--vyd-border-thick) solid transparent;
+  cursor: pointer;
+}
+.vyd-ribbon-item:hover {
+  background: var(--vyd-bg-elevated);
+  color: var(--vyd-text-primary);
+}
+.vyd-ribbon-item:focus-visible { outline: none; box-shadow: var(--vyd-shadow-focus); }
+.vyd-ribbon-item[aria-selected="true"] {
+  color: var(--vyd-text-accent);
+  border-bottom-color: var(--vyd-border-accent);
+}
+.vyd-ribbon-item[aria-disabled="true"] {
+  color: var(--vyd-text-disabled);
+  cursor: not-allowed;
+}
+.vyd-ribbon-item .label {
+  font-size: var(--vyd-text-xs);
+  letter-spacing: var(--vyd-ls-wide);
+  text-transform: uppercase;
+}

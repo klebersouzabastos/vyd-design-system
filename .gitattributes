@@ -1,0 +1,10 @@
+# Normalize line endings; treat source assets as text for clean diffs.
+* text=auto eol=lf
+*.svg  text
+*.css  text
+*.json text
+*.js   text
+*.mjs  text
+*.ts   text
+*.md   text
+*.png  binary
