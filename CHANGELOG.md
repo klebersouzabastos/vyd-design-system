@@ -9,7 +9,33 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 ## [Não lançado]
 
-- —
+> Sem mudança no contrato de tokens `--vyd-*` (nenhum bump de versão exigido pela
+> governança). Adições de camada React/exemplos e troca de assets de marca.
+
+### Adicionado
+
+- **`@vyd/react`** (`react/`): componentes React — wrappers finos sobre as classes
+  `.vyd-*`, sem estilo próprio. Primitivas (`Button`, `Input`, `Card`, `Mono`,
+  `CubeMark`) e o app shell completo (`AppShell`, `TopBar`, `Ribbon`, `RibbonItem`,
+  `LeftRail`, `Canvas`, `RightPanel`, `Prop`, `StatusBar`, …). Distribuído como
+  fonte TSX (o app transpila).
+- **`examples/react-vite`** e **`examples/nextjs`**: apps de exemplo montando o app
+  shell invariante, consumindo `@vyd/design-system` (`theme.css` + `shell.css`) e
+  `@vyd/react`. Builds validados (Vite 6 + Next 15, React 19, TS strict).
+- `workspaces` em `package.json` (`react`, `examples/*`) — dev-only, fora de `files`
+  (não publicados com o pacote). `build`/`verify` do design system inalterados.
+
+### Alterado
+
+- **Símbolo oficial da marca — padrão único.** Toda a marca passa a usar a geometria
+  **exata** do brand guide selecionado (cubo isométrico em **wireframe** com a
+  **face-topo** destacada), eliminando a antiga aproximação de 3 faces sólidas. Cobre:
+  - SVGs de logo: `brand/vyd-symbol.svg`, `vyd-symbol-mono.svg`, `vyd-lockup.svg`,
+    `vyd-lockup-negative.svg`;
+  - **ícones** `brand/icons/` — `favicon.svg` reescrito no wireframe (arestas 2 / 1.2
+    para legibilidade ≤16px) e **todos os PNG/ICO regenerados** (`npm run icons`);
+  - brand inline de `demo/index.html` e o cubo de `demo/app-shell-preview.svg`;
+  - o componente `CubeMark` de `@vyd/react`.
 
 ## [0.1.0] — 2026-06-29
 

@@ -1,22 +1,28 @@
 # VYD — Brand assets
 
-> **Status: aproximação token-based.** Recriam a direção selecionada no brand guide
-> (símbolo **cubo isométrico**, face-topo / BIM-volume). O SVG exato do guia vive num
-> sandbox isolado (`claudeusercontent.com`) e não é extraível por automação — exporte
-> pelo **Share/Export** do Claude Design e substitua estes arquivos quando quiser.
-> As cores saem todas dos tokens, então já estão on-brand.
+> **Status: export oficial — padrão único.** Toda a marca usa a geometria **exata**
+> do brand guide selecionado: cubo isométrico em **wireframe** com a **face-topo**
+> preenchida (módulo 3D / BIM-volume), arestas internas marcando o módulo. Vale para
+> os SVGs de logo (`vyd-symbol`, `vyd-symbol-mono`, `vyd-lockup`, `vyd-lockup-negative`)
+> **e** para os ícones (`icons/`, derivados de `favicon.svg`). Cores na escala
+> blueprint, on-brand.
+>
+> Os ícones usam o **mesmo** símbolo wireframe, apenas com as arestas levemente
+> reforçadas (2 / 1.2) para legibilidade a ≤16px — sem mudar o desenho nem as cores.
 
 ## Logo
 
 | Arquivo | Uso |
 |---|---|
-| `vyd-symbol.svg` | Símbolo (cubo) colorido — fundo escuro. |
-| `vyd-symbol-mono.svg` | Símbolo monocromático (`currentColor`, profundidade por opacidade). Stamps, print, fallback. |
+| `vyd-symbol.svg` | Símbolo (cubo wireframe + face-topo) — fundo escuro. |
+| `vyd-symbol-mono.svg` | Símbolo monocromático (`currentColor`). Stamps, print, fallback. |
 | `vyd-lockup.svg` | Símbolo + "VYD" + tagline — **positiva** (fundo chrome escuro). |
 | `vyd-lockup-negative.svg` | Lockup para **fundo claro** (wordmark em neutro escuro). |
 
-Cores (dos tokens): face-topo `--vyd-blueprint-400`, esquerda `--vyd-blueprint-500`,
-direita `--vyd-blueprint-700`, arestas `--vyd-blueprint-300`, wordmark `--vyd-text-primary`.
+Cores (dos tokens): arestas externas `--vyd-blueprint-300` (`#6B9CE0`), face-topo
+`--vyd-blueprint-500` (`#1E5FC4`), arestas internas `--vyd-neutral-300` (`#3A4350`),
+wordmark `--vyd-text-primary`. Na negativa: arestas `--vyd-blueprint-700`, internas
+neutro claro, wordmark neutro escuro.
 
 Regras: clear space ≥ uma face do cubo; tamanho mínimo símbolo 16px / lockup 96px;
 não recolorir fora da escala blueprint, sem sombra/gradiente, sem rotação.
@@ -45,12 +51,10 @@ não recolorir fora da escala blueprint, sem sombra/gradiente, sem rotação.
 
 ## Regenerar os ícones
 
-Os PNGs/ICO são derivados de `icons/favicon.svg`. Depois de trocar o SVG (ex. pelo
-export oficial), rode:
+Os PNGs/ICO são derivados de `icons/favicon.svg` (já no símbolo oficial). Se editar
+o SVG, regenere com:
 
 ```bash
 pip install cairosvg pillow
 npm run icons          # = python3 build/make-icons.py
 ```
-
-Substitua primeiro `icons/favicon.svg` e `vyd-symbol.svg` pelo export oficial.

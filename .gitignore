@@ -1,6 +1,12 @@
 # Dependencies
 node_modules/
 
+# Example app build output (the design-system's own /dist IS committed — see note below)
+examples/*/dist/
+examples/*/.next/
+examples/*/out/
+*.tsbuildinfo
+
 # Build scratch (the .clean temp dir used by the build)
 build/.clean/
 

@@ -1,13 +1,13 @@
 <svg width="400" height="120" viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
   <title id="t">VYD logo lockup — negativa (fundo claro)</title>
-  <desc id="d">Versão para fundos claros: cubo azul (sem arestas claras) + wordmark em neutro escuro.</desc>
-  <!-- Symbol (no light edges; tonal faces read on light bg) -->
-  <g transform="translate(4 12) scale(0.8)">
-    <path d="M60 24 L89.4 41 L60 58 L30.6 41 Z" fill="#3E7BD4"/>
-    <path d="M30.6 41 L60 58 L60 92 L30.6 75 Z" fill="#1E5FC4"/>
-    <path d="M89.4 41 L89.4 75 L60 92 L60 58 Z" fill="#143F86"/>
+  <desc id="d">Versão para fundos claros (export oficial): arestas em blueprint-700, face-topo azul, arestas internas neutras claras; wordmark em neutro escuro.</desc>
+  <!-- Símbolo (export oficial) para fundo claro: coords 0–32 escaladas ×3 -->
+  <g transform="translate(4 12) scale(3)">
+    <path d="M16 3 L28 10 L28 22 L16 29 L4 22 L4 10 Z" fill="none" stroke="#143F86" stroke-width="0.5" stroke-linejoin="miter"/>
+    <path d="M16 3 L28 10 L16 16 L4 10 Z" fill="#1E5FC4"/>
+    <path d="M16 16 L16 29 M16 16 L28 10 M16 16 L4 10" fill="none" stroke="#A9B4BF" stroke-width="0.33"/>
   </g>
-  <!-- Wordmark in dark neutral for light backgrounds -->
+  <!-- Wordmark em neutro escuro para fundos claros -->
   <text x="116" y="74" font-family="'Inter Tight', system-ui, sans-serif" font-weight="700" font-size="58" letter-spacing="-1.5" fill="#1F2630">VYD</text>
   <text x="118" y="94" font-family="'JetBrains Mono', monospace" font-weight="500" font-size="9" letter-spacing="2" fill="#5A6573">ENGINEERING SOFTWARE ECOSYSTEM</text>
 </svg>

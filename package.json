@@ -7,6 +7,11 @@
   "//private": "Guard contra publicação acidental no npm. Remova esta linha e 'private' para publicar (ver docs/USAGE.md).",
   "author": "K2+ / VYD",
   "type": "commonjs",
+  "workspaces": [
+    "react",
+    "examples/*"
+  ],
+  "//workspaces": "react/ (@vyd/react) e examples/* são dev-only; NÃO entram em 'files', logo não são publicados com o pacote.",
   "main": "dist/tokens.js",
   "module": "dist/tokens.mjs",
   "types": "dist/tokens.d.ts",
