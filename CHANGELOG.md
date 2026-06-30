@@ -14,6 +14,12 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 ### Adicionado
 
+- **`demo/brand-guide.html`**: o **Brand & UI Style Guide** completo (logo, paleta,
+  tipografia, escala de espaçamento/raios, componentes) renderizado **a partir dos
+  tokens `--vyd-*`** do repo — a seção de componentes usa as classes reais
+  (`.vyd-btn`, `.vyd-input`, `.vyd-card`, `.vyd-ribbon-item`) e a seção 06 embute o
+  app shell (`index.html`) via iframe. Reúne num só documento o guia visual (padrão
+  Claude Design) e o app shell (padrão Autodesk). Estático, sem build.
 - **`@vyd/react`** (`react/`): componentes React — wrappers finos sobre as classes
   `.vyd-*`, sem estilo próprio. Primitivas (`Button`, `Input`, `Card`, `Mono`,
   `CubeMark`) e o app shell completo (`AppShell`, `TopBar`, `Ribbon`, `RibbonItem`,
