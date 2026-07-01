@@ -57,6 +57,23 @@ declare const vyd: {
       danger: string;
       info: string;
     };
+    viz: {
+      cat: {
+        "1": string;
+        "2": string;
+        "3": string;
+        "4": string;
+        "5": string;
+        "6": string;
+      };
+      seq: {
+        "1": string;
+        "2": string;
+        "3": string;
+        "4": string;
+        "5": string;
+      };
+    };
   };
   font: {
     sans: string;

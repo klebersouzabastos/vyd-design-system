@@ -81,6 +81,7 @@ function buildObject(allTokens) {
     const p = t.path;
     if (p[0] === 'color' && p[1] === 'brand' && p[2] === 'blueprint') set(['color', 'blueprint', p[3]], v);
     else if (p[0] === 'color' && p[1] === 'neutral') set(['color', 'neutral', p[2]], v);
+    else if (p[0] === 'color' && p[1] === 'viz') set(['color', 'viz', p[2], p[3]], v);
     else if (p[0] === 'color' && p[1] === 'semantic') set(['color', p[2], p[3]], v);
     else if (p[0] === 'typography' && p[1] === 'family') set(['font', p[2]], v);
     else if (p[0] === 'typography' && p[1] === 'size') set(['fontSize', p[2]], v);
@@ -154,6 +155,7 @@ StyleDictionary.registerFormat({
       const p = t.path;
       if (p[0] === 'color' && p[1] === 'brand' && p[2] === 'blueprint') colors['blueprint-' + p[3]] = v(t);
       else if (p[0] === 'color' && p[1] === 'neutral') colors['neutral-' + p[2]] = v(t);
+      else if (p[0] === 'color' && p[1] === 'viz') colors[vydName(t.path).replace('vyd-', '')] = v(t);
       else if (p[0] === 'color' && p[1] === 'semantic') {
         const key = p[2] === 'feedback' ? kebab(p[3]) : p[2] + '-' + kebab(p[3]);
         colors[key] = v(t);

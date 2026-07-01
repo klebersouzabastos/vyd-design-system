@@ -39,6 +39,10 @@ export function vydName(path) {
       if (grp === 'feedback') return `vyd-${leaf}`;          // success/warning/danger/info
       return `vyd-${grp}-${leaf}`;                            // bg/text/border/action
     }
+    if (p[1] === 'viz') {
+      if (p[2] === 'cat') return `vyd-viz-${p[3]}`;          // vyd-viz-1..6
+      if (p[2] === 'seq') return `vyd-viz-seq-${p[3]}`;      // vyd-viz-seq-1..5
+    }
   }
   if (p[0] === 'typography') {
     if (p[1] === 'family')        return `vyd-font-${kebab(p[2])}`;

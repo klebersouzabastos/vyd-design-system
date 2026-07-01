@@ -47,7 +47,18 @@ module.exports = {
         "success": "var(--vyd-success)",
         "warning": "var(--vyd-warning)",
         "danger": "var(--vyd-danger)",
-        "info": "var(--vyd-info)"
+        "info": "var(--vyd-info)",
+        "viz-1": "var(--vyd-viz-1)",
+        "viz-2": "var(--vyd-viz-2)",
+        "viz-3": "var(--vyd-viz-3)",
+        "viz-4": "var(--vyd-viz-4)",
+        "viz-5": "var(--vyd-viz-5)",
+        "viz-6": "var(--vyd-viz-6)",
+        "viz-seq-1": "var(--vyd-viz-seq-1)",
+        "viz-seq-2": "var(--vyd-viz-seq-2)",
+        "viz-seq-3": "var(--vyd-viz-seq-3)",
+        "viz-seq-4": "var(--vyd-viz-seq-4)",
+        "viz-seq-5": "var(--vyd-viz-seq-5)"
       },
       "spacing": {
         "0": "var(--vyd-space-0)",

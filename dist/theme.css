@@ -1,5 +1,5 @@
 /* =====================================================================
-   VYD DESIGN SYSTEM - theme.css  v0.9.0
+   VYD DESIGN SYSTEM - theme.css  v0.10.0
    GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
    Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
    ===================================================================== */
@@ -33,6 +33,17 @@
   --vyd-warning: #D9920A;
   --vyd-danger: #D24545;
   --vyd-info: var(--vyd-blueprint-400);
+  --vyd-viz-1: #3E7BD4;
+  --vyd-viz-2: #2AA6A0;
+  --vyd-viz-3: #D9920A;
+  --vyd-viz-4: #2E9E6B;
+  --vyd-viz-5: #D24545;
+  --vyd-viz-6: #9AA5B1;
+  --vyd-viz-seq-1: var(--vyd-blueprint-200);
+  --vyd-viz-seq-2: var(--vyd-blueprint-400);
+  --vyd-viz-seq-3: var(--vyd-blueprint-500);
+  --vyd-viz-seq-4: var(--vyd-blueprint-700);
+  --vyd-viz-seq-5: var(--vyd-blueprint-900);
   --vyd-font-sans: 'Inter Tight', 'Inter', system-ui, sans-serif;
   --vyd-font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
   --vyd-text-xs: 11px;
@@ -831,3 +842,23 @@ body {
   color: var(--vyd-text-secondary); background: var(--vyd-bg-panel);
   border: var(--vyd-border-hairline) solid var(--vyd-border-default); border-radius: var(--vyd-radius-sm);
 }
+
+/* =====================================================================
+   DATA-VIZ (Fase 7) — legenda, bar chart (CSS) e helpers de gráfico SVG.
+   Cores dos tokens --vyd-viz-* (categórica) e --vyd-viz-seq-* (sequencial).
+   ===================================================================== */
+
+.vyd-legend { display: flex; gap: var(--vyd-space-4); flex-wrap: wrap; align-items: center; }
+.vyd-legend__item { display: inline-flex; align-items: center; gap: var(--vyd-space-2); font-size: var(--vyd-text-sm); color: var(--vyd-text-secondary); }
+.vyd-legend__swatch { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+
+.vyd-barchart { display: flex; align-items: stretch; gap: var(--vyd-space-3); width: 100%; }
+.vyd-barchart__col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: var(--vyd-space-2); min-width: 0; }
+.vyd-barchart__val { font-family: var(--vyd-font-mono); font-variant-numeric: tabular-nums; font-size: var(--vyd-text-xs); color: var(--vyd-text-secondary); }
+.vyd-barchart__track { flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center; }
+.vyd-barchart__bar { width: 100%; max-width: 44px; min-height: 2px; border-radius: var(--vyd-radius-sm) var(--vyd-radius-sm) 0 0; }
+.vyd-barchart__label { font-size: var(--vyd-text-xs); color: var(--vyd-text-secondary); white-space: nowrap; }
+
+.vyd-chart { display: block; }
+.vyd-chart-grid { stroke: var(--vyd-border-default); stroke-width: 1; }
+.vyd-chart-axis { stroke: var(--vyd-border-strong); stroke-width: 1; }
