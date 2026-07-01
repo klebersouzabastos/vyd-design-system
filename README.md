@@ -34,7 +34,7 @@ tailwind/      Entry-point do preset (re-export de dist)
 brand/         Logo (positiva/negativa/mono) + icons/ (favicon, PWA)
 demo/          brand-guide.html (guia visual completo) + index.html (app shell) + preview
 icons/         Ícones-fonte (SVG 24×24, currentColor) — geram dist/icons.*
-docs/          USAGE · FOUNDATIONS · ICONS · FORMS · FEEDBACK · OVERLAYS · DATA · NAV · DATAVIZ · RIBBON · I18N · TESTING · GOVERNANCE · BRAND · BRIEF · PUBLISH · ROADMAP · ROADMAP-PROMPT
+docs/          USAGE · INTEGRATION · FOUNDATIONS · ICONS · FORMS · FEEDBACK · OVERLAYS · DATA · NAV · DATAVIZ · RIBBON · I18N · TESTING · GOVERNANCE · BRAND · BRIEF · PUBLISH · ROADMAP · ROADMAP-PROMPT
 react/         @vyd/react — componentes React (wrappers sobre .vyd-*)
 ```
 
