@@ -11,6 +11,22 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - —
 
+## [0.7.0] — 2026-07-01
+
+> **Fase 4 — Overlays** (roadmap). Componentes novos (sem mudança no contrato de
+> tokens `--vyd-*`): bump minor por feature. `verify` OK.
+
+### Adicionado
+
+- **Overlays (CSS `.vyd-*`)**: `dialog` (via `<dialog>` nativo — foco-trap/ESC/backdrop),
+  `drawer` (`--right/--left/--bottom`), `menu` (`__item --danger/[disabled]`, `__sep`,
+  `__label`), `popover`, `tooltip` (CSS hover/focus), `toolbar` (+ `__sep`).
+  Camadas por `--vyd-z-*`, elevação por `--vyd-shadow-lg/md`.
+- **`@vyd/react`** (client components): `Dialog`, `Drawer` (open/onClose via `<dialog>`),
+  `Menu`/`MenuItem`/`MenuSeparator`/`MenuLabel` e `Popover` (abrem no clique, fecham por
+  clique-fora/ESC, reposicionam em scroll/resize), `Tooltip`, `Toolbar`/`ToolbarSeparator`.
+- **[`docs/OVERLAYS.md`](docs/OVERLAYS.md)** + demo **`demo/overlays.html`**.
+
 ## [0.6.0] — 2026-07-01
 
 > **Fase 3 — Feedback & status** (roadmap). Componentes novos (sem mudança no contrato

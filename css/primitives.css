@@ -409,3 +409,101 @@ body {
   .vyd-spinner { animation-duration: 1.6s; }
   .vyd-skeleton, .vyd-progress--indeterminate .vyd-progress__bar { animation: none; }
 }
+
+/* =====================================================================
+   OVERLAYS (Fase 4) — dialog/drawer (<dialog> nativo), menu, popover,
+   tooltip, toolbar. Camadas por --vyd-z-*; elevação por --vyd-shadow-*.
+   ===================================================================== */
+
+/* ---- Dialog / modal (elemento <dialog>) ---- */
+.vyd-dialog {
+  padding: 0; margin: auto;
+  width: min(520px, calc(100vw - var(--vyd-space-8)));
+  max-height: calc(100vh - var(--vyd-space-9));
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  border-radius: var(--vyd-radius-lg);
+  background: var(--vyd-bg-panel); color: var(--vyd-text-primary);
+  box-shadow: var(--vyd-shadow-lg);
+  overflow: hidden;
+}
+.vyd-dialog::backdrop { background: rgb(0 0 0 / var(--vyd-opacity-backdrop)); }
+.vyd-dialog__head {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--vyd-space-4);
+  padding: var(--vyd-space-5) var(--vyd-space-6);
+  border-bottom: var(--vyd-border-hairline) solid var(--vyd-border-default);
+}
+.vyd-dialog__title { font-size: var(--vyd-text-lg); font-weight: var(--vyd-weight-semibold); }
+.vyd-dialog__close { flex: none; background: none; border: 0; color: var(--vyd-text-secondary); cursor: pointer; padding: 2px; border-radius: var(--vyd-radius-sm); }
+.vyd-dialog__close:hover { color: var(--vyd-text-primary); background: var(--vyd-bg-elevated); }
+.vyd-dialog__body { padding: var(--vyd-space-6); overflow: auto; }
+.vyd-dialog__foot {
+  display: flex; justify-content: flex-end; gap: var(--vyd-space-3);
+  padding: var(--vyd-space-5) var(--vyd-space-6);
+  border-top: var(--vyd-border-hairline) solid var(--vyd-border-default);
+}
+
+/* ---- Drawer / sheet (variante do dialog, ancorado à borda) ---- */
+.vyd-drawer {
+  margin: 0; height: 100vh; max-height: 100vh; border-radius: 0;
+  width: min(420px, calc(100vw - var(--vyd-space-8)));
+}
+.vyd-drawer.vyd-dialog__body, .vyd-drawer .vyd-dialog__body { height: 100%; }
+.vyd-drawer--right { margin-left: auto; }
+.vyd-drawer--left  { margin-right: auto; }
+.vyd-drawer--bottom { width: 100vw; height: auto; max-height: 80vh; margin-top: auto; border-radius: var(--vyd-radius-lg) var(--vyd-radius-lg) 0 0; }
+
+/* ---- Menu / dropdown ---- */
+.vyd-menu {
+  min-width: 180px; margin: 0; padding: var(--vyd-space-2);
+  background: var(--vyd-bg-elevated);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  border-radius: var(--vyd-radius-md); box-shadow: var(--vyd-shadow-md);
+  z-index: var(--vyd-z-dropdown);
+}
+.vyd-menu__item {
+  display: flex; align-items: center; gap: var(--vyd-space-3); width: 100%;
+  padding: var(--vyd-space-2) var(--vyd-space-3);
+  border-radius: var(--vyd-radius-sm); border: 0; background: none;
+  color: var(--vyd-text-primary); font: inherit; font-size: var(--vyd-text-base);
+  text-align: left; cursor: pointer; white-space: nowrap;
+}
+.vyd-menu__item:hover,
+.vyd-menu__item:focus-visible { outline: none; background: color-mix(in srgb, var(--vyd-bg-elevated) 60%, var(--vyd-border-default)); }
+.vyd-menu__item--danger { color: var(--vyd-danger); }
+.vyd-menu__item[disabled] { color: var(--vyd-text-disabled); cursor: not-allowed; }
+.vyd-menu__item[disabled]:hover { background: none; }
+.vyd-menu__sep { height: 1px; background: var(--vyd-border-default); margin: var(--vyd-space-2) 0; }
+.vyd-menu__label { font-size: var(--vyd-text-xs); text-transform: uppercase; letter-spacing: var(--vyd-ls-wide); color: var(--vyd-text-secondary); padding: var(--vyd-space-2) var(--vyd-space-3); }
+
+/* ---- Popover (painel flutuante genérico) ---- */
+.vyd-popover {
+  min-width: 220px; margin: 0; padding: var(--vyd-space-4);
+  background: var(--vyd-bg-elevated);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  border-radius: var(--vyd-radius-md); box-shadow: var(--vyd-shadow-md);
+  color: var(--vyd-text-primary); z-index: var(--vyd-z-popover);
+}
+
+/* ---- Tooltip (CSS: hover/focus-within) ---- */
+.vyd-tooltip-wrap { position: relative; display: inline-flex; }
+.vyd-tooltip {
+  position: absolute; bottom: calc(100% + var(--vyd-space-2)); left: 50%; transform: translateX(-50%);
+  white-space: nowrap; padding: var(--vyd-space-2) var(--vyd-space-3);
+  background: var(--vyd-neutral-0); color: var(--vyd-text-primary);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  border-radius: var(--vyd-radius-sm); font-size: var(--vyd-text-xs);
+  box-shadow: var(--vyd-shadow-md); opacity: 0; pointer-events: none;
+  z-index: var(--vyd-z-tooltip);
+  transition: opacity var(--vyd-duration-fast) var(--vyd-ease-standard);
+}
+.vyd-tooltip-wrap:hover > .vyd-tooltip,
+.vyd-tooltip-wrap:focus-within > .vyd-tooltip { opacity: 1; }
+
+/* ---- Toolbar / floating bar ---- */
+.vyd-toolbar {
+  display: inline-flex; align-items: center; gap: var(--vyd-space-2); padding: var(--vyd-space-2);
+  background: var(--vyd-bg-elevated);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  border-radius: var(--vyd-radius-md); box-shadow: var(--vyd-shadow-sm);
+}
+.vyd-toolbar__sep { width: 1px; align-self: stretch; background: var(--vyd-border-default); margin: 0 var(--vyd-space-1); }
