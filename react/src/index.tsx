@@ -22,6 +22,13 @@ export {
 export type { FieldProps } from './forms';
 
 export {
+  Alert, Toast, Toaster, Progress, Spinner, Skeleton, EmptyState, Badge, Tag,
+} from './feedback';
+export type {
+  AlertProps, FeedbackVariant, ProgressProps, EmptyStateProps, BadgeProps, TagProps,
+} from './feedback';
+
+export {
   AppShell,
   TopBar,
   TopBarBrand,

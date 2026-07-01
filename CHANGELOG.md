@@ -11,6 +11,21 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - —
 
+## [0.6.0] — 2026-07-01
+
+> **Fase 3 — Feedback & status** (roadmap). Componentes novos (sem mudança no contrato
+> de tokens `--vyd-*`): bump minor por feature. `verify` OK.
+
+### Adicionado
+
+- **Feedback (CSS `.vyd-*`)**: `alert` (+ `--success/--warning/--danger`, ícone, close),
+  `toaster`/`toast` (região viva, elevado), `progress` (determinado + `--indeterminate`),
+  `spinner` (+ `--sm/--lg`), `skeleton`, `empty`, `badge` (+ variantes, `--dot`),
+  `tag` (+ `--accent`, close). Animações respeitam `prefers-reduced-motion`.
+- **`@vyd/react`**: `Alert`, `Toast`, `Toaster`, `Progress`, `Spinner`, `Skeleton`,
+  `EmptyState`, `Badge`, `Tag`.
+- **[`docs/FEEDBACK.md`](docs/FEEDBACK.md)** + demo **`demo/feedback.html`**.
+
 ## [0.5.0] — 2026-07-01
 
 > **Fase 2 — Formulários** (roadmap). Componentes novos (sem mudança no contrato de
