@@ -31,7 +31,7 @@ jobs:
         run: npm run build
       - name: Verify (contrato --vyd-* + temas)
         run: npm run verify
-      - name: Typecheck (@vyd/react)
+      - name: Typecheck (vyd-react)
         run: npm run typecheck
       - name: Git limpo (artefatos gerados commitados)
         run: git diff --exit-code -- dist react/src/icons.generated.ts || (echo "::error::Artefatos gerados divergem do commit. Rode 'npm run build' e commite dist/ + react/src/icons.generated.ts." && exit 1)

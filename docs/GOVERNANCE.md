@@ -10,7 +10,7 @@ O pacote segue [SemVer](https://semver.org/lang/pt-BR/). A "API pública" do VYD
 1. **Nomes de variáveis `--vyd-*`** (o contrato do `build/verify.mjs`).
 2. **Nomes de classes `.vyd-*`** e sua estrutura de markup.
 3. **Chaves do preset Tailwind** e do objeto de tokens (`dist/tokens.*`).
-4. **API dos componentes `@vyd/react`** (nomes, props).
+4. **API dos componentes `vyd-react`** (nomes, props).
 5. **Dimensões/estrutura do app shell** (`shell.css`).
 
 | Bump | Quando | Exemplos |

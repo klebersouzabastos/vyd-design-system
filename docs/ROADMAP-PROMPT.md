@@ -28,7 +28,7 @@ personalidade e sem quebrar o contrato existente.
   (3–8px). Estado ativo = barra de acento azul 2px (padrão Autodesk).
 - Tema escuro é o padrão; claro via [data-vyd-theme="light"].
 - Consumido por: Lovable (Tailwind + React), Claude Code (CSS puro ou Tailwind) e
-  React via @vyd/react.
+  React via vyd-react.
 
 ## Estado atual do repo (LEIA antes de agir)
 - tokens/tokens.json (+ tokens.light.json) = fonte única (cor, tipografia, espaço,
@@ -41,7 +41,7 @@ personalidade e sem quebrar o contrato existente.
 - css/shell.css = app shell em ribbon (topbar, ribbon-tabs, ribbon, leftrail, canvas,
   rightpanel, statusbar). A ribbon é o padrão central — ver docs/RIBBON.md.
 - tailwind/ = preset. brand/ = logo + ícones. demo/ = brand-guide.html + index.html.
-  react/ = @vyd/react. docs/ = USAGE/BRAND/BRIEF/PUBLISH/RIBBON/ROADMAP.
+  react/ = vyd-react. docs/ = USAGE/BRAND/BRIEF/PUBLISH/RIBBON/ROADMAP.
 - Versão atual: ver package.json. Governança SemVer.
 
 ## Regras inegociáveis
@@ -56,7 +56,7 @@ personalidade e sem quebrar o contrato existente.
 5. Acessibilidade AA: contraste WCAG AA, teclado, ARIA correto, :focus-visible com
    anel, respeitar prefers-reduced-motion.
 6. Multi-framework por componente: classe .vyd-* (em css/) + mapeamento no preset
-   Tailwind quando fizer sentido + wrapper em @vyd/react + doc em docs/.
+   Tailwind quando fizer sentido + wrapper em vyd-react + doc em docs/.
 7. Preserve a personalidade densa/técnica. Sem "cara de IA".
 8. Trabalho incremental e verificado: uma fatia coerente por vez, main sempre verde e
    em sincronia com o GitHub (commit + merge). Componente visual → gere preview
@@ -68,7 +68,7 @@ personalidade e sem quebrar o contrato existente.
    lacunas + roadmap priorizado em docs/ROADMAP.md (fases, dependências, esforço). Não
    implemente ainda — mostre o roadmap.
 2. Por fatia (após aprovação): tokens (se preciso) → classe(s) .vyd-* → preset Tailwind
-   → componente @vyd/react → doc em docs/ (anatomia, estados, tokens usados, exemplos
+   → componente vyd-react → doc em docs/ (anatomia, estados, tokens usados, exemplos
    em CSS/Tailwind/React, do/don't) → entrada no demo/brand-guide.html → build+verify →
    bump/CHANGELOG → merge na main.
 3. Cada componente cobre o modelo de estados: default, hover, active, focus, disabled,
@@ -106,7 +106,7 @@ render, regressão visual) · distribuição (npm/GitHub, tags) · política de 
 ## Critérios de aceite (por fatia)
 - npm run verify passa; npm run build idempotente; dark E light definidos.
 - Contraste AA; teclado + ARIA + foco visível ok.
-- Componente nos 3 caminhos (CSS .vyd-*, Tailwind, @vyd/react) e documentado nos três.
+- Componente nos 3 caminhos (CSS .vyd-*, Tailwind, vyd-react) e documentado nos três.
 - demo/brand-guide.html atualizado; CHANGELOG.md + versão SemVer bumpados.
 - main verde e sincronizada com o GitHub; preview renderizado apresentado.
 

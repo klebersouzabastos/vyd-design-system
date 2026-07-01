@@ -1,13 +1,24 @@
-# @vyd/react
+# vyd-react
 
 Componentes React (wrappers finos) sobre o **VYD Design System**. Não inventam
 estilo: cada componente apenas aplica as classes `.vyd-*` que vivem em
 `vyd-design-system`. Assim o React consome a **mesma** fonte de verdade que os
 apps em CSS puro / Tailwind — sem tokens paralelos.
 
+## Instalação
+
+```bash
+npm install vyd-react vyd-design-system
+```
+
+Peers: `react`, `react-dom`, `vyd-design-system`. Distribuído compilado (JS ESM +
+tipos `.d.ts`), com `'use client'` preservado nos componentes interativos → funciona
+em **Next.js (App Router)** e **Vite**.
+
 ## Pré-requisito
 
-O app precisa importar o CSS do design system **uma vez** no root:
+O app precisa importar o CSS do design system **uma vez** no root (o `vyd-react`
+**não** importa CSS — ele só aplica as classes):
 
 ```ts
 import 'vyd-design-system/theme.css';   // tokens + primitivas (.vyd-btn, .vyd-input…)
@@ -17,7 +28,7 @@ import 'vyd-design-system/shell.css';    // layout do app shell (opt-in)
 ## Primitivas
 
 ```tsx
-import { Button, Input, Card, Mono, CubeMark } from '@vyd/react';
+import { Button, Input, Card, Mono, CubeMark } from 'vyd-react';
 
 <CubeMark size={32} variant="positive" />      {/* símbolo oficial */}
 <Button>Salvar</Button>
@@ -39,7 +50,7 @@ import {
   Ribbon, RibbonGroup, RibbonItem, LeftRail, RailSectionLabel, RailItem,
   Canvas, RightPanel, PanelSectionLabel, Prop, StatusBar, StatusBarSpacer,
   Button, Mono,
-} from '@vyd/react';
+} from 'vyd-react';
 
 <AppShell railCollapsed={collapsed}>
   <TopBar>

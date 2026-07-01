@@ -15,7 +15,14 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
   O escopo `@vyd` já estava registrado por outra conta no npm. Como o pacote ainda
   **não** havia sido publicado, a renomeação não afeta nenhum consumidor. Imports
   passam a ser `vyd-design-system/theme.css`, `vyd-design-system/tailwind` etc.
-  (O pacote interno de dev `@vyd/react` — privado, não publicado — permanece.)
+
+### Distribuição
+
+- **`vyd-react` publicável** (era `@vyd/react`, privado/dev-only). Agora é um pacote
+  próprio no npm: `npm install vyd-react`. Compilado com `tsc` (JS ESM + `.d.ts`,
+  diretiva `'use client'` preservada); publicado pelo CI (`release.yml`) junto do
+  `vyd-design-system`. Peers: `react`, `react-dom`, `vyd-design-system` (o app importa
+  o `theme.css` uma vez). Versão inicial **1.0.0**.
 
 ## [1.0.0] — 2026-07-01
 
@@ -47,7 +54,7 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - `verify` agora também confere o bloco `high-contrast` e a auto-aplicação
   `prefers-contrast: more`.
-- `npm test` passou a incluir `typecheck` do `@vyd/react`.
+- `npm test` passou a incluir `typecheck` do `vyd-react`.
 
 ### Distribuição
 
@@ -65,7 +72,7 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 - **Tokens de data-viz**: `color.viz.cat.1–6` (`--vyd-viz-1..6`, categórica sóbria
   sem roxo) e `color.viz.seq.1–5` (`--vyd-viz-seq-1..5`, tints blueprint). Nos nomes
   (`build/lib.mjs`), no objeto JS e no preset Tailwind (`viz-1..6`, `viz-seq-1..5`).
-- **Gráficos (`@vyd/react`, SVG/CSS sem dependência)**: `BarChart`, `LineChart`,
+- **Gráficos (`vyd-react`, SVG/CSS sem dependência)**: `BarChart`, `LineChart`,
   `Sparkline`, `Gauge`, `Legend` e o helper `vizColor(i)`.
 - **CSS**: `.vyd-legend`, `.vyd-barchart`, helpers `.vyd-chart*`.
 - **[`docs/DATAVIZ.md`](docs/DATAVIZ.md)** + demo **`demo/dataviz.html`**.
@@ -81,7 +88,7 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
   `pagination` (`page`, `__ellipsis`), `steps`/`step` (`--done/--current`, `__marker/
   __label`, `__line`), `cmdk` (command palette: `-backdrop`, `__search/__input/__list/
   __item/__empty`), `kbd`.
-- **`@vyd/react`**: `Tabs`, `Tab`, `Breadcrumbs`, `Pagination`, `Steps`, `Kbd` (presentacionais)
+- **`vyd-react`**: `Tabs`, `Tab`, `Breadcrumbs`, `Pagination`, `Steps`, `Kbd` (presentacionais)
   e **`CommandPalette`** (client: busca + teclado ↑/↓/Enter/Esc + clique-fora).
 - **[`docs/NAV.md`](docs/NAV.md)** + demo **`demo/nav.html`**.
 
@@ -96,7 +103,7 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
   `.vyd-num`, `__sort` com `aria-sort`, linha `aria-selected`), `list` (`__item/__icon/
   __body/__title/__sub/__trailing`), `tree` (`__item/__toggle/__icon`, `aria-expanded`),
   `stat` (`__label/__value/__delta --up/--down`), `kv` (key-value).
-- **`@vyd/react`**: `TableWrap`, `Table`, `Thead`, `Tbody`, `Tr`, `Th` (sortable/numeric),
+- **`vyd-react`**: `TableWrap`, `Table`, `Thead`, `Tbody`, `Tr`, `Th` (sortable/numeric),
   `Td`, `List`, `ListItem`, `Tree`, `TreeItem`, `Stat`, `KeyValue`, `KV`.
 - **[`docs/DATA.md`](docs/DATA.md)** + demo **`demo/data.html`**.
 
@@ -111,7 +118,7 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
   `drawer` (`--right/--left/--bottom`), `menu` (`__item --danger/[disabled]`, `__sep`,
   `__label`), `popover`, `tooltip` (CSS hover/focus), `toolbar` (+ `__sep`).
   Camadas por `--vyd-z-*`, elevação por `--vyd-shadow-lg/md`.
-- **`@vyd/react`** (client components): `Dialog`, `Drawer` (open/onClose via `<dialog>`),
+- **`vyd-react`** (client components): `Dialog`, `Drawer` (open/onClose via `<dialog>`),
   `Menu`/`MenuItem`/`MenuSeparator`/`MenuLabel` e `Popover` (abrem no clique, fecham por
   clique-fora/ESC, reposicionam em scroll/resize), `Tooltip`, `Toolbar`/`ToolbarSeparator`.
 - **[`docs/OVERLAYS.md`](docs/OVERLAYS.md)** + demo **`demo/overlays.html`**.
@@ -127,7 +134,7 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
   `toaster`/`toast` (região viva, elevado), `progress` (determinado + `--indeterminate`),
   `spinner` (+ `--sm/--lg`), `skeleton`, `empty`, `badge` (+ variantes, `--dot`),
   `tag` (+ `--accent`, close). Animações respeitam `prefers-reduced-motion`.
-- **`@vyd/react`**: `Alert`, `Toast`, `Toaster`, `Progress`, `Spinner`, `Skeleton`,
+- **`vyd-react`**: `Alert`, `Toast`, `Toaster`, `Progress`, `Spinner`, `Skeleton`,
   `EmptyState`, `Badge`, `Tag`.
 - **[`docs/FEEDBACK.md`](docs/FEEDBACK.md)** + demo **`demo/feedback.html`**.
 
@@ -143,7 +150,7 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
   `.vyd-radio`, `.vyd-switch`, `.vyd-range`, `.vyd-input-group` (ícone + input),
   `.vyd-choice` (rótulo inline). Estados: hover/focus/disabled/**erro** (`aria-invalid`)/
   **read-only**/checked, todos por token.
-- **`@vyd/react`**: `Field`, `Textarea`, `Select`, `Checkbox`, `Radio`, `Switch`,
+- **`vyd-react`**: `Field`, `Textarea`, `Select`, `Checkbox`, `Radio`, `Switch`,
   `Range`, `Choice`, `InputGroup`, `SearchInput`.
 - **[`docs/FORMS.md`](docs/FORMS.md)** + demo **`demo/forms.html`** (todos os controles
   e estados).
@@ -159,7 +166,7 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
   1.6, `currentColor`). Pipeline `build/build-icons.mjs` (`npm run build:icons`, e no
   `npm run build`) gera `dist/icons.svg` (sprite), `dist/icons.mjs/.js/.d.ts` (mapa +
   `IconName`) e `react/src/icons.generated.ts`.
-- **`@vyd/react`**: componente `<Icon name size title>` (inline, tipado) + `icons`/`ICON_NAMES`.
+- **`vyd-react`**: componente `<Icon name size title>` (inline, tipado) + `icons`/`ICON_NAMES`.
 - **CSS**: classe `.vyd-icon` (+ `--sm/--lg`) dimensionada pelos tokens de ícone.
 - **Ribbon**: glyph placeholder substituído por ícones reais (`.vyd-ribbon-item .glyph`
   virou slot de ícone sem borda). `demo/index.html` com sprite inline + ícones.
@@ -184,7 +191,7 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 - **Densidade em runtime**: `[data-vyd-density="comfortable"|"compact"]` via
   `--vyd-control-h`. `.vyd-btn` e `.vyd-input` passam a usar a altura de controle
   tokenizada, com modificadores `--sm`/`--lg`.
-- **`@vyd/react`**: `Button`/`Input` ganham prop `size`; novo componente `Text`
+- **`vyd-react`**: `Button`/`Input` ganham prop `size`; novo componente `Text`
   (variantes de role).
 - **[`docs/FOUNDATIONS.md`](docs/FOUNDATIONS.md)**: z-index, opacidade, sizing,
   densidade, elevação, breakpoints, roles de texto, foco/a11y.
@@ -205,7 +212,7 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
   (ativa = sublinhado de acento 2px via `aria-selected`). O grid do `.vyd-app` ganhou
   uma track `auto` que **colapsa quando não há abas** (não quebra shells existentes).
 - Tile de comando com **altura uniforme tokenizada** (`.vyd-ribbon .vyd-ribbon-item`).
-- **`@vyd/react`**: componentes `RibbonTabs` e `RibbonTab`.
+- **`vyd-react`**: componentes `RibbonTabs` e `RibbonTab`.
 - **[`docs/RIBBON.md`](docs/RIBBON.md)**: documentação de primeira classe da ribbon
   (anatomia, dimensões, estados, exemplo canônico em CSS/Tailwind/React, regras).
 - Abas adicionadas ao `demo/index.html`.
@@ -218,7 +225,7 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
   (`.vyd-btn`, `.vyd-input`, `.vyd-card`, `.vyd-ribbon-item`) e a seção 06 embute o
   app shell (`index.html`) via iframe. Reúne num só documento o guia visual (padrão
   Claude Design) e o app shell (padrão Autodesk). Estático, sem build.
-- **`@vyd/react`** (`react/`): componentes React — wrappers finos sobre as classes
+- **`vyd-react`** (`react/`): componentes React — wrappers finos sobre as classes
   `.vyd-*`, sem estilo próprio. Primitivas (`Button`, `Input`, `Card`, `Mono`,
   `CubeMark`) e o app shell completo (`AppShell`, `TopBar`, `Ribbon`, `RibbonItem`,
   `LeftRail`, `Canvas`, `RightPanel`, `Prop`, `StatusBar`, …). Distribuído como
@@ -235,7 +242,7 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
   - **ícones** `brand/icons/` — `favicon.svg` reescrito no wireframe (arestas 2 / 1.2
     para legibilidade ≤16px) e **todos os PNG/ICO regenerados** (`npm run icons`);
   - brand inline de `demo/index.html` e o cubo de `demo/app-shell-preview.svg`;
-  - o componente `CubeMark` de `@vyd/react`.
+  - o componente `CubeMark` de `vyd-react`.
 
 ## [0.1.0] — 2026-06-29
 

@@ -1,4 +1,4 @@
-// @vyd/react — thin React components over the VYD Design System.
+// vyd-react — thin React components over the VYD Design System.
 //
 // These apply the design system's `.vyd-*` classes; the consuming app must
 // import the stylesheet(s) once at its root:

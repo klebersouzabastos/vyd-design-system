@@ -56,11 +56,11 @@ Escolha inline:
 <label class="vyd-choice"><input type="checkbox" class="vyd-switch" role="switch"> Sincronizar</label>
 ```
 
-## Em React (`@vyd/react`)
+## Em React (`vyd-react`)
 
 ```tsx
 import { Field, Input, Select, Textarea, Checkbox, Radio, Switch, Range,
-         Choice, SearchInput } from "@vyd/react";
+         Choice, SearchInput } from "vyd-react";
 
 <Field label="Código da obra" required help="Formato VYD-XXX-0000.">
   <Input className="vyd-mono" defaultValue="VYD-OBR-0421" />

@@ -60,11 +60,11 @@ tabular). Linha selecionada: `aria-selected="true"`. Ordenável: botão
 </div>
 ```
 
-## Em React (`@vyd/react`)
+## Em React (`vyd-react`)
 
 ```tsx
 import { TableWrap, Table, Thead, Tbody, Tr, Th, Td, Badge,
-         List, ListItem, Tree, TreeItem, Stat, KeyValue, KV } from "@vyd/react";
+         List, ListItem, Tree, TreeItem, Stat, KeyValue, KV } from "vyd-react";
 
 <TableWrap style={{ maxHeight: 320 }}>
   <Table zebra>

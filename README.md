@@ -35,7 +35,7 @@ brand/         Logo (positiva/negativa/mono) + icons/ (favicon, PWA)
 demo/          brand-guide.html (guia visual completo) + index.html (app shell) + preview
 icons/         Ícones-fonte (SVG 24×24, currentColor) — geram dist/icons.*
 docs/          USAGE · INTEGRATION · FOUNDATIONS · ICONS · FORMS · FEEDBACK · OVERLAYS · DATA · NAV · DATAVIZ · RIBBON · I18N · TESTING · GOVERNANCE · BRAND · BRIEF · PUBLISH · ROADMAP · ROADMAP-PROMPT
-react/         @vyd/react — componentes React (wrappers sobre .vyd-*)
+react/         vyd-react — componentes React (wrappers sobre .vyd-*)
 ```
 
 ## Ver o guia (sem instalar nada)
@@ -58,7 +58,7 @@ editar só este repo. Detalhes e snippets em **[docs/USAGE.md](docs/USAGE.md)**.
 npm install
 npm run build      # regenera dist/ a partir de tokens/tokens.json
 npm run verify     # confere que o contrato --vyd-* não quebrou
-npm run typecheck  # tipos do @vyd/react (strict)
+npm run typecheck  # tipos do vyd-react (strict)
 npm test           # build + verify + typecheck  (gate determinístico do CI)
 ```
 
@@ -88,12 +88,12 @@ module.exports = { presets: [vyd], content: ["./src/**/*.{js,jsx,ts,tsx,html}"] 
 <button class="bg-action-primary text-on-accent rounded-md px-5 py-3">Salvar</button>
 ```
 
-**React** — importe o CSS uma vez e use os componentes de `@vyd/react` (wrappers
+**React** — importe o CSS uma vez e use os componentes de `vyd-react` (wrappers
 finos sobre as mesmas classes `.vyd-*`):
 
 ```tsx
 import "vyd-design-system/theme.css";
-import { Button, Mono } from "@vyd/react";
+import { Button, Mono } from "vyd-react";
 
 <Button onClick={save}>Salvar</Button>
 <Button variant="ghost">Cancelar</Button>

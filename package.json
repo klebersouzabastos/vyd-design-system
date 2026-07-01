@@ -8,7 +8,7 @@
   "workspaces": [
     "react"
   ],
-  "//workspaces": "react/ (@vyd/react) é dev-only; NÃO entra em 'files', logo não é publicado com o pacote.",
+  "//workspaces": "react/ (vyd-react) é publicado como pacote PRÓPRIO; NÃO entra no 'files' deste pacote. Build/publish via .github/workflows/release.yml.",
   "main": "dist/tokens.js",
   "module": "dist/tokens.mjs",
   "types": "dist/tokens.d.ts",
@@ -52,7 +52,7 @@
     "verify": "node build/verify.mjs",
     "icons": "python3 build/make-icons.py",
     "prebuild": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
-    "typecheck": "npm --workspace @vyd/react run typecheck",
+    "typecheck": "npm --workspace vyd-react run typecheck",
     "test": "npm run build && npm run verify && npm run typecheck",
     "test:visual": "playwright test",
     "test:visual:update": "playwright test --update-snapshots"

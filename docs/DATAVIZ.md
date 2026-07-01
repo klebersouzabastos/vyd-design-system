@@ -31,10 +31,10 @@ cor categórica ciclando (`var(--vyd-viz-…)`).
 </div>
 ```
 
-## Em React (`@vyd/react`) — gráficos SVG sem dependência
+## Em React (`vyd-react`) — gráficos SVG sem dependência
 
 ```tsx
-import { BarChart, LineChart, Sparkline, Gauge, Legend, vizColor } from "@vyd/react";
+import { BarChart, LineChart, Sparkline, Gauge, Legend, vizColor } from "vyd-react";
 
 <BarChart height={180} showValues data={[
   { label: 'P-12', value: 318 }, { label: 'F-B', value: 612 },

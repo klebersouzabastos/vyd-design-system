@@ -42,12 +42,12 @@ Adicionado na **v0.9.0**. Importe `vyd-design-system/theme.css`.
 
 Superfície: `.vyd-cmdk-backdrop` > `.vyd-cmdk` > `__search` (`__input`) + `__list`
 (`__item[aria-selected]`, `__empty`). O comportamento (busca/teclado) fica com o app —
-ou use o `@vyd/react` abaixo.
+ou use o `vyd-react` abaixo.
 
-## Em React (`@vyd/react`)
+## Em React (`vyd-react`)
 
 ```tsx
-import { Tabs, Tab, Breadcrumbs, Pagination, Steps, Kbd, CommandPalette } from "@vyd/react";
+import { Tabs, Tab, Breadcrumbs, Pagination, Steps, Kbd, CommandPalette } from "vyd-react";
 
 // Tabs (controlado)
 <Tabs>

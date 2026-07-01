@@ -51,10 +51,10 @@ Animações respeitam `prefers-reduced-motion` (spinner desacelera; skeleton/ind
 <span class="vyd-tag">concreto <button class="vyd-tag__close">…</button></span>  <!-- --accent -->
 ```
 
-## Em React (`@vyd/react`)
+## Em React (`vyd-react`)
 
 ```tsx
-import { Alert, Toaster, Toast, Progress, Spinner, Skeleton, EmptyState, Badge, Tag } from "@vyd/react";
+import { Alert, Toaster, Toast, Progress, Spinner, Skeleton, EmptyState, Badge, Tag } from "vyd-react";
 
 <Alert variant="warning" title="2 colisões detectadas" onClose={dismiss}>
   Revise os pilares P-12 e P-14.
