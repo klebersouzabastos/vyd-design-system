@@ -34,7 +34,6 @@ brand/         Logo (positiva/negativa/mono) + icons/ (favicon, PWA)
 demo/          brand-guide.html (guia visual completo) + index.html (app shell) + preview
 docs/          USAGE · BRAND · BRIEF · PUBLISH
 react/         @vyd/react — componentes React (wrappers sobre .vyd-*)
-examples/      Apps de exemplo consumindo o sistema (react-vite, nextjs)
 ```
 
 ## Ver o guia (sem instalar nada)
@@ -94,8 +93,7 @@ import { Button, Mono } from "@vyd/react";
 <Mono>VYD-OBR-0421</Mono>;
 ```
 
-Apps de exemplo prontos (app shell completo) em **`examples/react-vite`** e
-**`examples/nextjs`**. Detalhes em **[react/README.md](react/README.md)**.
+Detalhes e o app shell completo em React em **[react/README.md](react/README.md)**.
 
 Passo a passo completo (incluindo uso programático em JS/TS) em
 **[docs/USAGE.md](docs/USAGE.md)**.

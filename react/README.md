@@ -78,4 +78,4 @@ import {
 </AppShell>
 ```
 
-Exemplos completos rodando em `examples/react-vite` e `examples/nextjs`.
+O app shell montado (referência) está em `demo/index.html`.
