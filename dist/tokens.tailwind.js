@@ -62,6 +62,8 @@ module.exports = {
         "9": "var(--vyd-space-9)",
         "topbar-h": "var(--vyd-layout-topbar-h)",
         "ribbon-h": "var(--vyd-layout-ribbon-h)",
+        "ribbon-tabs-h": "var(--vyd-layout-ribbon-tabs-h)",
+        "ribbon-command-h": "var(--vyd-layout-ribbon-command-h)",
         "leftrail-w": "var(--vyd-layout-leftrail-w)",
         "leftrail-w-min": "var(--vyd-layout-leftrail-w-min)",
         "rightpanel-w": "var(--vyd-layout-rightpanel-w)",

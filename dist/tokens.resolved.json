@@ -84,6 +84,8 @@
   "vyd-shadow-focus": "0 0 0 2px #1E5FC4",
   "vyd-layout-topbar-h": "44px",
   "vyd-layout-ribbon-h": "88px",
+  "vyd-layout-ribbon-tabs-h": "34px",
+  "vyd-layout-ribbon-command-h": "48px",
   "vyd-layout-leftrail-w": "240px",
   "vyd-layout-leftrail-w-min": "48px",
   "vyd-layout-rightpanel-w": "300px",

@@ -107,7 +107,8 @@ A casca é constante, o recheio muda. Dimensões fixas em TODA ferramenta
 ┌──────────────────────────────────────────────────────────┐
 │ TOP BAR 44px — logo VYD + switcher de ferramenta + conta   │ ← idêntico
 ├──────────────────────────────────────────────────────────┤
-│ RIBBON 88px — comandos agrupados (muda só o conteúdo)      │ ← estrutura fixa
+│ RIBBON TABS 34px — Início · Modelagem · Documentos …       │ ← abas (opcional)
+│ RIBBON 88px — comandos agrupados em tiles (muda o conteúdo) │ ← estrutura fixa
 ├────────┬────────────────────────────────────┬─────────────┤
 │ LEFT   │                                     │  RIGHT      │
 │ RAIL   │         CANVAS (a ferramenta)       │  PANEL      │
@@ -124,9 +125,12 @@ Implementação pronta em `css/shell.css` (layout opt-in). Importe depois do the
 @import "@vyd/design-system/shell.css";
 ```
 
-Estrutura: `.vyd-app` › `.vyd-topbar` · `.vyd-ribbon` · `.vyd-leftrail` · `.vyd-canvas` ·
-`.vyd-rightpanel` · `.vyd-statusbar` (modificador `.vyd-app--rail-collapsed`).
-Exemplo montado em `demo/index.html`; preview em `demo/app-shell-preview.svg`.
+Estrutura: `.vyd-app` › `.vyd-topbar` · `.vyd-ribbon-tabs` · `.vyd-ribbon` ·
+`.vyd-leftrail` · `.vyd-canvas` · `.vyd-rightpanel` · `.vyd-statusbar` (modificador
+`.vyd-app--rail-collapsed`). Exemplo montado em `demo/index.html`.
+
+**A ribbon (navegação por comandos) é o padrão central** — anatomia, dimensões,
+estados e exemplos em **[docs/RIBBON.md](docs/RIBBON.md)**.
 
 ## Governança / versionamento
 

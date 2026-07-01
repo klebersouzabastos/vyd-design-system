@@ -68,6 +68,28 @@ export function Avatar({ children, title }: { children: ReactNode; title?: strin
   );
 }
 
+/* ---- Ribbon tabs (optional strip above the command groups) ---- */
+export function RibbonTabs({ className, children, ...rest }: HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div className={cx('vyd-ribbon-tabs', className)} role="tablist" {...rest}>
+      {children}
+    </div>
+  );
+}
+
+/** A ribbon tab. Active state = accent underline via aria-selected. */
+export function RibbonTab({
+  selected = false,
+  children,
+  ...rest
+}: HTMLAttributes<HTMLSpanElement> & { selected?: boolean }) {
+  return (
+    <span className="vyd-ribbon-tab" role="tab" tabIndex={0} aria-selected={selected} {...rest}>
+      {children}
+    </span>
+  );
+}
+
 /* ---- Ribbon ---- */
 export function Ribbon({ className, children, ...rest }: HTMLAttributes<HTMLElement>) {
   return (
