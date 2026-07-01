@@ -50,3 +50,48 @@ jobs:
             --target "$GITHUB_SHA" \
             --notes-file -
           echo "Release $TAG criada."
+
+  npm-publish:
+    name: publicar no npm (se houver NPM_TOKEN)
+    needs: tag-and-release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Só publica se o secret NPM_TOKEN estiver configurado no repositório.
+      # Sem token → o job termina como no-op (não falha). Ver docs/PUBLISH.md.
+      - name: Checar se há NPM_TOKEN
+        id: gate
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "$NPM_TOKEN" ]; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "Sem secret NPM_TOKEN — pulando publicação no npm."
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.publish == 'true'
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Instalar + build
+        if: steps.gate.outputs.publish == 'true'
+        run: npm install && npm run build
+
+      - name: Publicar se a versão ainda não estiver no npm
+        if: steps.gate.outputs.publish == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "$NAME@$VERSION" version >/dev/null 2>&1; then
+            echo "$NAME@$VERSION já está publicado — nada a fazer."
+          else
+            npm publish --access public
+            echo "Publicado $NAME@$VERSION no npm."
+          fi

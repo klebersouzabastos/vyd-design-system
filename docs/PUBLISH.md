@@ -41,17 +41,36 @@ A tag aparece sozinha em segundos.
 Desde a 1.0.0 o pacote **não** tem mais `"private": true`, então `npm publish`
 funciona. Escopo `@vyd` exige uma org no npm.
 
+### Automático (recomendado) — via GitHub Actions
+
+O job `npm-publish` em `.github/workflows/release.yml` publica **sozinho** a cada
+release, **se** o secret `NPM_TOKEN` estiver configurado no repositório. Sem o
+secret, o job é no-op (não falha). É idempotente: se a versão já está no npm, pula.
+
+Configuração **uma única vez**:
+
+1. Crie uma conta npm: <https://www.npmjs.com/signup> (confirme o e-mail).
+2. Crie a org **`vyd`** (o pacote é `@vyd/…`): <https://www.npmjs.com/org/create>
+   → nome `vyd`, plano **Free** (pacotes públicos).
+3. Gere um token de automação:
+   <https://www.npmjs.com/settings/~/tokens> → **Generate New Token** →
+   **Classic Token** → tipo **Automation** (funciona no CI mesmo com 2FA).
+4. Cole o token nos secrets do repo (nome exato **`NPM_TOKEN`**):
+   <https://github.com/klebersouzabastos/vyd-design-system/settings/secrets/actions>
+   → **New repository secret**.
+
+Pronto: a próxima release publica no npm automaticamente. Nada de rodar comando.
+
+### Manual (alternativa)
+
 ```bash
 npm login                         # conta com acesso à org @vyd
-npm publish --access public       # respeita 'files' (dist, css, tokens, icons, build, brand, demo)
+npm pack --dry-run                # confere o que iria pro npm (allowlist 'files')
+npm publish --access public
 ```
 
 O que é publicado é controlado pelo allowlist `files` do `package.json` — `react/`,
-`test/`, `.github/` e configs de dev **não** entram no tarball. Confira antes com:
-
-```bash
-npm pack --dry-run                # lista exatamente o que iria pro npm
-```
+`test/`, `.github/` e configs de dev **não** entram no tarball.
 
 > Alternativa sem npm: apps podem consumir direto do GitHub, fixando a tag:
 > ```bash
