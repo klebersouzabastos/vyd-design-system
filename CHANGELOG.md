@@ -11,6 +11,21 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - —
 
+## [0.9.0] — 2026-07-01
+
+> **Fase 6 — Navegação extra** (roadmap). Componentes novos (sem mudança no contrato
+> de tokens `--vyd-*`): bump minor por feature. `verify` OK.
+
+### Adicionado
+
+- **Navegação (CSS `.vyd-*`)**: `tabs`/`tab` (standalone), `breadcrumbs` (+ `__sep`),
+  `pagination` (`page`, `__ellipsis`), `steps`/`step` (`--done/--current`, `__marker/
+  __label`, `__line`), `cmdk` (command palette: `-backdrop`, `__search/__input/__list/
+  __item/__empty`), `kbd`.
+- **`@vyd/react`**: `Tabs`, `Tab`, `Breadcrumbs`, `Pagination`, `Steps`, `Kbd` (presentacionais)
+  e **`CommandPalette`** (client: busca + teclado ↑/↓/Enter/Esc + clique-fora).
+- **[`docs/NAV.md`](docs/NAV.md)** + demo **`demo/nav.html`**.
+
 ## [0.8.0] — 2026-07-01
 
 > **Fase 5 — Dados densos** (roadmap). Componentes novos (sem mudança no contrato de

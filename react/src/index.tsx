@@ -38,6 +38,11 @@ export {
 } from './data';
 export type { ThProps, SortDir, ListItemProps, TreeItemProps, StatProps } from './data';
 
+export { Tabs, Tab, Breadcrumbs, Pagination, Steps, Kbd } from './nav';
+export type { TabProps, Crumb } from './nav';
+export { CommandPalette } from './command';
+export type { Command, CommandPaletteProps } from './command';
+
 export {
   AppShell,
   TopBar,
