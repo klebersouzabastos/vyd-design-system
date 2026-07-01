@@ -5,6 +5,17 @@ O repositório já existe em
 (estável). Este doc é o processo de **cortar uma release** e, opcionalmente,
 **publicar no npm**. Regras de versão/depreciação: [GOVERNANCE.md](GOVERNANCE.md).
 
+## Tag & release — automáticos
+
+`.github/workflows/release.yml` roda a cada push na `main`: lê a versão do
+`package.json` e, se a tag `vX.Y.Z` ainda não existir, **cria a tag e a GitHub
+Release** (com as notas extraídas do `CHANGELOG.md`). Roda no runner do GitHub, que
+tem permissão de escrita — por isso funciona mesmo quando o ambiente de dev não
+consegue dar `git push` de tags. É idempotente: tag existente = no-op.
+
+Ou seja: para lançar, **basta subir o bump de versão para a `main`** (passo abaixo).
+A tag aparece sozinha em segundos.
+
 ## Cortar uma release
 
 1. Garanta o gate verde e o `dist/` regenerado:

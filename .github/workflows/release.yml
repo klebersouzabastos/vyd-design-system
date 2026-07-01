@@ -1,0 +1,52 @@
+name: Release
+
+# Cria a tag `vX.Y.Z` e a GitHub Release correspondente à versão do package.json
+# sempre que ela ainda não existir. Roda no runner do GitHub (não passa pelo proxy
+# de git local), então consegue publicar refs/tags que o ambiente de dev não consegue.
+# Idempotente: se a tag já existe, não faz nada.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  tag-and-release:
+    name: tag + release (se faltando)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Ler versão do package.json
+        id: v
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Criar tag + release se ainda não existir
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.v.outputs.version }}
+        run: |
+          TAG="v$VERSION"
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG já existe no remoto — nada a fazer."
+            exit 0
+          fi
+
+          # Extrai a seção do CHANGELOG para esta versão (entre '## [X.Y.Z]' e o próximo '## [').
+          NOTES=$(awk -v ver="[$VERSION]" '
+            $0 ~ "^## " && index($0, ver) { grab=1; next }
+            grab && /^## \[/ { exit }
+            grab { print }
+          ' CHANGELOG.md)
+          [ -z "$NOTES" ] && NOTES="Release $TAG. Ver CHANGELOG.md."
+
+          # gh release create cria a TAG (em $GITHUB_SHA) e a Release de uma vez.
+          printf '%s\n' "$NOTES" | gh release create "$TAG" \
+            --title "$TAG" \
+            --target "$GITHUB_SHA" \
+            --notes-file -
+          echo "Release $TAG criada."
