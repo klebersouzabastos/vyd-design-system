@@ -36,7 +36,7 @@ Importe o CSS gerado uma vez no root do app e use as variáveis `--vyd-*`.
 
 ```css
 /* no CSS global do app */
-@import "@vyd/design-system/theme.css";
+@import "vyd-design-system/theme.css";
 ```
 
 ```html
@@ -58,7 +58,7 @@ Usando as variáveis e as primitivas:
 ```
 
 Se preferir só as variáveis (sem as classes de componente), importe
-`@vyd/design-system/variables.css`.
+`vyd-design-system/variables.css`.
 
 ---
 
@@ -68,14 +68,14 @@ Se preferir só as variáveis (sem as classes de componente), importe
 
 ```css
 /* global.css */
-@import "@vyd/design-system/theme.css";
+@import "vyd-design-system/theme.css";
 ```
 
 2. Estenda o preset no `tailwind.config.js` (cole exatamente):
 
 ```js
 // tailwind.config.js
-const vyd = require("@vyd/design-system/tailwind");
+const vyd = require("vyd-design-system/tailwind");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -114,7 +114,7 @@ Espaçamentos: `1`–`9` (grid 4px) e dimensões do app shell `topbar-h`, `ribbo
 ## Uso programático (JS/TS)
 
 ```ts
-import vyd from "@vyd/design-system";
+import vyd from "vyd-design-system";
 
 element.style.background = vyd.color.bg.panel;   // "var(--vyd-bg-panel)"
 element.style.color = vyd.color.text.primary;     // "var(--vyd-text-primary)"

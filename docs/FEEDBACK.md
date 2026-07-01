@@ -2,7 +2,7 @@
 
 Comunicação de estado: alerts, toasts, progresso, carregamento e rótulos de status.
 Cores dos tokens de feedback (`success/warning/danger/info`). Adicionado na **v0.6.0**.
-Importe `@vyd/design-system/theme.css`.
+Importe `vyd-design-system/theme.css`.
 
 ## Alert / banner (`.vyd-alert`)
 

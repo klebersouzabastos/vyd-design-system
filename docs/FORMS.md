@@ -2,7 +2,7 @@
 
 Controles de formulário densos, sobre tokens semânticos, com todos os estados
 (default / hover / focus / disabled / erro / read-only / checked). Adicionado na
-**v0.5.0**. Importe `@vyd/design-system/theme.css` (já inclui as classes).
+**v0.5.0**. Importe `vyd-design-system/theme.css` (já inclui as classes).
 
 ## Field (composição)
 

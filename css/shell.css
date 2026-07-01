@@ -5,8 +5,8 @@
    --vyd-layout-* e apenas tokens semânticos.
 
    Opt-in: importe depois de theme.css.
-     @import "@vyd/design-system/theme.css";
-     @import "@vyd/design-system/shell.css";
+     @import "vyd-design-system/theme.css";
+     @import "vyd-design-system/shell.css";
 
    Estrutura:
      .vyd-app

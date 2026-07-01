@@ -81,7 +81,7 @@ com `npm version <patch|minor|major>` (que cria a tag) — ver [PUBLISH.md](PUBL
 
 - Suporte ativo: **último MAJOR**. Correções críticas podem ser backportadas para o
   MAJOR anterior por um período curto de transição.
-- Apps devem **fixar a versão** (`"@vyd/design-system": "1.x"`) e subir MAJOR de forma
+- Apps devem **fixar a versão** (`"vyd-design-system": "1.x"`) e subir MAJOR de forma
   deliberada, lendo o CHANGELOG.
 
 ## Papéis

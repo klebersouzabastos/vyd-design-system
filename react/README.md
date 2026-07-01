@@ -2,7 +2,7 @@
 
 Componentes React (wrappers finos) sobre o **VYD Design System**. Não inventam
 estilo: cada componente apenas aplica as classes `.vyd-*` que vivem em
-`@vyd/design-system`. Assim o React consome a **mesma** fonte de verdade que os
+`vyd-design-system`. Assim o React consome a **mesma** fonte de verdade que os
 apps em CSS puro / Tailwind — sem tokens paralelos.
 
 ## Pré-requisito
@@ -10,8 +10,8 @@ apps em CSS puro / Tailwind — sem tokens paralelos.
 O app precisa importar o CSS do design system **uma vez** no root:
 
 ```ts
-import '@vyd/design-system/theme.css';   // tokens + primitivas (.vyd-btn, .vyd-input…)
-import '@vyd/design-system/shell.css';    // layout do app shell (opt-in)
+import 'vyd-design-system/theme.css';   // tokens + primitivas (.vyd-btn, .vyd-input…)
+import 'vyd-design-system/shell.css';    // layout do app shell (opt-in)
 ```
 
 ## Primitivas

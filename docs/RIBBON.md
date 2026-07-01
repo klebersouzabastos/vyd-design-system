@@ -7,8 +7,8 @@ Isso garante que o usuário reconhece qualquer app VYD e reaproveita a memória 
 
 > Faz parte do **app shell** (`css/shell.css`). Importe depois do tema:
 > ```css
-> @import "@vyd/design-system/theme.css";
-> @import "@vyd/design-system/shell.css";
+> @import "vyd-design-system/theme.css";
+> @import "vyd-design-system/shell.css";
 > ```
 
 ## Anatomia

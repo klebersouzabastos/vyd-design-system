@@ -4,7 +4,7 @@ import { CubeMark } from './CubeMark';
 
 /* =====================================================================
    App shell — React mirror of css/shell.css. Requires the app to import
-   `@vyd/design-system/theme.css` and `@vyd/design-system/shell.css`.
+   `vyd-design-system/theme.css` and `vyd-design-system/shell.css`.
    ===================================================================== */
 
 /** Root grid. `railCollapsed` toggles the 240→48px left rail. */

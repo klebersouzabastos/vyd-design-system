@@ -1,7 +1,7 @@
 # VYD — Dados densos
 
 Componentes para exibir dados de engenharia com densidade: table/data-grid, list,
-tree, stat/KPI e key-value. Adicionado na **v0.8.0**. Importe `@vyd/design-system/theme.css`.
+tree, stat/KPI e key-value. Adicionado na **v0.8.0**. Importe `vyd-design-system/theme.css`.
 
 ## Table / data-grid
 

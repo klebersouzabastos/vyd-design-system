@@ -77,7 +77,7 @@ Tailwind e para `matchMedia`:
 | `--vyd-bp-xl` | 1280px |
 
 ```js
-import vyd from "@vyd/design-system";
+import vyd from "vyd-design-system";
 matchMedia(`(min-width: ${vyd.breakpoint.lg})`); // via tokens.resolved.json p/ o px
 ```
 No Tailwind: `md:…`, `lg:…` já funcionam (preset injeta `screens`).
