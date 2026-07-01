@@ -29,6 +29,11 @@ export type {
 } from './feedback';
 
 export {
+  Dialog, Drawer, Menu, MenuItem, MenuSeparator, MenuLabel, Popover, Tooltip, Toolbar, ToolbarSeparator,
+} from './overlays';
+export type { DialogProps, DrawerProps, MenuProps, MenuItemProps, PopoverProps } from './overlays';
+
+export {
   AppShell,
   TopBar,
   TopBarBrand,
