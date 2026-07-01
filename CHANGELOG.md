@@ -11,6 +11,29 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - —
 
+## [0.3.0] — 2026-07-01
+
+> **Fase 0 — Fundações** (roadmap). Tokens novos **aditivos** (nada renomeado/removido):
+> bump minor. `verify` OK, `build` idempotente.
+
+### Adicionado
+
+- **Tokens de fundação**: `zIndex` (base→tooltip), `opacity` (disabled/muted/backdrop/
+  scrim), `size.control` (sm/md/lg) e `size.icon` (sm/md/lg), `breakpoint` (sm–xl,
+  literais para `screens`/`matchMedia`), e `shadow.lg` (elevação de overlays).
+  Nomes registrados em `build/lib.mjs`; preset Tailwind ganhou `zIndex`, `opacity`,
+  `screens` e os sizes em `spacing`.
+- **Estilos de texto (roles)**: `.vyd-display/.vyd-title/.vyd-heading/.vyd-subheading/
+  .vyd-body/.vyd-caption/.vyd-code` (compõem os tokens de tipografia).
+- **Densidade em runtime**: `[data-vyd-density="comfortable"|"compact"]` via
+  `--vyd-control-h`. `.vyd-btn` e `.vyd-input` passam a usar a altura de controle
+  tokenizada, com modificadores `--sm`/`--lg`.
+- **`@vyd/react`**: `Button`/`Input` ganham prop `size`; novo componente `Text`
+  (variantes de role).
+- **[`docs/FOUNDATIONS.md`](docs/FOUNDATIONS.md)**: z-index, opacidade, sizing,
+  densidade, elevação, breakpoints, roles de texto, foco/a11y.
+- Demonstração de tamanhos de botão no `demo/brand-guide.html`.
+
 ## [0.2.0] — 2026-07-01
 
 > **Ribbon como definição de primeira classe** + guia visual + camada React +

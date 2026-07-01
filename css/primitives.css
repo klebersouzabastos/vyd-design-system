@@ -23,14 +23,39 @@ body {
 }
 
 /* ---------------------------------------------------------------------
+   Densidade — troca a altura de controle em runtime (padrão: md).
+     <html data-vyd-density="comfortable">  |  "compact"
+   --------------------------------------------------------------------- */
+:root                                { --vyd-control-h: var(--vyd-size-control-md); }
+[data-vyd-density="comfortable"]     { --vyd-control-h: var(--vyd-size-control-lg); }
+[data-vyd-density="compact"]         { --vyd-control-h: var(--vyd-size-control-sm); }
+
+/* ---------------------------------------------------------------------
+   Estilos de texto (roles) — compõem os tokens de tipografia.
+   --------------------------------------------------------------------- */
+.vyd-display    { font-family: var(--vyd-font-sans); font-size: var(--vyd-text-3xl); font-weight: var(--vyd-weight-bold);     letter-spacing: var(--vyd-ls-tight); line-height: var(--vyd-lh-tight); }
+.vyd-title      { font-family: var(--vyd-font-sans); font-size: var(--vyd-text-2xl); font-weight: var(--vyd-weight-bold);     letter-spacing: var(--vyd-ls-tight); line-height: var(--vyd-lh-tight); }
+.vyd-heading    { font-family: var(--vyd-font-sans); font-size: var(--vyd-text-lg);  font-weight: var(--vyd-weight-semibold); line-height: var(--vyd-lh-normal); }
+.vyd-subheading { font-family: var(--vyd-font-sans); font-size: var(--vyd-text-md);  font-weight: var(--vyd-weight-semibold); line-height: var(--vyd-lh-normal); }
+.vyd-body       { font-family: var(--vyd-font-sans); font-size: var(--vyd-text-base);font-weight: var(--vyd-weight-regular);  line-height: var(--vyd-lh-normal); }
+.vyd-caption    { font-family: var(--vyd-font-sans); font-size: var(--vyd-text-xs);  font-weight: var(--vyd-weight-semibold); letter-spacing: var(--vyd-ls-wide); text-transform: uppercase; color: var(--vyd-text-secondary); }
+.vyd-code       { font-family: var(--vyd-font-mono); font-variant-numeric: tabular-nums; font-size: var(--vyd-text-sm); }
+
+/* ---------------------------------------------------------------------
    Botão primário
    normal -> action-primary | hover -> action-primary-hover
    active -> action-primary-active | focus -> focus ring
    disabled -> bg-elevated + text-disabled, sem ponteiro
    --------------------------------------------------------------------- */
 .vyd-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vyd-space-2);
+  min-height: var(--vyd-control-h);
   font: var(--vyd-weight-medium) var(--vyd-text-base)/1 var(--vyd-font-sans);
-  padding: var(--vyd-space-3) var(--vyd-space-5);
+  padding: 0 var(--vyd-space-5);
   border-radius: var(--vyd-radius-md);
   border: var(--vyd-border-hairline) solid transparent;
   background: var(--vyd-action-primary);
@@ -47,6 +72,9 @@ body {
   color: var(--vyd-text-disabled);
   cursor: not-allowed;
 }
+/* Tamanhos (sobrepõem a densidade quando explicitados) */
+.vyd-btn--sm { min-height: var(--vyd-size-control-sm); padding: 0 var(--vyd-space-4); font-size: var(--vyd-text-xs); }
+.vyd-btn--lg { min-height: var(--vyd-size-control-lg); padding: 0 var(--vyd-space-6); }
 
 /* Botão secundário / fantasma (o mais usado numa ribbon) */
 .vyd-btn--ghost {
@@ -70,13 +98,17 @@ body {
    disabled -> bg-elevated + text-disabled
    --------------------------------------------------------------------- */
 .vyd-input {
+  box-sizing: border-box;
+  min-height: var(--vyd-control-h);
   font: var(--vyd-weight-regular) var(--vyd-text-base)/1.2 var(--vyd-font-sans);
-  padding: var(--vyd-space-3) var(--vyd-space-4);
+  padding: 0 var(--vyd-space-4);
   border-radius: var(--vyd-radius-md);
   border: var(--vyd-border-hairline) solid var(--vyd-border-default);
   background: var(--vyd-bg-panel);
   color: var(--vyd-text-primary);
 }
+.vyd-input--sm { min-height: var(--vyd-size-control-sm); }
+.vyd-input--lg { min-height: var(--vyd-size-control-lg); }
 .vyd-input::placeholder { color: var(--vyd-text-secondary); }
 .vyd-input:hover        { border-color: var(--vyd-border-strong); }
 .vyd-input:focus-visible {

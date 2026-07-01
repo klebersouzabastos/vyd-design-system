@@ -116,6 +116,7 @@ const vyd = {
     "none": "var(--vyd-shadow-none)",
     "sm": "var(--vyd-shadow-sm)",
     "md": "var(--vyd-shadow-md)",
+    "lg": "var(--vyd-shadow-lg)",
     "focus": "var(--vyd-shadow-focus)"
   },
   "layout": {
@@ -134,6 +135,41 @@ const vyd = {
   },
   "easing": {
     "standard": "var(--vyd-ease-standard)"
+  },
+  "zIndex": {
+    "base": "var(--vyd-z-base)",
+    "raised": "var(--vyd-z-raised)",
+    "sticky": "var(--vyd-z-sticky)",
+    "dropdown": "var(--vyd-z-dropdown)",
+    "overlay": "var(--vyd-z-overlay)",
+    "modal": "var(--vyd-z-modal)",
+    "popover": "var(--vyd-z-popover)",
+    "toast": "var(--vyd-z-toast)",
+    "tooltip": "var(--vyd-z-tooltip)"
+  },
+  "opacity": {
+    "disabled": "var(--vyd-opacity-disabled)",
+    "muted": "var(--vyd-opacity-muted)",
+    "backdrop": "var(--vyd-opacity-backdrop)",
+    "scrim": "var(--vyd-opacity-scrim)"
+  },
+  "size": {
+    "control": {
+      "sm": "var(--vyd-size-control-sm)",
+      "md": "var(--vyd-size-control-md)",
+      "lg": "var(--vyd-size-control-lg)"
+    },
+    "icon": {
+      "sm": "var(--vyd-size-icon-sm)",
+      "md": "var(--vyd-size-icon-md)",
+      "lg": "var(--vyd-size-icon-lg)"
+    }
+  },
+  "breakpoint": {
+    "sm": "var(--vyd-bp-sm)",
+    "md": "var(--vyd-bp-md)",
+    "lg": "var(--vyd-bp-lg)",
+    "xl": "var(--vyd-bp-xl)"
   }
 };
 export default vyd;

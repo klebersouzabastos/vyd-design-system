@@ -9,8 +9,8 @@ export { cx } from './cx';
 export { CubeMark } from './CubeMark';
 export type { CubeVariant, CubeMarkProps } from './CubeMark';
 
-export { Button, Input, Card, Mono } from './primitives';
-export type { ButtonProps, InputProps, CardProps } from './primitives';
+export { Button, Input, Card, Mono, Text } from './primitives';
+export type { ButtonProps, InputProps, CardProps, TextProps, TextVariant, ControlSize } from './primitives';
 
 export {
   AppShell,

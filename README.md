@@ -32,7 +32,7 @@ dist/          GERADO pelo build (não editar)
 tailwind/      Entry-point do preset (re-export de dist)
 brand/         Logo (positiva/negativa/mono) + icons/ (favicon, PWA)
 demo/          brand-guide.html (guia visual completo) + index.html (app shell) + preview
-docs/          USAGE · RIBBON · BRAND · BRIEF · PUBLISH · ROADMAP · ROADMAP-PROMPT
+docs/          USAGE · FOUNDATIONS · RIBBON · BRAND · BRIEF · PUBLISH · ROADMAP · ROADMAP-PROMPT
 react/         @vyd/react — componentes React (wrappers sobre .vyd-*)
 ```
 
