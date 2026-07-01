@@ -1,5 +1,5 @@
 /* =====================================================================
-   VYD DESIGN SYSTEM - variables.css  v0.10.0
+   VYD DESIGN SYSTEM - variables.css  v1.0.0
    GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
    Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
    ===================================================================== */
@@ -159,4 +159,44 @@
   --vyd-action-primary: var(--vyd-blueprint-500);
   --vyd-action-primary-hover: var(--vyd-blueprint-600);
   --vyd-action-primary-active: var(--vyd-blueprint-700);
+}
+
+[data-vyd-theme="high-contrast"] {
+  --vyd-bg-chrome: #000000;
+  --vyd-bg-panel: #000000;
+  --vyd-bg-canvas: #000000;
+  --vyd-bg-elevated: var(--vyd-neutral-100);
+  --vyd-text-primary: var(--vyd-neutral-1000);
+  --vyd-text-secondary: var(--vyd-neutral-800);
+  --vyd-text-disabled: var(--vyd-neutral-600);
+  --vyd-text-inverse: #000000;
+  --vyd-text-on-accent: var(--vyd-neutral-1000);
+  --vyd-text-accent: var(--vyd-blueprint-200);
+  --vyd-border-default: var(--vyd-neutral-500);
+  --vyd-border-strong: var(--vyd-neutral-700);
+  --vyd-border-accent: var(--vyd-blueprint-300);
+  --vyd-action-primary: var(--vyd-blueprint-400);
+  --vyd-action-primary-hover: var(--vyd-blueprint-300);
+  --vyd-action-primary-active: var(--vyd-blueprint-500);
+}
+
+@media (prefers-contrast: more) {
+    :root:not([data-vyd-theme]) {
+    --vyd-bg-chrome: #000000;
+    --vyd-bg-panel: #000000;
+    --vyd-bg-canvas: #000000;
+    --vyd-bg-elevated: var(--vyd-neutral-100);
+    --vyd-text-primary: var(--vyd-neutral-1000);
+    --vyd-text-secondary: var(--vyd-neutral-800);
+    --vyd-text-disabled: var(--vyd-neutral-600);
+    --vyd-text-inverse: #000000;
+    --vyd-text-on-accent: var(--vyd-neutral-1000);
+    --vyd-text-accent: var(--vyd-blueprint-200);
+    --vyd-border-default: var(--vyd-neutral-500);
+    --vyd-border-strong: var(--vyd-neutral-700);
+    --vyd-border-accent: var(--vyd-blueprint-300);
+    --vyd-action-primary: var(--vyd-blueprint-400);
+    --vyd-action-primary-hover: var(--vyd-blueprint-300);
+    --vyd-action-primary-active: var(--vyd-blueprint-500);
+  }
 }

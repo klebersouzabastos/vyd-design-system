@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Cancela execuções antigas do mesmo ref quando um novo push chega.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------
+  # Gate obrigatório e DETERMINÍSTICO: contrato de tokens + build + tipos.
+  # Sem browser, sem flake. É o que protege os apps que consomem o sistema.
+  # ---------------------------------------------------------------------
+  build:
+    name: build · verify · typecheck
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install
+      - name: Build (tokens + ícones)
+        run: npm run build
+      - name: Verify (contrato --vyd-* + temas)
+        run: npm run verify
+      - name: Typecheck (@vyd/react)
+        run: npm run typecheck
+      - name: Git limpo (artefatos gerados commitados)
+        run: git diff --exit-code -- dist react/src/icons.generated.ts || (echo "::error::Artefatos gerados divergem do commit. Rode 'npm run build' e commite dist/ + react/src/icons.generated.ts." && exit 1)
+
+  # ---------------------------------------------------------------------
+  # Regressão visual (Playwright). NÃO é gate até existirem baselines
+  # commitadas: gera/atualiza snapshots e sobe como artefato p/ revisão.
+  # Ver docs/TESTING.md. Rode local: `npm run test:visual:update`.
+  # ---------------------------------------------------------------------
+  visual:
+    name: regressão visual
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm run build
+      - name: Instalar Playwright + Chromium
+        run: npx --yes playwright install --with-deps chromium
+      - name: Rodar snapshots visuais
+        run: npm run test:visual -- --update-snapshots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: visual-snapshots
+          path: test/__screenshots__/
+          if-no-files-found: warn

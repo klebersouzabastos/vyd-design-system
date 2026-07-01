@@ -61,7 +61,7 @@ function strip(node) {
 mkdirSync(CLEAN, { recursive: true });
 mkdirSync(PARTS, { recursive: true });
 mkdirSync(DIST, { recursive: true });
-for (const f of ['tokens.json', 'tokens.light.json']) {
+for (const f of ['tokens.json', 'tokens.light.json', 'tokens.hc.json']) {
   const src = JSON.parse(readFileSync(join(TOKENS, f), 'utf8'));
   writeFileSync(join(CLEAN, f), JSON.stringify(strip(src), null, 2));
 }
@@ -137,6 +137,20 @@ StyleDictionary.registerFormat({
   format: ({ dictionary }) => {
     const sem = dictionary.allTokens.filter((t) => isSemantic(t.path));
     return renderBlock('[data-vyd-theme="light"]', sem) + '\n';
+  },
+});
+
+/* High-contrast (a11y): explicit opt-in block + auto-apply for OS
+   `prefers-contrast: more` on roots that made no explicit theme choice. */
+StyleDictionary.registerFormat({
+  name: 'vyd/css-hc',
+  format: ({ dictionary }) => {
+    const sem = dictionary.allTokens.filter((t) => isSemantic(t.path));
+    const explicit = renderBlock('[data-vyd-theme="high-contrast"]', sem);
+    const autoInner = renderBlock('  :root:not([data-vyd-theme])', sem)
+      .split('\n').map((l) => '  ' + l).join('\n');
+    const auto = `@media (prefers-contrast: more) {\n${autoInner}\n}`;
+    return explicit + '\n\n' + auto + '\n';
   },
 });
 
@@ -280,8 +294,21 @@ const lightSD = new StyleDictionary({
   },
 });
 
+const hcSD = new StyleDictionary({
+  source: [join(CLEAN, 'tokens.json'), join(CLEAN, 'tokens.hc.json')],
+  log: LOG,
+  platforms: {
+    hc: {
+      transforms: [],
+      buildPath: PARTS + '/',
+      files: [{ destination: '_vars.hc.css', format: 'vyd/css-hc' }],
+    },
+  },
+});
+
 await baseSD.buildAllPlatforms();
 await lightSD.buildAllPlatforms();
+await hcSD.buildAllPlatforms();
 
 /* ---------------------------------------------------------------------
    Assemble final CSS files. (Only create/overwrite inside the repo.)
@@ -300,14 +327,16 @@ function header(name) {
 
 const baseCss = readFileSync(join(PARTS, '_vars.base.css'), 'utf8').trimEnd();
 const lightCss = readFileSync(join(PARTS, '_vars.light.css'), 'utf8').trimEnd();
+const hcCss = readFileSync(join(PARTS, '_vars.hc.css'), 'utf8').trimEnd();
 const primitives = existsSync(join(ROOT, 'css', 'primitives.css'))
   ? readFileSync(join(ROOT, 'css', 'primitives.css'), 'utf8').trimEnd()
   : '';
 
-const variablesCss = header('variables.css') + '\n\n' + FONT_IMPORT + '\n\n' + baseCss + '\n\n' + lightCss + '\n';
+const vars = baseCss + '\n\n' + lightCss + '\n\n' + hcCss;
+const variablesCss = header('variables.css') + '\n\n' + FONT_IMPORT + '\n\n' + vars + '\n';
 writeFileSync(join(DIST, 'variables.css'), variablesCss);
 
-const themeCss = header('theme.css') + '\n\n' + FONT_IMPORT + '\n\n' + baseCss + '\n\n' + lightCss + '\n\n' + primitives + '\n';
+const themeCss = header('theme.css') + '\n\n' + FONT_IMPORT + '\n\n' + vars + '\n\n' + primitives + '\n';
 writeFileSync(join(DIST, 'theme.css'), themeCss);
 
 rmSync(PARTS, { recursive: true, force: true });

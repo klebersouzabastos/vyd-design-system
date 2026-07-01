@@ -1,7 +1,8 @@
 # VYD Design System — Auditoria de cobertura & Roadmap
 
-_Baseline: **v0.10.0** · Fases **0–6 ✅** e **7 (data-viz) ✅** concluídas.
-Falta a **Fase 8 (endurecimento + 1.0)**. Método e regras: [`ROADMAP-PROMPT.md`](ROADMAP-PROMPT.md)._
+_Baseline: **v1.0.0** (estável) · Fases **0–8 ✅** concluídas — catálogo fechado.
+Método e regras: [`ROADMAP-PROMPT.md`](ROADMAP-PROMPT.md). Evolução daqui em diante
+segue [GOVERNANCE.md](GOVERNANCE.md) (SemVer + depreciação)._
 
 Legenda: ✅ pronto · 🟡 parcial · ⛔ ausente
 
@@ -15,40 +16,41 @@ Legenda: ✅ pronto · 🟡 parcial · ⛔ ausente
 | Cor — neutros grafite (0–1000) | ✅ | |
 | Cor — semânticos (bg/text/border/action) | ✅ | dark + light |
 | Cor — feedback (success/warning/danger/info) | ✅ | |
-| Cor — **data-viz** (série p/ gráficos de engenharia) | ⛔ | falta paleta categórica/sequencial |
-| Cor — **state layers** (hover/press/selected overlays) | 🟡 | hoje via cores fixas; sem camada padronizada |
+| Cor — **data-viz** (série p/ gráficos de engenharia) | ✅ | `viz.cat.1–6` + `viz.seq.1–5` (Fase 7) |
+| Cor — **state layers** (hover/press/selected overlays) | 🟡 | via tokens de ação/opacidade; sem camada única formal |
 | Tipografia — famílias, escala xs–3xl, pesos, LH, LS | ✅ | |
-| Tipografia — **estilos de texto** (roles: display/h/body/caption/code) | 🟡 | escala existe; faltam roles nomeados como classe/token |
+| Tipografia — **estilos de texto** (roles: display/h/body/caption/code) | ✅ | `.vyd-display/title/heading/body/caption/code` (Fase 0) |
 | Espaçamento (0–9, base 4px) | ✅ | |
-| **Sizing** (alturas de controle: sm/md/lg) | ⛔ | controles não têm escala de tamanho tokenizada |
+| **Sizing** (alturas de controle: sm/md/lg) | ✅ | `size.control/icon` (Fase 0) |
 | Raios (sm/md/lg/full) | ✅ | |
 | Bordas (hairline/thick) | ✅ | |
-| Sombra/elevação | 🟡 | sm/md/focus; falta escala de elevação p/ overlays |
+| Sombra/elevação | ✅ | sm/md/**lg**/focus (Fase 0) |
 | Motion (duration, easing) | ✅ | |
-| **Z-index** (camadas: rail/ribbon/popover/modal/toast) | ⛔ | crítico p/ overlays |
-| **Opacidade** (disabled/backdrop/scrim) | ⛔ | |
-| **Breakpoints / responsivo** | ⛔ | shell é fixo; falta estratégia responsiva |
-| **Grid & container** | ⛔ | |
-| Layout do app shell (topbar/ribbon/rail/painel/status) | ✅ | inclui ribbon tabs+command (v0.2.0) |
-| Tokens de foco / a11y | 🟡 | `--vyd-shadow-focus` existe; falta contraste AA auditado |
-| **Densidade** (compacto padrão / confortável) | ⛔ | só compacto implícito |
-| **Ícones** (set + tamanhos + stroke) | ⛔ | ribbon usa glyph placeholder |
+| **Z-index** (camadas: rail/ribbon/popover/modal/toast) | ✅ | `zIndex.*` (Fase 0) |
+| **Opacidade** (disabled/backdrop/scrim) | ✅ | `opacity.*` (Fase 0) |
+| **Breakpoints / responsivo** | ✅ | `breakpoint.*` (Fase 0) + shell responsivo (Fase 8) |
+| **Grid & container** | 🟡 | shell é grid; sem sistema de grid genérico (apps usam Tailwind) |
+| Layout do app shell (topbar/ribbon/rail/painel/status) | ✅ | ribbon tabs+command; responsivo (Fase 8) |
+| Tokens de foco / a11y | ✅ | `--vyd-shadow-focus` + **tema high-contrast** (Fase 8) |
+| **Densidade** (compacto padrão / confortável) | ✅ | `data-vyd-density` (Fase 0) |
+| **Ícones** (set + tamanhos + stroke) | ✅ | sprite 24px currentColor + `Icon` (Fase 1) |
 
 ## 2. Componentes
 
-| Grupo | Prontos ✅ | Faltando ⛔/🟡 |
+| Grupo | Prontos ✅ | Ainda fora do catálogo 🟡 |
 |---|---|---|
-| **Ações** | button, button--ghost | icon-button, toggle, segmented, split-button, **menu/dropdown**, command palette |
-| **Formulários** | input | textarea, number, **select**, combobox, **checkbox**, **radio**, **switch**, slider, date/time, file upload, search, **field (label/help/erro)**, fieldset, validação |
-| **Navegação** | **ribbon (tabs+grupos+comandos)**, left rail, top bar/switcher | tabs (standalone), breadcrumbs, pagination, stepper/wizard, **tree** |
-| **Dados** | card, prop (key-value), avatar, mono | **table/data-grid**, list, tag/chip, **badge**, stat/KPI, **tooltip**, data-viz |
-| **Feedback** | — | **alert/banner**, **toast**, inline message, **progress**, spinner, skeleton, empty state, confirm |
-| **Overlays** | — | **modal/dialog**, drawer/sheet, **popover**, context menu, toolbar/floating bar |
-| **Layout** | canvas, rightpanel, statusbar | **divider**, accordion, splitter/resizer, scroll area |
+| **Ações** | button, button--ghost, icon-button, **menu/dropdown**, command palette (cmdk) | toggle, segmented, split-button |
+| **Formulários** | input, textarea, number, **select**, **checkbox**, **radio**, **switch**, range/slider, search, input-group, choice, **field (label/help/erro)** | combobox, date/time picker, file upload |
+| **Navegação** | **ribbon (tabs+grupos+comandos)**, left rail, top bar/switcher, tabs (standalone), breadcrumbs, pagination, steps/wizard, cmdk, kbd, **tree** | — |
+| **Dados** | card, prop (key-value), avatar, mono, **table**, list, tag, **badge**, stat/KPI, **tooltip**, data-viz | data-grid editável (apps: lib sobre tokens) |
+| **Feedback** | **alert/banner**, **toast**, **progress**, spinner, skeleton, empty state | inline message, confirm dedicado |
+| **Overlays** | **modal/dialog**, drawer/sheet, **popover**, menu, tooltip, toolbar/floating bar | context menu nativo |
+| **Layout** | canvas, rightpanel, statusbar, **divider** | accordion, splitter/resizer, scroll area |
 
-**Leitura:** o **app shell (ribbon) está maduro**; o gap real são **formulários,
-feedback, overlays e a table** — exatamente o que uma ferramenta de engenharia usa o
-dia inteiro.
+**Leitura:** catálogo fechado para 1.0 — **formulários, feedback, overlays, dados
+densos, navegação e data-viz** entregues (Fases 2–7). O que resta é **aditivo**
+(minor futuro): componentes de nicho e a data-grid editável, que apps montam sobre os
+tokens quando precisarem.
 
 ## 3. Transversais
 
@@ -56,13 +58,13 @@ dia inteiro.
 |---|---|
 | Tema dark | ✅ |
 | Tema light | ✅ (`[data-vyd-theme="light"]`) |
-| Tema high-contrast | ⛔ |
-| Responsividade / breakpoints | ⛔ |
-| i18n (pt-BR, numerais tabulares) | 🟡 (mono tabular ok; sem guia i18n/RTL) |
-| Documentação por componente | 🟡 (USAGE/RIBBON ok; resto sem doc dedicada) |
-| Testes/validação (verify) | ✅ contrato de token · ⛔ regressão visual |
-| Distribuição (GitHub) | ✅ · npm publish ⛔ (pacote `private`) |
-| Política de depreciação | ⛔ |
+| Tema high-contrast | ✅ (`[data-vyd-theme="high-contrast"]` + `prefers-contrast: more`) |
+| Responsividade / breakpoints | ✅ (shell responsivo com opt-out `.vyd-app--fixed`) |
+| i18n (pt-BR, numerais tabulares) | ✅ (propriedades lógicas RTL + [I18N.md](I18N.md)) |
+| Documentação por componente | ✅ (doc dedicada por área: FORMS/FEEDBACK/OVERLAYS/DATA/NAV/DATAVIZ…) |
+| Testes/validação | ✅ contrato (verify) + typecheck · 🟡 regressão visual (harness pronto; baselines no CI) |
+| Distribuição | ✅ GitHub · ✅ npm (`private` removido; ver [PUBLISH.md](PUBLISH.md)) |
+| Política de depreciação | ✅ ([GOVERNANCE.md](GOVERNANCE.md)) |
 | Governança SemVer + CHANGELOG | ✅ |
 
 ---
@@ -116,18 +118,22 @@ Tokens de série (categórica/sequencial), e padrões de gráfico p/ dados de en
 (barras/linha/gauge), acessíveis e on-brand.
 _Dependências: Fase 0 (data-viz palette). Esforço: L._
 
-### Fase 8 — Endurecimento & distribuição  · _minor/major_
-Tema **high-contrast**, estratégia **responsiva** do shell, guia **i18n/RTL**,
-**regressão visual** no CI, **política de depreciação**, e **publicação no npm**
-(remover `private`, `docs/PUBLISH.md`). Possível corte **1.0.0** ao fechar o catálogo.
+### Fase 8 — Endurecimento & distribuição  · _minor → **1.0.0**_ ✅
+Tema **high-contrast** (+ auto `prefers-contrast`), estratégia **responsiva** do shell
+(`.vyd-app--fixed` opt-out), guia **i18n/RTL** (propriedades lógicas), **CI** +
+**regressão visual** (Playwright), **política de depreciação** ([GOVERNANCE.md](GOVERNANCE.md))
+e **publicação no npm** (`private` removido, [PUBLISH.md](PUBLISH.md) reescrito).
+Catálogo fechado → corte **1.0.0** (tudo aditivo; nenhum app quebra).
 _Dependências: Fases 1–7. Esforço: M._
 
 ---
 
-## Sugestão de sequência
-**0 → 1 → 2 → 3 → 4 → 5** cobre ~80% do uso diário de uma ferramenta de engenharia.
-**6 → 7 → 8** completa o catálogo e prepara o **1.0.0**.
+## Sequência executada
+**0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8** — todas concluídas, cada uma entrou na `main`
+validada (build + verify + typecheck), versionada e documentada. Fechamento em
+**v1.0.0**.
 
-> Próximo passo: escolha uma fase (recomendo começar pela **Fase 0**, que destrava as
-> demais) e diga *"execute a Fase N"*. Cada fase entra na `main` validada, versionada e
-> documentada.
+> **1.0.0 fechado.** Daqui em diante o sistema é estável: mudanças seguem
+> [GOVERNANCE.md](GOVERNANCE.md) (adição = minor, quebra = major, com ciclo de
+> depreciação). Novos componentes de nicho e a data-grid editável são candidatos a
+> **minor** futuros — sem pressa e sem quebrar apps.

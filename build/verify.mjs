@@ -36,9 +36,11 @@ function flatten(node, prefix = [], out = []) {
 
 const tokens = JSON.parse(readFileSync(join(ROOT, 'tokens', 'tokens.json'), 'utf8'));
 const light = JSON.parse(readFileSync(join(ROOT, 'tokens', 'tokens.light.json'), 'utf8'));
+const hc = JSON.parse(readFileSync(join(ROOT, 'tokens', 'tokens.hc.json'), 'utf8'));
 
 const expectedAll = flatten(tokens).map(vydName);
 const expectedLight = flatten(light).filter(isSemantic).map(vydName);
+const expectedHc = flatten(hc).filter(isSemantic).map(vydName);
 
 const declared = (css) => new Set([...css.matchAll(/(--vyd-[\w-]+)\s*:/g)].map((m) => m[1]));
 
@@ -55,6 +57,16 @@ for (const file of ['theme.css', 'variables.css']) {
   const missLight = expectedLight.filter((n) => !lightBlock.includes('--' + n + ':'));
   if (missLight.length) fail(`${file}: bloco light não emite ${missLight.join(', ')}`);
   else ok(`${file}: bloco light com ${expectedLight.length} overrides`);
+
+  // high-contrast block (explicit selector) with its semantic overrides
+  const hcBlock = (css.split('[data-vyd-theme="high-contrast"]')[1] || '').split('@media')[0];
+  const missHc = expectedHc.filter((n) => !hcBlock.includes('--' + n + ':'));
+  if (missHc.length) fail(`${file}: bloco high-contrast não emite ${missHc.join(', ')}`);
+  else ok(`${file}: bloco high-contrast com ${expectedHc.length} overrides`);
+
+  // high-contrast must also auto-apply via prefers-contrast: more
+  if (!css.includes('@media (prefers-contrast: more)')) fail(`${file}: falta auto-aplicação @media (prefers-contrast: more)`);
+  else ok(`${file}: high-contrast auto-aplica em prefers-contrast: more`);
 }
 
 /* --- 3: on-accent correction --- */

@@ -154,9 +154,9 @@
   flex-direction: column;
   align-items: center;
   padding: 0 var(--vyd-space-4);
-  border-right: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  border-inline-end: var(--vyd-border-hairline) solid var(--vyd-border-default);
 }
-.vyd-ribbon-group:last-child { border-right: none; }
+.vyd-ribbon-group:last-child { border-inline-end: none; }
 .vyd-ribbon-group__items { display: flex; gap: var(--vyd-space-2); flex: 1; align-items: flex-start; }
 .vyd-ribbon-group__label {
   font-size: 10px;
@@ -182,7 +182,7 @@
 .vyd-leftrail {
   grid-area: leftrail;
   background: var(--vyd-bg-panel);
-  border-right: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  border-inline-end: var(--vyd-border-hairline) solid var(--vyd-border-default);
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -200,14 +200,14 @@
   gap: var(--vyd-space-3);
   padding: var(--vyd-space-3) var(--vyd-space-5);
   color: var(--vyd-text-primary);
-  border-left: var(--vyd-border-thick) solid transparent;
+  border-inline-start: var(--vyd-border-thick) solid transparent;
   cursor: pointer;
   white-space: nowrap;
 }
 .vyd-rail-item:hover { background: var(--vyd-bg-elevated); }
 .vyd-rail-item[aria-current="true"] {
   color: var(--vyd-text-accent);
-  border-left-color: var(--vyd-border-accent);
+  border-inline-start-color: var(--vyd-border-accent);
   background: var(--vyd-bg-elevated);
 }
 .vyd-rail-item .dot {
@@ -240,7 +240,7 @@
 .vyd-rightpanel {
   grid-area: rightpanel;
   background: var(--vyd-bg-panel);
-  border-left: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  border-inline-start: var(--vyd-border-hairline) solid var(--vyd-border-default);
   overflow: auto;
 }
 .vyd-panel-section__label {
@@ -276,3 +276,36 @@
 }
 .vyd-statusbar .vyd-mono { color: var(--vyd-text-primary); }
 .vyd-statusbar__spacer { flex: 1; }
+
+/* ---------------------------------------------------------------------
+   RESPONSIVO — o shell é desktop-first (ferramenta densa). Abaixo de
+   certos breakpoints, painéis auxiliares cedem espaço ao canvas, que é
+   o que importa numa tela menor. Progressivo:
+     ≤ lg (1024): esconde o right panel (inspector) — canvas ganha a coluna
+     ≤ md (768):  left rail vira só ícones (rótulos ocultos)
+     ≤ sm (640):  left rail some; ribbon compacta (some rótulos de grupo)
+   Media queries usam px LITERAL (não leem var()); espelham os tokens
+   --vyd-bp-*. Opt-out por app: adicione a classe .vyd-app--fixed para
+   preservar o layout de 3 colunas em qualquer largura.
+   --------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .vyd-app:not(.vyd-app--fixed) {
+    grid-template-columns: var(--vyd-layout-leftrail-w) 1fr 0;
+  }
+  .vyd-app:not(.vyd-app--fixed) .vyd-rightpanel { display: none; }
+}
+@media (max-width: 768px) {
+  .vyd-app:not(.vyd-app--fixed) {
+    grid-template-columns: var(--vyd-layout-leftrail-w-min) 1fr 0;
+  }
+  .vyd-app:not(.vyd-app--fixed) .vyd-rail-item span,
+  .vyd-app:not(.vyd-app--fixed) .vyd-rail-section__label { display: none; }
+  .vyd-app:not(.vyd-app--fixed) .vyd-rail-item { justify-content: center; }
+}
+@media (max-width: 640px) {
+  .vyd-app:not(.vyd-app--fixed) {
+    grid-template-columns: 0 1fr 0;
+  }
+  .vyd-app:not(.vyd-app--fixed) .vyd-leftrail { display: none; }
+  .vyd-app:not(.vyd-app--fixed) .vyd-ribbon-group__label { display: none; }
+}

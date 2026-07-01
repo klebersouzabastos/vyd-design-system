@@ -4,6 +4,13 @@ node_modules/
 # TS incremental build info
 *.tsbuildinfo
 
+# Playwright (regressão visual) — relatórios/saídas efêmeras; baselines em
+# test/__screenshots__/ SÃO commitadas (ver docs/TESTING.md).
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+
 # Build scratch (the .clean temp dir used by the build)
 build/.clean/
 
@@ -23,6 +30,6 @@ Thumbs.db
 # Original upload wrapper (superseded by the structured repo)
 files.zip
 
-# NOTE: /dist IS committed on purpose (v0.1.0): apps consume built artifacts
-# straight from GitHub since there is no npm publish yet. Once publishing is
-# enabled, dist/ can be moved to npm-only and ignored here.
+# NOTE: /dist IS committed on purpose: apps consume built artifacts straight from
+# GitHub (npm install github:…#vX.Y.Z) além do npm. O CI valida que o dist/
+# commitado bate com o build (git diff --exit-code). Mantenha commitado.
