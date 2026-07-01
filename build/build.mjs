@@ -94,6 +94,10 @@ function buildObject(allTokens) {
     else if (p[0] === 'layout') set(['layout', vydName(t.path).replace('vyd-layout-', '')], v);
     else if (p[0] === 'motion' && p[1] === 'duration') set(['duration', p[2]], v);
     else if (p[0] === 'motion' && p[1] === 'easing') set(['easing', p[2]], v);
+    else if (p[0] === 'zIndex') set(['zIndex', p[1]], v);
+    else if (p[0] === 'opacity') set(['opacity', p[1]], v);
+    else if (p[0] === 'size') set(['size', p[1], p[2]], v);
+    else if (p[0] === 'breakpoint') set(['breakpoint', p[1]], v);
   }
   return root;
 }
@@ -158,7 +162,11 @@ StyleDictionary.registerFormat({
     const spacing = Object.assign(
       pickMap((t) => t.path[0] === 'space', (t) => t.path[1]),
       pickMap((t) => t.path[0] === 'layout', (t) => vydName(t.path).replace('vyd-layout-', '')),
+      pickMap((t) => t.path[0] === 'size', (t) => vydName(t.path).replace('vyd-size-', '')),
     );
+    // Breakpoints must be literal px (media queries can't resolve var()).
+    const screens = {};
+    for (const t of all) if (t.path[0] === 'breakpoint') screens[t.path[1]] = String(t.value);
     const fontFamily = {};
     for (const t of all) if (t.path[0] === 'typography' && t.path[1] === 'family') fontFamily[t.path[2]] = [v(t)];
     const preset = {
@@ -176,6 +184,9 @@ StyleDictionary.registerFormat({
           boxShadow: pickMap((t) => t.path[0] === 'shadow', (t) => t.path[1]),
           transitionDuration: pickMap((t) => t.path[0] === 'motion' && t.path[1] === 'duration', (t) => t.path[2]),
           transitionTimingFunction: pickMap((t) => t.path[0] === 'motion' && t.path[1] === 'easing', (t) => t.path[2]),
+          zIndex: pickMap((t) => t.path[0] === 'zIndex', (t) => t.path[1]),
+          opacity: pickMap((t) => t.path[0] === 'opacity', (t) => t.path[1]),
+          screens,
         },
       },
     };

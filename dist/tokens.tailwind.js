@@ -67,7 +67,13 @@ module.exports = {
         "leftrail-w": "var(--vyd-layout-leftrail-w)",
         "leftrail-w-min": "var(--vyd-layout-leftrail-w-min)",
         "rightpanel-w": "var(--vyd-layout-rightpanel-w)",
-        "statusbar-h": "var(--vyd-layout-statusbar-h)"
+        "statusbar-h": "var(--vyd-layout-statusbar-h)",
+        "control-sm": "var(--vyd-size-control-sm)",
+        "control-md": "var(--vyd-size-control-md)",
+        "control-lg": "var(--vyd-size-control-lg)",
+        "icon-sm": "var(--vyd-size-icon-sm)",
+        "icon-md": "var(--vyd-size-icon-md)",
+        "icon-lg": "var(--vyd-size-icon-lg)"
       },
       "fontFamily": {
         "sans": [
@@ -118,6 +124,7 @@ module.exports = {
         "none": "var(--vyd-shadow-none)",
         "sm": "var(--vyd-shadow-sm)",
         "md": "var(--vyd-shadow-md)",
+        "lg": "var(--vyd-shadow-lg)",
         "focus": "var(--vyd-shadow-focus)"
       },
       "transitionDuration": {
@@ -126,6 +133,29 @@ module.exports = {
       },
       "transitionTimingFunction": {
         "standard": "var(--vyd-ease-standard)"
+      },
+      "zIndex": {
+        "base": "var(--vyd-z-base)",
+        "raised": "var(--vyd-z-raised)",
+        "sticky": "var(--vyd-z-sticky)",
+        "dropdown": "var(--vyd-z-dropdown)",
+        "overlay": "var(--vyd-z-overlay)",
+        "modal": "var(--vyd-z-modal)",
+        "popover": "var(--vyd-z-popover)",
+        "toast": "var(--vyd-z-toast)",
+        "tooltip": "var(--vyd-z-tooltip)"
+      },
+      "opacity": {
+        "disabled": "var(--vyd-opacity-disabled)",
+        "muted": "var(--vyd-opacity-muted)",
+        "backdrop": "var(--vyd-opacity-backdrop)",
+        "scrim": "var(--vyd-opacity-scrim)"
+      },
+      "screens": {
+        "sm": "640px",
+        "md": "768px",
+        "lg": "1024px",
+        "xl": "1280px"
       }
     }
   }

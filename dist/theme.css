@@ -1,5 +1,5 @@
 /* =====================================================================
-   VYD DESIGN SYSTEM - theme.css  v0.2.0
+   VYD DESIGN SYSTEM - theme.css  v0.3.0
    GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
    Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
    ===================================================================== */
@@ -73,6 +73,7 @@
   --vyd-shadow-none: none;
   --vyd-shadow-sm: 0 1px 2px rgba(0,0,0,0.25);
   --vyd-shadow-md: 0 2px 6px rgba(0,0,0,0.30);
+  --vyd-shadow-lg: 0 8px 24px rgba(0,0,0,0.40);
   --vyd-shadow-focus: 0 0 0 2px var(--vyd-blueprint-500);
   --vyd-layout-topbar-h: 44px;
   --vyd-layout-ribbon-h: 88px;
@@ -85,6 +86,29 @@
   --vyd-duration-fast: 120ms;
   --vyd-duration-normal: 200ms;
   --vyd-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --vyd-z-base: 0;
+  --vyd-z-raised: 1;
+  --vyd-z-sticky: 100;
+  --vyd-z-dropdown: 1000;
+  --vyd-z-overlay: 1100;
+  --vyd-z-modal: 1200;
+  --vyd-z-popover: 1300;
+  --vyd-z-toast: 1400;
+  --vyd-z-tooltip: 1500;
+  --vyd-opacity-disabled: 0.5;
+  --vyd-opacity-muted: 0.7;
+  --vyd-opacity-backdrop: 0.6;
+  --vyd-opacity-scrim: 0.8;
+  --vyd-size-control-sm: 24px;
+  --vyd-size-control-md: 28px;
+  --vyd-size-control-lg: 32px;
+  --vyd-size-icon-sm: 16px;
+  --vyd-size-icon-md: 20px;
+  --vyd-size-icon-lg: 24px;
+  --vyd-bp-sm: 640px;
+  --vyd-bp-md: 768px;
+  --vyd-bp-lg: 1024px;
+  --vyd-bp-xl: 1280px;
 }
 
 :root,
@@ -151,14 +175,39 @@ body {
 }
 
 /* ---------------------------------------------------------------------
+   Densidade — troca a altura de controle em runtime (padrão: md).
+     <html data-vyd-density="comfortable">  |  "compact"
+   --------------------------------------------------------------------- */
+:root                                { --vyd-control-h: var(--vyd-size-control-md); }
+[data-vyd-density="comfortable"]     { --vyd-control-h: var(--vyd-size-control-lg); }
+[data-vyd-density="compact"]         { --vyd-control-h: var(--vyd-size-control-sm); }
+
+/* ---------------------------------------------------------------------
+   Estilos de texto (roles) — compõem os tokens de tipografia.
+   --------------------------------------------------------------------- */
+.vyd-display    { font-family: var(--vyd-font-sans); font-size: var(--vyd-text-3xl); font-weight: var(--vyd-weight-bold);     letter-spacing: var(--vyd-ls-tight); line-height: var(--vyd-lh-tight); }
+.vyd-title      { font-family: var(--vyd-font-sans); font-size: var(--vyd-text-2xl); font-weight: var(--vyd-weight-bold);     letter-spacing: var(--vyd-ls-tight); line-height: var(--vyd-lh-tight); }
+.vyd-heading    { font-family: var(--vyd-font-sans); font-size: var(--vyd-text-lg);  font-weight: var(--vyd-weight-semibold); line-height: var(--vyd-lh-normal); }
+.vyd-subheading { font-family: var(--vyd-font-sans); font-size: var(--vyd-text-md);  font-weight: var(--vyd-weight-semibold); line-height: var(--vyd-lh-normal); }
+.vyd-body       { font-family: var(--vyd-font-sans); font-size: var(--vyd-text-base);font-weight: var(--vyd-weight-regular);  line-height: var(--vyd-lh-normal); }
+.vyd-caption    { font-family: var(--vyd-font-sans); font-size: var(--vyd-text-xs);  font-weight: var(--vyd-weight-semibold); letter-spacing: var(--vyd-ls-wide); text-transform: uppercase; color: var(--vyd-text-secondary); }
+.vyd-code       { font-family: var(--vyd-font-mono); font-variant-numeric: tabular-nums; font-size: var(--vyd-text-sm); }
+
+/* ---------------------------------------------------------------------
    Botão primário
    normal -> action-primary | hover -> action-primary-hover
    active -> action-primary-active | focus -> focus ring
    disabled -> bg-elevated + text-disabled, sem ponteiro
    --------------------------------------------------------------------- */
 .vyd-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vyd-space-2);
+  min-height: var(--vyd-control-h);
   font: var(--vyd-weight-medium) var(--vyd-text-base)/1 var(--vyd-font-sans);
-  padding: var(--vyd-space-3) var(--vyd-space-5);
+  padding: 0 var(--vyd-space-5);
   border-radius: var(--vyd-radius-md);
   border: var(--vyd-border-hairline) solid transparent;
   background: var(--vyd-action-primary);
@@ -175,6 +224,9 @@ body {
   color: var(--vyd-text-disabled);
   cursor: not-allowed;
 }
+/* Tamanhos (sobrepõem a densidade quando explicitados) */
+.vyd-btn--sm { min-height: var(--vyd-size-control-sm); padding: 0 var(--vyd-space-4); font-size: var(--vyd-text-xs); }
+.vyd-btn--lg { min-height: var(--vyd-size-control-lg); padding: 0 var(--vyd-space-6); }
 
 /* Botão secundário / fantasma (o mais usado numa ribbon) */
 .vyd-btn--ghost {
@@ -198,13 +250,17 @@ body {
    disabled -> bg-elevated + text-disabled
    --------------------------------------------------------------------- */
 .vyd-input {
+  box-sizing: border-box;
+  min-height: var(--vyd-control-h);
   font: var(--vyd-weight-regular) var(--vyd-text-base)/1.2 var(--vyd-font-sans);
-  padding: var(--vyd-space-3) var(--vyd-space-4);
+  padding: 0 var(--vyd-space-4);
   border-radius: var(--vyd-radius-md);
   border: var(--vyd-border-hairline) solid var(--vyd-border-default);
   background: var(--vyd-bg-panel);
   color: var(--vyd-text-primary);
 }
+.vyd-input--sm { min-height: var(--vyd-size-control-sm); }
+.vyd-input--lg { min-height: var(--vyd-size-control-lg); }
 .vyd-input::placeholder { color: var(--vyd-text-secondary); }
 .vyd-input:hover        { border-color: var(--vyd-border-strong); }
 .vyd-input:focus-visible {

@@ -115,6 +115,7 @@ declare const vyd: {
     none: string;
     sm: string;
     md: string;
+    lg: string;
     focus: string;
   };
   layout: {
@@ -133,6 +134,41 @@ declare const vyd: {
   };
   easing: {
     standard: string;
+  };
+  zIndex: {
+    base: string;
+    raised: string;
+    sticky: string;
+    dropdown: string;
+    overlay: string;
+    modal: string;
+    popover: string;
+    toast: string;
+    tooltip: string;
+  };
+  opacity: {
+    disabled: string;
+    muted: string;
+    backdrop: string;
+    scrim: string;
+  };
+  size: {
+    control: {
+      sm: string;
+      md: string;
+      lg: string;
+    };
+    icon: {
+      sm: string;
+      md: string;
+      lg: string;
+    };
+  };
+  breakpoint: {
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
   };
 };
 export default vyd;
