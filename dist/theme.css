@@ -1,5 +1,5 @@
 /* =====================================================================
-   VYD DESIGN SYSTEM - theme.css  v0.5.0
+   VYD DESIGN SYSTEM - theme.css  v0.6.0
    GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
    Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
    ===================================================================== */
@@ -443,4 +443,121 @@ body {
 .vyd-choice {
   display: inline-flex; align-items: center; gap: var(--vyd-space-3);
   cursor: pointer; font-size: var(--vyd-text-base); color: var(--vyd-text-primary);
+}
+
+/* =====================================================================
+   FEEDBACK & STATUS (Fase 3) — alert, toast, progress, spinner,
+   skeleton, empty, badge, tag. Cores dos tokens de feedback.
+   ===================================================================== */
+
+/* ---- Alert / banner ---- */
+.vyd-alert {
+  --vyd-alert-accent: var(--vyd-info);
+  display: flex; gap: var(--vyd-space-3); align-items: flex-start;
+  padding: var(--vyd-space-4) var(--vyd-space-5);
+  border-radius: var(--vyd-radius-md);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  border-left: 3px solid var(--vyd-alert-accent);
+  background: var(--vyd-bg-panel);
+}
+.vyd-alert__icon { color: var(--vyd-alert-accent); flex: none; margin-top: 1px; }
+.vyd-alert__body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.vyd-alert__title { font-size: var(--vyd-text-base); font-weight: var(--vyd-weight-semibold); color: var(--vyd-text-primary); }
+.vyd-alert__text  { font-size: var(--vyd-text-sm); color: var(--vyd-text-secondary); }
+.vyd-alert__close { margin-left: auto; flex: none; background: none; border: 0; color: var(--vyd-text-secondary); cursor: pointer; padding: 2px; border-radius: var(--vyd-radius-sm); }
+.vyd-alert__close:hover { color: var(--vyd-text-primary); background: var(--vyd-bg-elevated); }
+.vyd-alert--success { --vyd-alert-accent: var(--vyd-success); }
+.vyd-alert--warning { --vyd-alert-accent: var(--vyd-warning); }
+.vyd-alert--danger  { --vyd-alert-accent: var(--vyd-danger); }
+
+/* ---- Toast / notification (região viva) ---- */
+.vyd-toaster {
+  position: fixed; z-index: var(--vyd-z-toast);
+  bottom: var(--vyd-space-6); right: var(--vyd-space-6);
+  display: flex; flex-direction: column; gap: var(--vyd-space-3);
+  width: min(380px, calc(100vw - var(--vyd-space-8)));
+}
+.vyd-toast {
+  --vyd-alert-accent: var(--vyd-info);
+  display: flex; gap: var(--vyd-space-3); align-items: flex-start;
+  padding: var(--vyd-space-4);
+  border-radius: var(--vyd-radius-md);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  border-left: 3px solid var(--vyd-alert-accent);
+  background: var(--vyd-bg-elevated);
+  box-shadow: var(--vyd-shadow-lg);
+}
+.vyd-toast--success { --vyd-alert-accent: var(--vyd-success); }
+.vyd-toast--warning { --vyd-alert-accent: var(--vyd-warning); }
+.vyd-toast--danger  { --vyd-alert-accent: var(--vyd-danger); }
+
+/* ---- Progress (linear) ---- */
+.vyd-progress { height: 6px; border-radius: var(--vyd-radius-full); background: var(--vyd-bg-elevated); overflow: hidden; }
+.vyd-progress__bar { height: 100%; width: 0; background: var(--vyd-action-primary); border-radius: inherit; transition: width var(--vyd-duration-normal) var(--vyd-ease-standard); }
+.vyd-progress--indeterminate .vyd-progress__bar { width: 40%; animation: vyd-progress-slide 1.2s infinite var(--vyd-ease-standard); }
+@keyframes vyd-progress-slide { 0% { margin-left: -40%; } 100% { margin-left: 100%; } }
+
+/* ---- Spinner ---- */
+.vyd-spinner {
+  display: inline-block; width: var(--vyd-size-icon-md); height: var(--vyd-size-icon-md);
+  border-radius: var(--vyd-radius-full);
+  border: var(--vyd-border-thick) solid var(--vyd-border-default);
+  border-top-color: var(--vyd-action-primary);
+  animation: vyd-spin 0.7s linear infinite;
+}
+.vyd-spinner--sm { width: var(--vyd-size-icon-sm); height: var(--vyd-size-icon-sm); }
+.vyd-spinner--lg { width: var(--vyd-size-icon-lg); height: var(--vyd-size-icon-lg); }
+@keyframes vyd-spin { to { transform: rotate(360deg); } }
+
+/* ---- Skeleton ---- */
+.vyd-skeleton {
+  display: block; height: 1em; border-radius: var(--vyd-radius-sm);
+  background: linear-gradient(90deg, var(--vyd-bg-elevated) 25%,
+    color-mix(in srgb, var(--vyd-bg-elevated) 55%, var(--vyd-border-default)) 37%, var(--vyd-bg-elevated) 63%);
+  background-size: 400% 100%;
+  animation: vyd-skeleton 1.4s ease infinite;
+}
+@keyframes vyd-skeleton { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+
+/* ---- Empty state ---- */
+.vyd-empty {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: var(--vyd-space-4); padding: var(--vyd-space-9) var(--vyd-space-6); color: var(--vyd-text-secondary);
+}
+.vyd-empty__icon { color: var(--vyd-text-secondary); opacity: 0.7; }
+.vyd-empty__icon .vyd-icon { width: 40px; height: 40px; }
+.vyd-empty__title { font-size: var(--vyd-text-lg); font-weight: var(--vyd-weight-semibold); color: var(--vyd-text-primary); }
+.vyd-empty__text { font-size: var(--vyd-text-sm); max-width: 42ch; }
+
+/* ---- Badge ---- */
+.vyd-badge {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--vyd-space-2);
+  min-width: 18px; height: 18px; padding: 0 var(--vyd-space-2);
+  border-radius: var(--vyd-radius-full);
+  background: var(--vyd-bg-elevated); color: var(--vyd-text-primary);
+  font-family: var(--vyd-font-mono); font-variant-numeric: tabular-nums;
+  font-size: var(--vyd-text-xs); font-weight: var(--vyd-weight-semibold); line-height: 1;
+}
+.vyd-badge--primary { background: var(--vyd-action-primary); color: var(--vyd-text-on-accent); }
+.vyd-badge--success { background: var(--vyd-success); color: var(--vyd-text-on-accent); }
+.vyd-badge--warning { background: var(--vyd-warning); color: var(--vyd-neutral-0); }
+.vyd-badge--danger  { background: var(--vyd-danger);  color: var(--vyd-text-on-accent); }
+.vyd-badge--dot { min-width: 8px; width: 8px; height: 8px; padding: 0; }
+
+/* ---- Tag / chip ---- */
+.vyd-tag {
+  display: inline-flex; align-items: center; gap: var(--vyd-space-2);
+  height: var(--vyd-size-control-sm); padding: 0 var(--vyd-space-3);
+  border-radius: var(--vyd-radius-sm);
+  background: var(--vyd-bg-elevated); border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  color: var(--vyd-text-primary); font-size: var(--vyd-text-sm); white-space: nowrap;
+}
+.vyd-tag--accent { border-color: var(--vyd-border-accent); color: var(--vyd-text-accent); }
+.vyd-tag__close { display: inline-flex; background: none; border: 0; color: var(--vyd-text-secondary); cursor: pointer; padding: 0; }
+.vyd-tag__close:hover { color: var(--vyd-text-primary); }
+
+/* ---- Motion reduzido: desliga animações não essenciais ---- */
+@media (prefers-reduced-motion: reduce) {
+  .vyd-spinner { animation-duration: 1.6s; }
+  .vyd-skeleton, .vyd-progress--indeterminate .vyd-progress__bar { animation: none; }
 }
