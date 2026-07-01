@@ -1,6 +1,6 @@
 {
   "name": "@vyd/design-system",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "VYD Design System — fonte única de verdade visual do ecossistema VYD (apps de engenharia). Estilo técnico, sóbrio, denso. Acento azul-blueprint.",
   "license": "MIT",
   "private": true,

@@ -34,6 +34,11 @@ export {
 export type { DialogProps, DrawerProps, MenuProps, MenuItemProps, PopoverProps } from './overlays';
 
 export {
+  TableWrap, Table, Thead, Tbody, Tr, Th, Td, List, ListItem, Tree, TreeItem, Stat, KeyValue, KV,
+} from './data';
+export type { ThProps, SortDir, ListItemProps, TreeItemProps, StatProps } from './data';
+
+export {
   AppShell,
   TopBar,
   TopBarBrand,
