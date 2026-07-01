@@ -1,5 +1,5 @@
 /* =====================================================================
-   VYD DESIGN SYSTEM - theme.css  v0.8.0
+   VYD DESIGN SYSTEM - theme.css  v0.9.0
    GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
    Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
    ===================================================================== */
@@ -744,3 +744,90 @@ body {
 .vyd-kv { display: grid; grid-template-columns: auto 1fr; gap: var(--vyd-space-2) var(--vyd-space-5); font-size: var(--vyd-text-sm); align-items: baseline; }
 .vyd-kv__key { color: var(--vyd-text-secondary); white-space: nowrap; }
 .vyd-kv__val { font-family: var(--vyd-font-mono); font-variant-numeric: tabular-nums; text-align: right; color: var(--vyd-text-primary); }
+
+/* =====================================================================
+   NAVEGAÇÃO EXTRA (Fase 6) — tabs, breadcrumbs, pagination, steps,
+   command palette, kbd.
+   ===================================================================== */
+
+/* ---- Tabs (standalone) ---- */
+.vyd-tabs { display: flex; align-items: flex-end; gap: var(--vyd-space-1); border-bottom: var(--vyd-border-hairline) solid var(--vyd-border-default); }
+.vyd-tab {
+  display: inline-flex; align-items: center; gap: var(--vyd-space-2);
+  padding: var(--vyd-space-3) var(--vyd-space-4); margin-bottom: -1px;
+  background: none; border: 0; border-bottom: var(--vyd-border-thick) solid transparent;
+  color: var(--vyd-text-secondary); font: inherit; font-size: var(--vyd-text-sm); cursor: pointer;
+}
+.vyd-tab:hover { color: var(--vyd-text-primary); }
+.vyd-tab:focus-visible { outline: none; box-shadow: var(--vyd-shadow-focus); }
+.vyd-tab[aria-selected="true"] { color: var(--vyd-text-primary); font-weight: var(--vyd-weight-semibold); border-bottom-color: var(--vyd-border-accent); }
+.vyd-tab[disabled] { color: var(--vyd-text-disabled); cursor: not-allowed; }
+
+/* ---- Breadcrumbs ---- */
+.vyd-breadcrumbs { display: flex; align-items: center; gap: var(--vyd-space-2); font-size: var(--vyd-text-sm); color: var(--vyd-text-secondary); }
+.vyd-breadcrumb { display: inline-flex; align-items: center; gap: var(--vyd-space-2); color: var(--vyd-text-secondary); text-decoration: none; background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
+.vyd-breadcrumb:hover { color: var(--vyd-text-primary); }
+.vyd-breadcrumb[aria-current="page"] { color: var(--vyd-text-primary); cursor: default; }
+.vyd-breadcrumbs__sep { display: inline-flex; color: var(--vyd-text-secondary); opacity: 0.6; }
+
+/* ---- Pagination ---- */
+.vyd-pagination { display: inline-flex; align-items: center; gap: var(--vyd-space-1); }
+.vyd-page {
+  box-sizing: border-box; min-width: var(--vyd-control-h); height: var(--vyd-control-h);
+  display: inline-flex; align-items: center; justify-content: center; padding: 0 var(--vyd-space-3);
+  border-radius: var(--vyd-radius-md); border: var(--vyd-border-hairline) solid transparent;
+  background: none; color: var(--vyd-text-primary); font: inherit; font-size: var(--vyd-text-sm);
+  font-variant-numeric: tabular-nums; cursor: pointer;
+}
+.vyd-page:hover { background: var(--vyd-bg-elevated); }
+.vyd-page:focus-visible { outline: none; box-shadow: var(--vyd-shadow-focus); }
+.vyd-page[aria-current="page"] { background: var(--vyd-action-primary); color: var(--vyd-text-on-accent); }
+.vyd-page[disabled] { color: var(--vyd-text-disabled); cursor: not-allowed; }
+.vyd-pagination__ellipsis { padding: 0 var(--vyd-space-1); color: var(--vyd-text-secondary); }
+
+/* ---- Steps / stepper ---- */
+.vyd-steps { display: flex; align-items: center; gap: var(--vyd-space-2); }
+.vyd-step { display: inline-flex; align-items: center; gap: var(--vyd-space-3); }
+.vyd-step__marker {
+  box-sizing: border-box; width: 22px; height: 22px; flex: none;
+  border-radius: var(--vyd-radius-full); display: grid; place-items: center;
+  border: var(--vyd-border-hairline) solid var(--vyd-border-strong);
+  background: var(--vyd-bg-panel); color: var(--vyd-text-secondary);
+  font-family: var(--vyd-font-mono); font-size: var(--vyd-text-xs); line-height: 1;
+}
+.vyd-step__label { font-size: var(--vyd-text-sm); color: var(--vyd-text-secondary); white-space: nowrap; }
+.vyd-step--current .vyd-step__marker { border-color: var(--vyd-action-primary); color: var(--vyd-text-accent); }
+.vyd-step--current .vyd-step__label { color: var(--vyd-text-primary); font-weight: var(--vyd-weight-semibold); }
+.vyd-step--done .vyd-step__marker { background: var(--vyd-action-primary); border-color: var(--vyd-action-primary); color: var(--vyd-text-on-accent); }
+.vyd-step--done .vyd-step__label { color: var(--vyd-text-primary); }
+.vyd-steps__line { flex: 1 1 24px; min-width: 20px; height: 1px; background: var(--vyd-border-default); }
+.vyd-steps__line--done { background: var(--vyd-action-primary); }
+
+/* ---- Command palette ---- */
+.vyd-cmdk-backdrop {
+  position: fixed; inset: 0; z-index: var(--vyd-z-modal);
+  background: rgb(0 0 0 / var(--vyd-opacity-backdrop));
+  display: flex; align-items: flex-start; justify-content: center; padding: 12vh var(--vyd-space-4) var(--vyd-space-4);
+}
+.vyd-cmdk {
+  width: min(560px, 100%); max-height: 60vh; display: flex; flex-direction: column;
+  background: var(--vyd-bg-elevated); border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  border-radius: var(--vyd-radius-lg); box-shadow: var(--vyd-shadow-lg); overflow: hidden;
+}
+.vyd-cmdk__search { display: flex; align-items: center; gap: var(--vyd-space-3); padding: var(--vyd-space-3) var(--vyd-space-4); border-bottom: var(--vyd-border-hairline) solid var(--vyd-border-default); color: var(--vyd-text-secondary); }
+.vyd-cmdk__input { flex: 1; background: none; border: 0; outline: none; color: var(--vyd-text-primary); font: inherit; font-size: var(--vyd-text-md); }
+.vyd-cmdk__input::placeholder { color: var(--vyd-text-secondary); }
+.vyd-cmdk__list { overflow: auto; padding: var(--vyd-space-2); }
+.vyd-cmdk__item { display: flex; align-items: center; gap: var(--vyd-space-3); padding: var(--vyd-space-2) var(--vyd-space-3); border-radius: var(--vyd-radius-sm); color: var(--vyd-text-primary); cursor: pointer; }
+.vyd-cmdk__item[aria-selected="true"] { background: color-mix(in srgb, var(--vyd-action-primary) 18%, transparent); }
+.vyd-cmdk__item .vyd-icon { color: var(--vyd-text-secondary); }
+.vyd-cmdk__item-trailing { margin-left: auto; }
+.vyd-cmdk__empty { padding: var(--vyd-space-7); text-align: center; color: var(--vyd-text-secondary); font-size: var(--vyd-text-sm); }
+
+/* ---- Kbd (tecla) ---- */
+.vyd-kbd {
+  display: inline-flex; align-items: center; min-width: 18px; height: 18px; padding: 0 var(--vyd-space-2);
+  font-family: var(--vyd-font-mono); font-size: var(--vyd-text-xs); line-height: 1;
+  color: var(--vyd-text-secondary); background: var(--vyd-bg-panel);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default); border-radius: var(--vyd-radius-sm);
+}
