@@ -1,7 +1,7 @@
 # VYD Design System — Auditoria de cobertura & Roadmap
 
-_Baseline: **v0.9.0** · Fases **0 ✅**, **1 ✅**, **2 ✅**, **3 ✅**, **4 ✅**, **5 ✅** e
-**6 (navegação) ✅** concluídas. Método e regras: [`ROADMAP-PROMPT.md`](ROADMAP-PROMPT.md)._
+_Baseline: **v0.10.0** · Fases **0–6 ✅** e **7 (data-viz) ✅** concluídas.
+Falta a **Fase 8 (endurecimento + 1.0)**. Método e regras: [`ROADMAP-PROMPT.md`](ROADMAP-PROMPT.md)._
 
 Legenda: ✅ pronto · 🟡 parcial · ⛔ ausente
 

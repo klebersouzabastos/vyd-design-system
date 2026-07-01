@@ -57,6 +57,23 @@ const vyd = {
       "warning": "var(--vyd-warning)",
       "danger": "var(--vyd-danger)",
       "info": "var(--vyd-info)"
+    },
+    "viz": {
+      "cat": {
+        "1": "var(--vyd-viz-1)",
+        "2": "var(--vyd-viz-2)",
+        "3": "var(--vyd-viz-3)",
+        "4": "var(--vyd-viz-4)",
+        "5": "var(--vyd-viz-5)",
+        "6": "var(--vyd-viz-6)"
+      },
+      "seq": {
+        "1": "var(--vyd-viz-seq-1)",
+        "2": "var(--vyd-viz-seq-2)",
+        "3": "var(--vyd-viz-seq-3)",
+        "4": "var(--vyd-viz-seq-4)",
+        "5": "var(--vyd-viz-seq-5)"
+      }
     }
   },
   "font": {

@@ -11,6 +11,21 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - —
 
+## [0.10.0] — 2026-07-01
+
+> **Fase 7 — Data-viz** (roadmap). Tokens **aditivos** de paleta de dados (nada
+> renomeado/removido) + gráficos. `verify` OK, `build` idempotente.
+
+### Adicionado
+
+- **Tokens de data-viz**: `color.viz.cat.1–6` (`--vyd-viz-1..6`, categórica sóbria
+  sem roxo) e `color.viz.seq.1–5` (`--vyd-viz-seq-1..5`, tints blueprint). Nos nomes
+  (`build/lib.mjs`), no objeto JS e no preset Tailwind (`viz-1..6`, `viz-seq-1..5`).
+- **Gráficos (`@vyd/react`, SVG/CSS sem dependência)**: `BarChart`, `LineChart`,
+  `Sparkline`, `Gauge`, `Legend` e o helper `vizColor(i)`.
+- **CSS**: `.vyd-legend`, `.vyd-barchart`, helpers `.vyd-chart*`.
+- **[`docs/DATAVIZ.md`](docs/DATAVIZ.md)** + demo **`demo/dataviz.html`**.
+
 ## [0.9.0] — 2026-07-01
 
 > **Fase 6 — Navegação extra** (roadmap). Componentes novos (sem mudança no contrato

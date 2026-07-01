@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR" data-vyd-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VYD — Data-viz</title>
+<link rel="stylesheet" href="../dist/theme.css">
+<style>
+  body { background: var(--vyd-bg-chrome); padding: 32px; }
+  .wrap { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+  .panel { background: var(--vyd-bg-panel); border: 1px solid var(--vyd-border-default); border-radius: var(--vyd-radius-md); padding: 18px; }
+  .panel h2 { margin: 0 0 14px; }
+  .full { grid-column: 1 / -1; }
+  .sw { display:flex; gap:1px; border-radius:4px; overflow:hidden; margin-top:6px }
+  .sw div { height: 40px; flex:1 }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="panel full"><h2 class="vyd-title" style="margin:0">Data-viz · v0.10.0</h2></div>
+
+  <div class="panel full">
+    <h2 class="vyd-heading">Paleta de dados</h2>
+    <span class="vyd-caption">Categórica · --vyd-viz-1..6</span>
+    <div class="sw">
+      <div style="background:var(--vyd-viz-1)"></div><div style="background:var(--vyd-viz-2)"></div>
+      <div style="background:var(--vyd-viz-3)"></div><div style="background:var(--vyd-viz-4)"></div>
+      <div style="background:var(--vyd-viz-5)"></div><div style="background:var(--vyd-viz-6)"></div>
+    </div>
+    <span class="vyd-caption" style="display:block;margin-top:14px">Sequencial · --vyd-viz-seq-1..5</span>
+    <div class="sw">
+      <div style="background:var(--vyd-viz-seq-1)"></div><div style="background:var(--vyd-viz-seq-2)"></div>
+      <div style="background:var(--vyd-viz-seq-3)"></div><div style="background:var(--vyd-viz-seq-4)"></div>
+      <div style="background:var(--vyd-viz-seq-5)"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2 class="vyd-heading">Bar chart</h2>
+    <div class="vyd-barchart" style="height:180px">
+      <div class="vyd-barchart__col"><span class="vyd-barchart__val">318</span><div class="vyd-barchart__track"><div class="vyd-barchart__bar" style="height:52%;background:var(--vyd-viz-1)"></div></div><span class="vyd-barchart__label">P-12</span></div>
+      <div class="vyd-barchart__col"><span class="vyd-barchart__val">290</span><div class="vyd-barchart__track"><div class="vyd-barchart__bar" style="height:47%;background:var(--vyd-viz-2)"></div></div><span class="vyd-barchart__label">P-14</span></div>
+      <div class="vyd-barchart__col"><span class="vyd-barchart__val">121</span><div class="vyd-barchart__track"><div class="vyd-barchart__bar" style="height:20%;background:var(--vyd-viz-3)"></div></div><span class="vyd-barchart__label">V-03</span></div>
+      <div class="vyd-barchart__col"><span class="vyd-barchart__val">612</span><div class="vyd-barchart__track"><div class="vyd-barchart__bar" style="height:100%;background:var(--vyd-viz-4)"></div></div><span class="vyd-barchart__label">F-B</span></div>
+    </div>
+    <div class="vyd-legend" style="margin-top:14px">
+      <span class="vyd-legend__item"><span class="vyd-legend__swatch" style="background:var(--vyd-viz-1)"></span>Pilares</span>
+      <span class="vyd-legend__item"><span class="vyd-legend__swatch" style="background:var(--vyd-viz-4)"></span>Fundação</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2 class="vyd-heading">Line chart</h2>
+    <svg class="vyd-chart" viewBox="0 0 100 160" preserveAspectRatio="none" width="100%" height="160">
+      <line class="vyd-chart-grid" x1="0" x2="100" y1="0" y2="0" vector-effect="non-scaling-stroke"/>
+      <line class="vyd-chart-grid" x1="0" x2="100" y1="40" y2="40" vector-effect="non-scaling-stroke"/>
+      <line class="vyd-chart-grid" x1="0" x2="100" y1="80" y2="80" vector-effect="non-scaling-stroke"/>
+      <line class="vyd-chart-grid" x1="0" x2="100" y1="120" y2="120" vector-effect="non-scaling-stroke"/>
+      <line class="vyd-chart-grid" x1="0" x2="100" y1="160" y2="160" vector-effect="non-scaling-stroke"/>
+      <polygon points="0,160 0,110 20,90 40,100 60,55 80,60 100,25 100,160" fill="var(--vyd-viz-1)" fill-opacity="0.12"/>
+      <polyline points="0,110 20,90 40,100 60,55 80,60 100,25" fill="none" stroke="var(--vyd-viz-1)" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+      <polyline points="0,140 20,130 40,120 60,110 80,95 100,85" fill="none" stroke="var(--vyd-viz-3)" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <div class="vyd-legend" style="margin-top:12px">
+      <span class="vyd-legend__item"><span class="vyd-legend__swatch" style="background:var(--vyd-viz-1)"></span>Executado</span>
+      <span class="vyd-legend__item"><span class="vyd-legend__swatch" style="background:var(--vyd-viz-3)"></span>Previsto</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2 class="vyd-heading">Gauge · Sparkline</h2>
+    <div style="display:flex;align-items:center;gap:28px">
+      <div style="width:120px;height:120px;position:relative">
+        <svg viewBox="0 0 100 100" width="120" height="120" style="transform:rotate(-90deg)">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="var(--vyd-bg-elevated)" stroke-width="8"/>
+          <circle cx="50" cy="50" r="42" fill="none" stroke="var(--vyd-action-primary)" stroke-width="8" stroke-linecap="round" stroke-dasharray="231 264"/>
+        </svg>
+        <div style="position:absolute;inset:0;display:grid;place-items:center"><span class="vyd-stat__value" style="font-size:var(--vyd-text-xl)">87%</span></div>
+      </div>
+      <div>
+        <span class="vyd-caption">Progresso 7d</span>
+        <svg class="vyd-chart" viewBox="0 0 120 30" width="120" height="30" preserveAspectRatio="none" style="display:block;margin-top:8px">
+          <polyline points="0,26 20,22 40,24 60,14 80,16 100,6 120,4" fill="none" stroke="var(--vyd-viz-4)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

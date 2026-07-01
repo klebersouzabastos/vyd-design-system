@@ -1,5 +1,5 @@
 /* =====================================================================
-   VYD DESIGN SYSTEM - variables.css  v0.9.0
+   VYD DESIGN SYSTEM - variables.css  v0.10.0
    GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
    Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
    ===================================================================== */
@@ -33,6 +33,17 @@
   --vyd-warning: #D9920A;
   --vyd-danger: #D24545;
   --vyd-info: var(--vyd-blueprint-400);
+  --vyd-viz-1: #3E7BD4;
+  --vyd-viz-2: #2AA6A0;
+  --vyd-viz-3: #D9920A;
+  --vyd-viz-4: #2E9E6B;
+  --vyd-viz-5: #D24545;
+  --vyd-viz-6: #9AA5B1;
+  --vyd-viz-seq-1: var(--vyd-blueprint-200);
+  --vyd-viz-seq-2: var(--vyd-blueprint-400);
+  --vyd-viz-seq-3: var(--vyd-blueprint-500);
+  --vyd-viz-seq-4: var(--vyd-blueprint-700);
+  --vyd-viz-seq-5: var(--vyd-blueprint-900);
   --vyd-font-sans: 'Inter Tight', 'Inter', system-ui, sans-serif;
   --vyd-font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
   --vyd-text-xs: 11px;

@@ -43,6 +43,9 @@ export type { TabProps, Crumb } from './nav';
 export { CommandPalette } from './command';
 export type { Command, CommandPaletteProps } from './command';
 
+export { vizColor, Legend, BarChart, LineChart, Sparkline, Gauge } from './charts';
+export type { BarDatum, Series } from './charts';
+
 export {
   AppShell,
   TopBar,
