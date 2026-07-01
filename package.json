@@ -8,10 +8,9 @@
   "author": "K2+ / VYD",
   "type": "commonjs",
   "workspaces": [
-    "react",
-    "examples/*"
+    "react"
   ],
-  "//workspaces": "react/ (@vyd/react) e examples/* são dev-only; NÃO entram em 'files', logo não são publicados com o pacote.",
+  "//workspaces": "react/ (@vyd/react) é dev-only; NÃO entra em 'files', logo não é publicado com o pacote.",
   "main": "dist/tokens.js",
   "module": "dist/tokens.mjs",
   "types": "dist/tokens.d.ts",
