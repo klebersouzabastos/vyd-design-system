@@ -1,0 +1,47 @@
+/* GENERATED from /icons/*.svg - DO NOT EDIT. Run: npm run build:icons */
+const icons = {
+  "alert-triangle": "<path d=\"M12 3l10 18H2L12 3z\"/><path d=\"M12 10v5\"/><path d=\"M12 18h.01\"/>",
+  "angle": "<path d=\"M4 20h16\"/><path d=\"M4 20L17 6\"/><path d=\"M4 13a9 9 0 0 1 7 7\"/>",
+  "bell": "<path d=\"M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z\"/><path d=\"M10 20a2 2 0 0 0 4 0\"/>",
+  "check": "<path d=\"M5 12l5 5L20 6\"/>",
+  "chevron-down": "<path d=\"M6 9l6 6 6-6\"/>",
+  "chevron-left": "<path d=\"M15 6l-6 6 6 6\"/>",
+  "chevron-right": "<path d=\"M9 6l6 6-6 6\"/>",
+  "chevron-up": "<path d=\"M6 15l6-6 6 6\"/>",
+  "close": "<path d=\"M6 6l12 12M18 6L6 18\"/>",
+  "column": "<rect x=\"9\" y=\"4\" width=\"6\" height=\"16\"/><path d=\"M7 4h10M7 20h10\"/>",
+  "cube": "<path d=\"M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z\"/><path d=\"M12 12v9M4 7.5l8 4.5 8-4.5\"/>",
+  "dimension": "<path d=\"M3 12h18\"/><path d=\"M3 8v8M21 8v8\"/>",
+  "document": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"18\"/><path d=\"M8 8h8M8 12h8M8 16h5\"/>",
+  "download": "<path d=\"M12 3v12M7 10l5 5 5-5\"/><path d=\"M4 21h16\"/>",
+  "edit": "<path d=\"M4 20h4L18.5 9.5l-4-4L4 16v4z\"/><path d=\"M13.5 6.5l4 4\"/>",
+  "export": "<path d=\"M4 14v6h16v-6\"/><path d=\"M12 3v11M8 7l4-4 4 4\"/>",
+  "eye": "<path d=\"M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>",
+  "filter": "<path d=\"M3 5h18l-7 8v6l-4-2v-4L3 5z\"/>",
+  "folder": "<path d=\"M3 6h6l2 2h10v11H3z\"/>",
+  "grid": "<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"/>",
+  "home": "<path d=\"M4 11l8-7 8 7\"/><path d=\"M6 10v10h12V10\"/>",
+  "info": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 11v5\"/><path d=\"M12 8h.01\"/>",
+  "layers": "<path d=\"M12 3l9 5-9 5-9-5 9-5z\"/><path d=\"M3 13l9 5 9-5\"/>",
+  "levels": "<path d=\"M3 8l9-4 9 4-9 4-9-4z\"/><path d=\"M3 13l9 4 9-4\"/><path d=\"M3 17.5l9 4 9-4\"/>",
+  "measure": "<rect x=\"2\" y=\"8\" width=\"20\" height=\"8\" rx=\"1\"/><path d=\"M6 8v3M10 8v4M14 8v3M18 8v4\"/>",
+  "menu": "<path d=\"M4 6h16M4 12h16M4 18h16\"/>",
+  "minus": "<path d=\"M5 12h14\"/>",
+  "model": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\"/><path d=\"M3 9h18M9 9v12\"/>",
+  "modules": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\"/><path d=\"M9 3v18M15 3v18M3 9h18M3 15h18\"/>",
+  "more": "<circle cx=\"5\" cy=\"12\" r=\"1.4\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"12\" cy=\"12\" r=\"1.4\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"19\" cy=\"12\" r=\"1.4\" fill=\"currentColor\" stroke=\"none\"/>",
+  "plus": "<path d=\"M12 5v14M5 12h14\"/>",
+  "search": "<circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M21 21l-4.3-4.3\"/>",
+  "settings": "<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.1 5.1l2.1 2.1M16.8 16.8l2.1 2.1M18.9 5.1l-2.1 2.1M7.2 16.8l-2.1 2.1\"/>",
+  "sheet": "<path d=\"M6 3h9l4 4v14H6z\"/><path d=\"M15 3v4h4\"/>",
+  "slab": "<path d=\"M2 9l10-5 10 5-10 5L2 9z\"/><path d=\"M2 9v3l10 5 10-5V9\"/>",
+  "structure": "<path d=\"M4 20V8l8-5 8 5v12\"/><path d=\"M9 20v-6h6v6\"/>",
+  "user": "<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21c0-4 4-6 8-6s8 2 8 6\"/>",
+  "view-2d": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\"/><path d=\"M7 5v14M3 12h18\"/>",
+  "view-3d": "<path d=\"M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z\"/><path d=\"M12 12v9M4 7.5l8 4.5 8-4.5\"/>",
+  "wall": "<rect x=\"3\" y=\"6\" width=\"18\" height=\"12\"/><path d=\"M3 12h18M9 6v6M15 12v6\"/>"
+};
+const iconNames = ["alert-triangle","angle","bell","check","chevron-down","chevron-left","chevron-right","chevron-up","close","column","cube","dimension","document","download","edit","export","eye","filter","folder","grid","home","info","layers","levels","measure","menu","minus","model","modules","more","plus","search","settings","sheet","slab","structure","user","view-2d","view-3d","wall"];
+module.exports = icons;
+module.exports.icons = icons;
+module.exports.iconNames = iconNames;

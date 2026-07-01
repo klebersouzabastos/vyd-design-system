@@ -9,6 +9,10 @@ export { cx } from './cx';
 export { CubeMark } from './CubeMark';
 export type { CubeVariant, CubeMarkProps } from './CubeMark';
 
+export { Icon } from './Icon';
+export type { IconName, IconProps } from './Icon';
+export { ICONS as icons, ICON_NAMES } from './icons.generated';
+
 export { Button, Input, Card, Mono, Text } from './primitives';
 export type { ButtonProps, InputProps, CardProps, TextProps, TextVariant, ControlSize } from './primitives';
 
