@@ -11,7 +11,7 @@ browser, **zero flake**. É o que realmente protege os apps que consomem o siste
 |---|---|---|
 | Build | `npm run build` | Tokens → `dist/` + sprite de ícones geram sem erro. |
 | Verify | `npm run verify` | **Contrato `--vyd-*` intacto**: toda variável do token source presente em `theme.css`/`variables.css`; blocos `light` e `high-contrast` com seus overrides; correção `on-accent`; preset Tailwind/JS válidos. |
-| Typecheck | `npm run typecheck` | `@vyd/react` compila em `strict` (`tsc --noEmit`). |
+| Typecheck | `npm run typecheck` | `vyd-react` compila em `strict` (`tsc --noEmit`). |
 | Git limpo | `git diff --exit-code` | `dist/` commitado bate com o build — ninguém editou gerado à mão. |
 
 Rode tudo local antes de abrir PR:
@@ -60,7 +60,7 @@ ausência de teste.
 ## Escopo de teste por camada
 
 - **Tokens/CSS** → verify (contrato) + visual (aparência).
-- **`@vyd/react`** → typecheck (tipos) + visual (as demos exercitam as classes que
+- **`vyd-react`** → typecheck (tipos) + visual (as demos exercitam as classes que
   os componentes emitem).
 - **Apps consumidores** → responsáveis pelos próprios testes; fixam a versão do VYD
   (SemVer, ver [GOVERNANCE.md](GOVERNANCE.md)).

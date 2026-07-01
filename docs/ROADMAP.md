@@ -73,7 +73,7 @@ tokens quando precisarem.
 
 Ordem por **valor para as ferramentas** e por **dependência técnica** (fundações antes
 dos componentes que as consomem). Cada fase segue o método do prompt: tokens → `.vyd-*`
-→ Tailwind → `@vyd/react` → docs → demo → build/verify → bump/CHANGELOG → merge.
+→ Tailwind → `vyd-react` → docs → demo → build/verify → bump/CHANGELOG → merge.
 
 ### Fase 0 — Fundações que faltam (destrava o resto)  · _minor_
 Tokens novos, aditivos: **z-index** (escala de camadas), **opacidade**, **sizing** de

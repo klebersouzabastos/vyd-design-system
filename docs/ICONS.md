@@ -19,9 +19,9 @@ Classe `.vyd-icon` (md, padrão) + `.vyd-icon--sm` / `.vyd-icon--lg`.
 
 ## Consumo
 
-### React (`@vyd/react`) — recomendado (inline, sem sprite externo)
+### React (`vyd-react`) — recomendado (inline, sem sprite externo)
 ```tsx
-import { Icon } from "@vyd/react";
+import { Icon } from "vyd-react";
 
 <Icon name="model" />
 <Icon name="export" size="lg" title="Exportar" />   {/* title => acessível */}

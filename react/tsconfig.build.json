@@ -1,0 +1,14 @@
+{
+  "//": "Config de BUILD (publicação). O tsconfig.json base fica com noEmit p/ typecheck; aqui emitimos JS + .d.ts para dist/. Preserva a estrutura de módulos (sem bundler) — apps React (Vite/Next/webpack) resolvem os imports relativos sem extensão.",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": false,
+    "sourceMap": false,
+    "removeComments": false,
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": ["src"]
+}

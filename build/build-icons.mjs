@@ -4,7 +4,7 @@
      dist/icons.svg          sprite <symbol> para consumo em CSS/HTML (<use>)
      dist/icons.mjs / .js    mapa { nome: markup-interno } (ESM + CJS)
      dist/icons.d.ts         tipos (IconName)
-     react/src/icons.generated.ts   mapa embutido para o componente <Icon> do @vyd/react
+     react/src/icons.generated.ts   mapa embutido para o componente <Icon> do vyd-react
    Run: npm run build:icons  (também roda dentro de npm run build)
    ===================================================================== */
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -54,7 +54,7 @@ writeFileSync(
   `${GEN}\nexport type IconName = ${union};\nexport declare const icons: Record<IconName, string>;\nexport declare const iconNames: IconName[];\ndeclare const _default: Record<IconName, string>;\nexport default _default;\n`,
 );
 
-/* 3. módulo embutido para @vyd/react (auto-contido) */
+/* 3. módulo embutido para vyd-react (auto-contido) */
 writeFileSync(
   join(ROOT, 'react', 'src', 'icons.generated.ts'),
   `${GEN}\nexport const ICONS = ${mapLiteral} as const;\nexport type IconName = keyof typeof ICONS;\nexport const ICON_NAMES = Object.keys(ICONS) as IconName[];\n`,

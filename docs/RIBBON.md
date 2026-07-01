@@ -95,10 +95,10 @@ Utilitários Tailwind equivalentes (via preset): `h-ribbon-tabs-h`, `h-ribbon-h`
 > `<svg>` de ícone — mantendo `width/height: 22px` e `stroke: currentColor` para
 > herdar a cor do estado.
 
-## Em React (`@vyd/react`)
+## Em React (`vyd-react`)
 
 ```tsx
-import { Ribbon, RibbonTabs, RibbonTab, RibbonGroup, RibbonItem } from "@vyd/react";
+import { Ribbon, RibbonTabs, RibbonTab, RibbonGroup, RibbonItem } from "vyd-react";
 
 <RibbonTabs>
   <RibbonTab selected>Início</RibbonTab>

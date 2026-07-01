@@ -1,6 +1,10 @@
 # Dependencies
 node_modules/
 
+# vyd-react build output — gerado por `tsc -p tsconfig.build.json` e publicado
+# pelo CI (release.yml). NÃO commitar; é artefato de build do pacote vyd-react.
+react/dist/
+
 # TS incremental build info
 *.tsbuildinfo
 

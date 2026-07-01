@@ -1,24 +1,59 @@
 {
-  "name": "@vyd/react",
-  "version": "0.1.0",
-  "description": "Componentes React (wrappers finos) do VYD Design System sobre as classes .vyd-* e o app shell.",
+  "name": "vyd-react",
+  "version": "1.0.0",
+  "description": "Componentes React (wrappers finos) do VYD Design System sobre as classes .vyd-* e o app shell. Consome o CSS de vyd-design-system.",
   "license": "MIT",
-  "private": true,
   "type": "module",
   "sideEffects": false,
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
-    ".": "./src/index.tsx"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepack": "npm run build",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
     "react": ">=18",
-    "react-dom": ">=18"
+    "react-dom": ">=18",
+    "vyd-design-system": ">=1"
+  },
+  "peerDependenciesMeta": {
+    "vyd-design-system": {
+      "//": "Peer 'de CSS': os componentes só aplicam classes .vyd-*; o app importa vyd-design-system/theme.css uma vez. Não é import de código."
+    }
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "typescript": "^5.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klebersouzabastos/vyd-design-system.git",
+    "directory": "react"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "vyd",
+    "design-system",
+    "react",
+    "components",
+    "ui"
+  ],
+  "engines": {
+    "node": ">=18"
   }
 }

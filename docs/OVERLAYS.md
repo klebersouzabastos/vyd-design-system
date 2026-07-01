@@ -37,15 +37,15 @@ Variante do dialog ancorada à borda: `.vyd-drawer` + `--right` / `--left` / `--
 - `.vyd-toolbar` + `.vyd-toolbar__sep` — barra flutuante de comandos.
 
 > Menu/popover em CSS puro são só a **superfície**; o posicionamento e o abrir/fechar
-> ficam com o app (ou use o `@vyd/react` abaixo, que já resolve).
+> ficam com o app (ou use o `vyd-react` abaixo, que já resolve).
 
-## Em React (`@vyd/react`) — com comportamento
+## Em React (`vyd-react`) — com comportamento
 
 Todos os overlays interativos são **client components** (`'use client'`).
 
 ```tsx
 import { Dialog, Drawer, Menu, MenuItem, MenuSeparator, MenuLabel,
-         Popover, Tooltip, Toolbar, Button } from "@vyd/react";
+         Popover, Tooltip, Toolbar, Button } from "vyd-react";
 
 // Dialog controlado (foco-trap/ESC/backdrop nativos)
 const [open, setOpen] = useState(false);

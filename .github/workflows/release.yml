@@ -78,20 +78,28 @@ jobs:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Instalar + build
+      - name: Instalar + build (tokens + vyd-react)
         if: steps.gate.outputs.publish == 'true'
-        run: npm install && npm run build
+        run: |
+          npm install
+          npm run build                        # dist/ do vyd-design-system
+          npm --workspace vyd-react run build   # dist/ do vyd-react (tsc)
 
-      - name: Publicar se a versão ainda não estiver no npm
+      - name: Publicar pacotes novos (vyd-design-system + vyd-react)
         if: steps.gate.outputs.publish == 'true'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          NAME=$(node -p "require('./package.json').name")
-          VERSION=$(node -p "require('./package.json').version")
-          if npm view "$NAME@$VERSION" version >/dev/null 2>&1; then
-            echo "$NAME@$VERSION já está publicado — nada a fazer."
-          else
-            npm publish --access public
-            echo "Publicado $NAME@$VERSION no npm."
-          fi
+          publish_if_new() {
+            dir="$1"
+            NAME=$(node -p "require('./$dir/package.json').name")
+            VERSION=$(node -p "require('./$dir/package.json').version")
+            if npm view "$NAME@$VERSION" version >/dev/null 2>&1; then
+              echo "$NAME@$VERSION já publicado — pulando."
+            else
+              ( cd "$dir" && npm publish --access public )
+              echo "Publicado $NAME@$VERSION."
+            fi
+          }
+          publish_if_new "."       # vyd-design-system
+          publish_if_new "react"   # vyd-react
