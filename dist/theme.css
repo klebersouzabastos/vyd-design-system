@@ -1,5 +1,5 @@
 /* =====================================================================
-   VYD DESIGN SYSTEM - theme.css  v0.4.0
+   VYD DESIGN SYSTEM - theme.css  v0.5.0
    GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
    Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
    ===================================================================== */
@@ -325,4 +325,122 @@ body {
   font-size: var(--vyd-text-xs);
   letter-spacing: var(--vyd-ls-wide);
   text-transform: uppercase;
+}
+
+/* =====================================================================
+   FORMULÁRIOS (Fase 2) — field, controles e estados.
+   Todos usam apenas tokens semânticos + altura de controle (--vyd-control-h).
+   ===================================================================== */
+
+/* ---- Field: label + controle + ajuda/erro ---- */
+.vyd-field { display: flex; flex-direction: column; gap: var(--vyd-space-2); }
+.vyd-field__label {
+  font-size: var(--vyd-text-xs); font-weight: var(--vyd-weight-semibold);
+  letter-spacing: var(--vyd-ls-wide); text-transform: uppercase; color: var(--vyd-text-secondary);
+}
+.vyd-field__req { color: var(--vyd-danger); margin-left: 2px; }
+.vyd-field__help { font-size: var(--vyd-text-sm); color: var(--vyd-text-secondary); }
+.vyd-field__error {
+  font-size: var(--vyd-text-sm); color: var(--vyd-danger);
+  display: inline-flex; align-items: center; gap: var(--vyd-space-2);
+}
+
+/* ---- Estados compartilhados (input/textarea/select) ---- */
+.vyd-input[aria-invalid="true"],
+.vyd-textarea[aria-invalid="true"],
+.vyd-select[aria-invalid="true"] { border-color: var(--vyd-danger); }
+.vyd-input[aria-invalid="true"]:focus-visible,
+.vyd-textarea[aria-invalid="true"]:focus-visible,
+.vyd-select[aria-invalid="true"]:focus-visible {
+  box-shadow: 0 0 0 var(--vyd-border-thick) var(--vyd-danger); border-color: var(--vyd-danger);
+}
+.vyd-input:read-only, .vyd-textarea:read-only {
+  background: var(--vyd-bg-canvas); color: var(--vyd-text-secondary); cursor: default;
+}
+
+/* ---- Textarea ---- */
+.vyd-textarea {
+  box-sizing: border-box; width: 100%; min-height: calc(var(--vyd-size-control-lg) * 2);
+  font: var(--vyd-weight-regular) var(--vyd-text-base)/var(--vyd-lh-normal) var(--vyd-font-sans);
+  padding: var(--vyd-space-3) var(--vyd-space-4);
+  border-radius: var(--vyd-radius-md);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  background: var(--vyd-bg-panel); color: var(--vyd-text-primary); resize: vertical;
+}
+.vyd-textarea::placeholder { color: var(--vyd-text-secondary); }
+.vyd-textarea:hover { border-color: var(--vyd-border-strong); }
+.vyd-textarea:focus-visible { outline: none; box-shadow: var(--vyd-shadow-focus); border-color: var(--vyd-border-accent); }
+
+/* ---- Select (nativo estilizado + seta) ---- */
+.vyd-select {
+  box-sizing: border-box; min-height: var(--vyd-control-h);
+  appearance: none; -webkit-appearance: none;
+  font: var(--vyd-weight-regular) var(--vyd-text-base)/1.2 var(--vyd-font-sans);
+  padding: 0 var(--vyd-space-8) 0 var(--vyd-space-4);
+  border-radius: var(--vyd-radius-md);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  background-color: var(--vyd-bg-panel); color: var(--vyd-text-primary);
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%237B8794%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M6%209l6%206%206-6%27%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat; background-position: right var(--vyd-space-4) center; background-size: 14px;
+  cursor: pointer;
+}
+.vyd-select:hover { border-color: var(--vyd-border-strong); }
+.vyd-select:focus-visible { outline: none; box-shadow: var(--vyd-shadow-focus); border-color: var(--vyd-border-accent); }
+.vyd-select:disabled { background-color: var(--vyd-bg-elevated); color: var(--vyd-text-disabled); cursor: not-allowed; }
+
+/* ---- Checkbox / Radio (nativo, appearance none) ---- */
+.vyd-checkbox, .vyd-radio {
+  box-sizing: border-box; appearance: none; -webkit-appearance: none;
+  width: var(--vyd-size-icon-sm); height: var(--vyd-size-icon-sm); flex: none;
+  border: var(--vyd-border-hairline) solid var(--vyd-border-strong);
+  background: var(--vyd-bg-panel); cursor: pointer;
+  transition: background var(--vyd-duration-fast) var(--vyd-ease-standard), border-color var(--vyd-duration-fast) var(--vyd-ease-standard);
+}
+.vyd-checkbox { border-radius: var(--vyd-radius-sm); }
+.vyd-radio { border-radius: var(--vyd-radius-full); }
+.vyd-checkbox:hover, .vyd-radio:hover { border-color: var(--vyd-border-accent); }
+.vyd-checkbox:focus-visible, .vyd-radio:focus-visible { outline: none; box-shadow: var(--vyd-shadow-focus); }
+.vyd-checkbox:checked {
+  background: var(--vyd-action-primary) url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23ffffff%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012l5%205L20%206%27%2F%3E%3C%2Fsvg%3E") center / 72% no-repeat;
+  border-color: var(--vyd-action-primary);
+}
+.vyd-radio:checked {
+  border-color: var(--vyd-action-primary);
+  background-image: radial-gradient(var(--vyd-action-primary) 0 3.5px, transparent 4px);
+}
+.vyd-checkbox:disabled, .vyd-radio:disabled { opacity: var(--vyd-opacity-disabled); cursor: not-allowed; }
+
+/* ---- Switch ---- */
+.vyd-switch {
+  box-sizing: border-box; appearance: none; -webkit-appearance: none;
+  width: 34px; height: 18px; flex: none; border-radius: var(--vyd-radius-full);
+  background-color: var(--vyd-bg-elevated);
+  border: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  background-image: radial-gradient(circle 6px at 9px 50%, var(--vyd-text-secondary) 98%, transparent 100%);
+  background-repeat: no-repeat; cursor: pointer;
+  transition: background-color var(--vyd-duration-fast) var(--vyd-ease-standard);
+}
+.vyd-switch:checked {
+  background-color: var(--vyd-action-primary); border-color: var(--vyd-action-primary);
+  background-image: radial-gradient(circle 6px at 25px 50%, var(--vyd-text-on-accent) 98%, transparent 100%);
+}
+.vyd-switch:focus-visible { outline: none; box-shadow: var(--vyd-shadow-focus); }
+.vyd-switch:disabled { opacity: var(--vyd-opacity-disabled); cursor: not-allowed; }
+
+/* ---- Range ---- */
+.vyd-range { width: 100%; accent-color: var(--vyd-action-primary); cursor: pointer; }
+.vyd-range:focus-visible { outline: none; box-shadow: var(--vyd-shadow-focus); border-radius: var(--vyd-radius-full); }
+
+/* ---- Input group (ícone + input, ex.: busca) ---- */
+.vyd-input-group { position: relative; display: inline-flex; align-items: center; width: 100%; }
+.vyd-input-group > .vyd-icon {
+  position: absolute; left: var(--vyd-space-4); top: 50%; transform: translateY(-50%);
+  color: var(--vyd-text-secondary); pointer-events: none;
+}
+.vyd-input-group > .vyd-input { padding-left: var(--vyd-space-8); width: 100%; }
+
+/* ---- Choice: controle + rótulo inline ---- */
+.vyd-choice {
+  display: inline-flex; align-items: center; gap: var(--vyd-space-3);
+  cursor: pointer; font-size: var(--vyd-text-base); color: var(--vyd-text-primary);
 }

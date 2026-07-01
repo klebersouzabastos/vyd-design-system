@@ -11,6 +11,23 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - —
 
+## [0.5.0] — 2026-07-01
+
+> **Fase 2 — Formulários** (roadmap). Componentes novos (sem mudança no contrato de
+> tokens `--vyd-*`): bump minor por feature. `verify` OK.
+
+### Adicionado
+
+- **Controles de formulário** em `css/primitives.css`: `.vyd-field` (label + `__req`
+  + `__help` + `__error`), `.vyd-textarea`, `.vyd-select` (seta própria), `.vyd-checkbox`,
+  `.vyd-radio`, `.vyd-switch`, `.vyd-range`, `.vyd-input-group` (ícone + input),
+  `.vyd-choice` (rótulo inline). Estados: hover/focus/disabled/**erro** (`aria-invalid`)/
+  **read-only**/checked, todos por token.
+- **`@vyd/react`**: `Field`, `Textarea`, `Select`, `Checkbox`, `Radio`, `Switch`,
+  `Range`, `Choice`, `InputGroup`, `SearchInput`.
+- **[`docs/FORMS.md`](docs/FORMS.md)** + demo **`demo/forms.html`** (todos os controles
+  e estados).
+
 ## [0.4.0] — 2026-07-01
 
 > **Fase 1 — Sistema de ícones** (roadmap). Novo diretório-fonte + pipeline + React +

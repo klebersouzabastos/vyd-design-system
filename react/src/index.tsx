@@ -17,6 +17,11 @@ export { Button, Input, Card, Mono, Text } from './primitives';
 export type { ButtonProps, InputProps, CardProps, TextProps, TextVariant, ControlSize } from './primitives';
 
 export {
+  Field, Textarea, Select, Checkbox, Radio, Switch, Range, Choice, InputGroup, SearchInput,
+} from './forms';
+export type { FieldProps } from './forms';
+
+export {
   AppShell,
   TopBar,
   TopBarBrand,
