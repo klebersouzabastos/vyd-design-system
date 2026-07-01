@@ -11,6 +11,25 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - —
 
+## [0.4.0] — 2026-07-01
+
+> **Fase 1 — Sistema de ícones** (roadmap). Novo diretório-fonte + pipeline + React +
+> CSS + docs. Sem mudança no contrato de tokens `--vyd-*` (bump minor por feature).
+
+### Adicionado
+
+- **Ícones** — 40 ícones de linha (engenharia + UI) em `icons/*.svg` (grid 24, traço
+  1.6, `currentColor`). Pipeline `build/build-icons.mjs` (`npm run build:icons`, e no
+  `npm run build`) gera `dist/icons.svg` (sprite), `dist/icons.mjs/.js/.d.ts` (mapa +
+  `IconName`) e `react/src/icons.generated.ts`.
+- **`@vyd/react`**: componente `<Icon name size title>` (inline, tipado) + `icons`/`ICON_NAMES`.
+- **CSS**: classe `.vyd-icon` (+ `--sm/--lg`) dimensionada pelos tokens de ícone.
+- **Ribbon**: glyph placeholder substituído por ícones reais (`.vyd-ribbon-item .glyph`
+  virou slot de ícone sem borda). `demo/index.html` com sprite inline + ícones.
+- **Exports** do pacote: `./icons` (mapa) e `./icons.svg` (sprite). `icons/` em `files`.
+- **[`docs/ICONS.md`](docs/ICONS.md)**: fonte, geração, tamanhos, consumo (React/CSS/
+  sprite), como adicionar ícone, regras.
+
 ## [0.3.0] — 2026-07-01
 
 > **Fase 0 — Fundações** (roadmap). Tokens novos **aditivos** (nada renomeado/removido):

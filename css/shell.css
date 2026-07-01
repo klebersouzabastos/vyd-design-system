@@ -170,12 +170,9 @@
   min-height: var(--vyd-layout-ribbon-command-h);
   justify-content: center;
 }
-/* glyph placeholder dentro do ribbon item */
+/* slot de ícone dentro do ribbon item (herda a cor do estado; o ícone define o tamanho) */
 .vyd-ribbon-item .glyph {
-  width: 22px; height: 22px;
   display: grid; place-items: center;
-  border: var(--vyd-border-hairline) solid var(--vyd-border-strong);
-  border-radius: var(--vyd-radius-sm);
   color: currentColor;
 }
 

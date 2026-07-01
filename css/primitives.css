@@ -42,6 +42,15 @@ body {
 .vyd-code       { font-family: var(--vyd-font-mono); font-variant-numeric: tabular-nums; font-size: var(--vyd-text-sm); }
 
 /* ---------------------------------------------------------------------
+   Ícone — herda a cor do contexto (currentColor); tamanho pelos tokens.
+   Uso: <svg class="vyd-icon"><use href="…/icons.svg#vyd-icon-model"/></svg>
+   --------------------------------------------------------------------- */
+.vyd-icon     { display: inline-block; flex: none; vertical-align: middle; color: inherit;
+                width: var(--vyd-size-icon-md); height: var(--vyd-size-icon-md); }
+.vyd-icon--sm { width: var(--vyd-size-icon-sm); height: var(--vyd-size-icon-sm); }
+.vyd-icon--lg { width: var(--vyd-size-icon-lg); height: var(--vyd-size-icon-lg); }
+
+/* ---------------------------------------------------------------------
    Botão primário
    normal -> action-primary | hover -> action-primary-hover
    active -> action-primary-active | focus -> focus ring

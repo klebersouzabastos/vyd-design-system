@@ -1,6 +1,6 @@
 {
   "name": "@vyd/design-system",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "VYD Design System — fonte única de verdade visual do ecossistema VYD (apps de engenharia). Estilo técnico, sóbrio, denso. Acento azul-blueprint.",
   "license": "MIT",
   "private": true,
@@ -25,12 +25,19 @@
     "./shell.css": "./css/shell.css",
     "./tailwind": "./dist/tokens.tailwind.js",
     "./tokens.json": "./tokens/tokens.json",
+    "./icons": {
+      "types": "./dist/icons.d.ts",
+      "import": "./dist/icons.mjs",
+      "require": "./dist/icons.js"
+    },
+    "./icons.svg": "./dist/icons.svg",
     "./dist/*": "./dist/*"
   },
   "files": [
     "dist",
     "css",
     "tokens",
+    "icons",
     "build",
     "brand",
     "demo",
@@ -42,7 +49,8 @@
     "*.css"
   ],
   "scripts": {
-    "build": "node build/build.mjs",
+    "build": "node build/build.mjs && node build/build-icons.mjs",
+    "build:icons": "node build/build-icons.mjs",
     "verify": "node build/verify.mjs",
     "icons": "python3 build/make-icons.py",
     "prebuild": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
