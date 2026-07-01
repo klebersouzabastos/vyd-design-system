@@ -11,6 +11,21 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - —
 
+## [0.8.0] — 2026-07-01
+
+> **Fase 5 — Dados densos** (roadmap). Componentes novos (sem mudança no contrato de
+> tokens `--vyd-*`): bump minor por feature. `verify` OK.
+
+### Adicionado
+
+- **Dados (CSS `.vyd-*`)**: `table` (+ `-wrap` com header sticky, `--zebra`, `--compact`,
+  `.vyd-num`, `__sort` com `aria-sort`, linha `aria-selected`), `list` (`__item/__icon/
+  __body/__title/__sub/__trailing`), `tree` (`__item/__toggle/__icon`, `aria-expanded`),
+  `stat` (`__label/__value/__delta --up/--down`), `kv` (key-value).
+- **`@vyd/react`**: `TableWrap`, `Table`, `Thead`, `Tbody`, `Tr`, `Th` (sortable/numeric),
+  `Td`, `List`, `ListItem`, `Tree`, `TreeItem`, `Stat`, `KeyValue`, `KV`.
+- **[`docs/DATA.md`](docs/DATA.md)** + demo **`demo/data.html`**.
+
 ## [0.7.0] — 2026-07-01
 
 > **Fase 4 — Overlays** (roadmap). Componentes novos (sem mudança no contrato de
