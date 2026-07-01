@@ -9,8 +9,27 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 ## [Não lançado]
 
-> Sem mudança no contrato de tokens `--vyd-*` (nenhum bump de versão exigido pela
-> governança). Adições de camada React/exemplos e troca de assets de marca.
+- —
+
+## [0.2.0] — 2026-07-01
+
+> **Ribbon como definição de primeira classe** + guia visual + camada React +
+> símbolo unificado. Tokens `--vyd-*` **adicionados** (aditivo, sem renomear/remover):
+> bump minor.
+
+### Adicionado — Ribbon
+
+- **Tokens de layout da ribbon**: `--vyd-layout-ribbon-tabs-h` (34px, faixa de abas)
+  e `--vyd-layout-ribbon-command-h` (48px, altura do tile de comando). Também no
+  preset Tailwind (`h-ribbon-tabs-h`, `h-ribbon-command-h`).
+- **Faixa de abas** em `css/shell.css`: `.vyd-ribbon-tabs` + `.vyd-ribbon-tab`
+  (ativa = sublinhado de acento 2px via `aria-selected`). O grid do `.vyd-app` ganhou
+  uma track `auto` que **colapsa quando não há abas** (não quebra shells existentes).
+- Tile de comando com **altura uniforme tokenizada** (`.vyd-ribbon .vyd-ribbon-item`).
+- **`@vyd/react`**: componentes `RibbonTabs` e `RibbonTab`.
+- **[`docs/RIBBON.md`](docs/RIBBON.md)**: documentação de primeira classe da ribbon
+  (anatomia, dimensões, estados, exemplo canônico em CSS/Tailwind/React, regras).
+- Abas adicionadas ao `demo/index.html`.
 
 ### Adicionado
 

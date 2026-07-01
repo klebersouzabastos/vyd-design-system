@@ -19,6 +19,8 @@ export {
   TopBarSpacer,
   ToolSwitcher,
   Avatar,
+  RibbonTabs,
+  RibbonTab,
   Ribbon,
   RibbonGroup,
   RibbonItem,

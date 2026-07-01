@@ -17,8 +17,11 @@
 
 .vyd-app {
   display: grid;
+  /* A faixa de abas (ribbontabs) é opcional: sem um .vyd-ribbon-tabs no markup,
+     a track `auto` colapsa para 0 e o shell fica idêntico ao layout sem abas. */
   grid-template-rows:
     var(--vyd-layout-topbar-h)
+    auto
     var(--vyd-layout-ribbon-h)
     1fr
     var(--vyd-layout-statusbar-h);
@@ -27,10 +30,11 @@
     1fr
     var(--vyd-layout-rightpanel-w);
   grid-template-areas:
-    "topbar    topbar  topbar"
-    "ribbon    ribbon  ribbon"
-    "leftrail  canvas  rightpanel"
-    "statusbar statusbar statusbar";
+    "topbar     topbar     topbar"
+    "ribbontabs ribbontabs ribbontabs"
+    "ribbon     ribbon     ribbon"
+    "leftrail   canvas     rightpanel"
+    "statusbar  statusbar  statusbar";
   height: 100vh;
   background: var(--vyd-bg-canvas);
   color: var(--vyd-text-primary);
@@ -98,6 +102,41 @@
 }
 
 /* ---------------------------------------------------------------------
+   RIBBON TABS — faixa de abas acima dos comandos (opcional).
+   normal -> text-secondary | hover/selected -> text-primary
+   selected -> sublinhado de acento 2px (mesmo padrão do item ativo)
+   --------------------------------------------------------------------- */
+.vyd-ribbon-tabs {
+  grid-area: ribbontabs;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--vyd-space-1);
+  height: var(--vyd-layout-ribbon-tabs-h);
+  padding: 0 var(--vyd-space-4);
+  background: var(--vyd-bg-chrome);
+  border-bottom: var(--vyd-border-hairline) solid var(--vyd-border-default);
+  overflow-x: auto;
+}
+.vyd-ribbon-tab {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 var(--vyd-space-5);
+  font-size: var(--vyd-text-sm);
+  color: var(--vyd-text-secondary);
+  border-bottom: var(--vyd-border-thick) solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.vyd-ribbon-tab:hover { color: var(--vyd-text-primary); }
+.vyd-ribbon-tab:focus-visible { outline: none; box-shadow: var(--vyd-shadow-focus); }
+.vyd-ribbon-tab[aria-selected="true"] {
+  color: var(--vyd-text-primary);
+  font-weight: var(--vyd-weight-semibold);
+  border-bottom-color: var(--vyd-border-accent);
+}
+
+/* ---------------------------------------------------------------------
    RIBBON — comandos agrupados. Estrutura fixa; muda só o conteúdo.
    --------------------------------------------------------------------- */
 .vyd-ribbon {
@@ -125,6 +164,11 @@
   text-transform: uppercase;
   color: var(--vyd-text-secondary);
   padding-top: var(--vyd-space-2);
+}
+/* comando (tile) na ribbon: altura uniforme tokenizada */
+.vyd-ribbon .vyd-ribbon-item {
+  min-height: var(--vyd-layout-ribbon-command-h);
+  justify-content: center;
 }
 /* glyph placeholder dentro do ribbon item */
 .vyd-ribbon-item .glyph {

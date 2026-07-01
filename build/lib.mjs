@@ -16,6 +16,8 @@ export function kebab(s) {
 const LAYOUT_MAP = {
   'layout.topbar.height':           'vyd-layout-topbar-h',
   'layout.ribbon.height':           'vyd-layout-ribbon-h',
+  'layout.ribbon.tabsHeight':       'vyd-layout-ribbon-tabs-h',
+  'layout.ribbon.commandHeight':    'vyd-layout-ribbon-command-h',
   'layout.leftRail.width':          'vyd-layout-leftrail-w',
   'layout.leftRail.collapsedWidth': 'vyd-layout-leftrail-w-min',
   'layout.rightPanel.width':        'vyd-layout-rightpanel-w',
