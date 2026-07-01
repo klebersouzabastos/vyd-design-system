@@ -2,8 +2,8 @@
 //
 // These apply the design system's `.vyd-*` classes; the consuming app must
 // import the stylesheet(s) once at its root:
-//   import '@vyd/design-system/theme.css';   // tokens + primitives
-//   import '@vyd/design-system/shell.css';    // app shell layout (opt-in)
+//   import 'vyd-design-system/theme.css';   // tokens + primitives
+//   import 'vyd-design-system/shell.css';    // app shell layout (opt-in)
 
 export { cx } from './cx';
 export { CubeMark } from './CubeMark';

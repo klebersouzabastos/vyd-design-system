@@ -69,7 +69,7 @@ Regressão visual (Playwright) e como manter baselines: **[docs/TESTING.md](docs
 **CSS puro / Claude Code** — importe o CSS e use as variáveis:
 
 ```css
-@import "@vyd/design-system/theme.css";
+@import "vyd-design-system/theme.css";
 ```
 ```html
 <button class="vyd-btn">Salvar</button>
@@ -81,7 +81,7 @@ Regressão visual (Playwright) e como manter baselines: **[docs/TESTING.md](docs
 
 ```js
 // tailwind.config.js
-const vyd = require("@vyd/design-system/tailwind");
+const vyd = require("vyd-design-system/tailwind");
 module.exports = { presets: [vyd], content: ["./src/**/*.{js,jsx,ts,tsx,html}"] };
 ```
 ```html
@@ -92,7 +92,7 @@ module.exports = { presets: [vyd], content: ["./src/**/*.{js,jsx,ts,tsx,html}"] 
 finos sobre as mesmas classes `.vyd-*`):
 
 ```tsx
-import "@vyd/design-system/theme.css";
+import "vyd-design-system/theme.css";
 import { Button, Mono } from "@vyd/react";
 
 <Button onClick={save}>Salvar</Button>
@@ -128,8 +128,8 @@ A casca é constante, o recheio muda. Dimensões fixas em TODA ferramenta
 Implementação pronta em `css/shell.css` (layout opt-in). Importe depois do theme:
 
 ```css
-@import "@vyd/design-system/theme.css";
-@import "@vyd/design-system/shell.css";
+@import "vyd-design-system/theme.css";
+@import "vyd-design-system/shell.css";
 ```
 
 Estrutura: `.vyd-app` › `.vyd-topbar` · `.vyd-ribbon-tabs` · `.vyd-ribbon` ·

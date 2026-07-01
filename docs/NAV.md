@@ -1,7 +1,7 @@
 # VYD — Navegação
 
 Tabs, breadcrumbs, pagination, stepper/wizard, command palette e `kbd`.
-Adicionado na **v0.9.0**. Importe `@vyd/design-system/theme.css`.
+Adicionado na **v0.9.0**. Importe `vyd-design-system/theme.css`.
 
 ## Tabs · Breadcrumbs (CSS)
 

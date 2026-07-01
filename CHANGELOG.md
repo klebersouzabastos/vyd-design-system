@@ -9,7 +9,13 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 ## [Não lançado]
 
-- —
+### Alterado
+
+- **Nome do pacote npm**: `@vyd/design-system` → **`vyd-design-system`** (sem escopo).
+  O escopo `@vyd` já estava registrado por outra conta no npm. Como o pacote ainda
+  **não** havia sido publicado, a renomeação não afeta nenhum consumidor. Imports
+  passam a ser `vyd-design-system/theme.css`, `vyd-design-system/tailwind` etc.
+  (O pacote interno de dev `@vyd/react` — privado, não publicado — permanece.)
 
 ## [1.0.0] — 2026-07-01
 
@@ -238,7 +244,7 @@ Primeira versão estruturada do design system como pacote publicável.
 ### Adicionado
 
 - Estrutura de pacote: `/tokens` (fonte), `/css` (primitivas), `/dist` (build),
-  `/tailwind`, `/docs`, `/build` (pipeline). `package.json` (`@vyd/design-system`),
+  `/tailwind`, `/docs`, `/build` (pipeline). `package.json` (`vyd-design-system`),
   `LICENSE` (MIT), `.gitignore`, este changelog.
 - Pipeline de build com **Style Dictionary** (`npm run build`) gerando a partir de
   `tokens/tokens.json`: `dist/theme.css`, `dist/variables.css`,
