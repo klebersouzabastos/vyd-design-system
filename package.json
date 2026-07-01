@@ -1,10 +1,8 @@
 {
   "name": "@vyd/design-system",
-  "version": "0.10.0",
+  "version": "1.0.0",
   "description": "VYD Design System — fonte única de verdade visual do ecossistema VYD (apps de engenharia). Estilo técnico, sóbrio, denso. Acento azul-blueprint.",
   "license": "MIT",
-  "private": true,
-  "//private": "Guard contra publicação acidental no npm. Remova esta linha e 'private' para publicar (ver docs/USAGE.md).",
   "author": "K2+ / VYD",
   "type": "commonjs",
   "workspaces": [
@@ -54,7 +52,10 @@
     "verify": "node build/verify.mjs",
     "icons": "python3 build/make-icons.py",
     "prebuild": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
-    "test": "npm run build && npm run verify"
+    "typecheck": "npm --workspace @vyd/react run typecheck",
+    "test": "npm run build && npm run verify && npm run typecheck",
+    "test:visual": "playwright test",
+    "test:visual:update": "playwright test --update-snapshots"
   },
   "keywords": [
     "design-system",
@@ -66,7 +67,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/<owner>/vyd-design-system.git"
+    "url": "git+https://github.com/klebersouzabastos/vyd-design-system.git"
   },
   "publishConfig": {
     "access": "public"
@@ -75,6 +76,7 @@
     "node": ">=18"
   },
   "devDependencies": {
+    "@playwright/test": "^1.48.0",
     "style-dictionary": "^4.0.0"
   }
 }

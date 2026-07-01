@@ -1,55 +1,58 @@
-# Publicar o repositório (init + commit + GitHub)
+# Publicar & versionar
 
-O repositório ainda **não** tem git inicializado nem remote. Rode os comandos
-abaixo **na sua máquina**, dentro de `C:\Github\vyd-design-system`.
+O repositório já existe em
+<https://github.com/klebersouzabastos/vyd-design-system> e está em **1.0.0**
+(estável). Este doc é o processo de **cortar uma release** e, opcionalmente,
+**publicar no npm**. Regras de versão/depreciação: [GOVERNANCE.md](GOVERNANCE.md).
 
-> Antes: troque `<owner>` pelo seu usuário/org do GitHub em `package.json`
-> (campo `repository.url`) e no `CHANGELOG.md` (links do rodapé).
+## Cortar uma release
 
-## 1. Inicializar e fazer o commit inicial
+1. Garanta o gate verde e o `dist/` regenerado:
+   ```bash
+   npm test          # build + verify + typecheck
+   git diff --exit-code   # dist/ commitado bate com o build
+   ```
+2. Atualize `CHANGELOG.md` (seção da nova versão, formato Keep a Changelog).
+3. Feche a versão — cria o commit de bump **e** a tag:
+   ```bash
+   npm version <patch|minor|major>   # ex.: minor → 1.1.0, cria tag v1.1.0
+   ```
+   Escolha o bump pela classificação em [GOVERNANCE.md](GOVERNANCE.md)
+   (adição = minor; quebra = major; fix = patch).
+4. Suba branch + tag e abra PR (merge `--no-ff` para preservar histórico):
+   ```bash
+   git push -u origin <branch>
+   git push origin --tags
+   ```
 
-```bash
-cd C:\Github\vyd-design-system
+## Publicar no npm (opcional — só com autorização)
 
-git init
-git branch -M main
-git add .
-git commit -m "chore: VYD Design System v0.1.0 — token source, build pipeline, docs"
-git tag v0.1.0
-```
-
-## 2. Criar o repositório remoto e dar push
-
-Escolha **um** caminho.
-
-### A) GitHub CLI (`gh`) — se você tiver instalado
-
-```bash
-# repositório PÚBLICO (sua escolha). Para privado: troque --public por --private
-gh repo create vyd-design-system --public --source=. --remote=origin --push
-git push origin v0.1.0
-```
-
-### B) Via web + git
-
-1. Crie um repositório **vazio** chamado `vyd-design-system` em
-   <https://github.com/new> — **Público**, sem README/.gitignore/license
-   (já temos todos).
-2. Conecte e suba:
+Desde a 1.0.0 o pacote **não** tem mais `"private": true`, então `npm publish`
+funciona. Escopo `@vyd` exige uma org no npm.
 
 ```bash
-git remote add origin https://github.com/<owner>/vyd-design-system.git
-git push -u origin main
-git push origin v0.1.0
+npm login                         # conta com acesso à org @vyd
+npm publish --access public       # respeita 'files' (dist, css, tokens, icons, build, brand, demo)
 ```
 
-## 3. (Opcional) Publicar no npm — só com sua autorização
+O que é publicado é controlado pelo allowlist `files` do `package.json` — `react/`,
+`test/`, `.github/` e configs de dev **não** entram no tarball. Confira antes com:
 
-O pacote está com `"private": true` como trava de segurança. Para publicar:
+```bash
+npm pack --dry-run                # lista exatamente o que iria pro npm
+```
 
-1. Remova `"private": true` do `package.json`.
-2. `npm login` e confirme o escopo `@vyd` (precisa de org no npm).
-3. `npm publish --access public`.
+> Alternativa sem npm: apps podem consumir direto do GitHub, fixando a tag:
+> ```bash
+> npm install github:klebersouzabastos/vyd-design-system#v1.0.0
+> ```
 
-> Não publique sem necessidade. Apps podem consumir direto do GitHub:
-> `npm install github:<owner>/vyd-design-system#v0.1.0`.
+## Checklist de release
+
+- [ ] `npm test` verde (build + verify + typecheck).
+- [ ] `git diff --exit-code` limpo (gerados commitados).
+- [ ] `CHANGELOG.md` atualizado + links de rodapé.
+- [ ] `npm version <bump>` (commit + tag).
+- [ ] `README.md` badge de versão conferido.
+- [ ] Push de branch **e** tag; PR com merge `--no-ff`.
+- [ ] (Se publicar) `npm pack --dry-run` revisado → `npm publish --access public`.

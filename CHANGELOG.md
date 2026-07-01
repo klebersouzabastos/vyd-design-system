@@ -11,6 +11,44 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - —
 
+## [1.0.0] — 2026-07-01
+
+> **Fase 8 — Endurecimento & 1.0** (roadmap). Primeira versão **estável**: catálogo
+> fechado, contrato `--vyd-*` congelado sob SemVer. Mudanças **aditivas** (novo tema,
+> shell responsivo, RTL, testes, governança) — nada renomeado/removido, então nenhum
+> app quebra ao subir de `0.10` para `1.0`. `verify` + `typecheck` OK.
+
+### Adicionado
+
+- **Tema alto-contraste** (a11y): `tokens/tokens.hc.json` →
+  bloco `[data-vyd-theme="high-contrast"]` (preto puro, texto branco, bordas fortes,
+  acento azul mais claro). **Auto-aplica** em `@media (prefers-contrast: more)` para
+  roots sem tema explícito. Coberto pelo `verify`.
+- **Shell responsivo** (`css/shell.css`): colapsos progressivos por breakpoint —
+  ≤1024 esconde o inspector, ≤768 rail vira só ícones, ≤640 rail some e ribbon
+  compacta. Opt-out por app com `.vyd-app--fixed`.
+- **i18n/RTL**: shell e primitivas migrados para **propriedades lógicas**
+  (`border-inline-*`, `margin-inline-*`, `inset-inline-*`) → espelham com
+  `dir="rtl"` sem código extra. Guia **[`docs/I18N.md`](docs/I18N.md)**.
+- **Testes**: gate determinístico `npm test` (build + verify + **typecheck**) e
+  **regressão visual** Playwright (`test/visual.spec.ts`, `test:visual[:update]`).
+  CI em **[`.github/workflows/ci.yml`](.github/workflows/ci.yml)** (Node 18/20/22).
+  **[`docs/TESTING.md`](docs/TESTING.md)**.
+- **Governança**: política de SemVer + ciclo de depreciação em
+  **[`docs/GOVERNANCE.md`](docs/GOVERNANCE.md)**.
+
+### Alterado
+
+- `verify` agora também confere o bloco `high-contrast` e a auto-aplicação
+  `prefers-contrast: more`.
+- `npm test` passou a incluir `typecheck` do `@vyd/react`.
+
+### Distribuição
+
+- Removido `"private": true` — o pacote pode ser **publicado no npm**
+  (`npm publish --access public`). `repository.url` apontando para o repo real.
+  Ver **[`docs/PUBLISH.md`](docs/PUBLISH.md)**.
+
 ## [0.10.0] — 2026-07-01
 
 > **Fase 7 — Data-viz** (roadmap). Tokens **aditivos** de paleta de dados (nada
@@ -230,5 +268,6 @@ Primeira versão estruturada do design system como pacote publicável.
   Apps que já importavam `theme.css` continuam funcionando ao trocar para
   `dist/theme.css`. As únicas adições são os tokens citados acima.
 
-[Não lançado]: https://github.com/<owner>/vyd-design-system/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/<owner>/vyd-design-system/releases/tag/v0.1.0
+[Não lançado]: https://github.com/klebersouzabastos/vyd-design-system/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v1.0.0
+[0.1.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v0.1.0

@@ -1,5 +1,5 @@
 /* =====================================================================
-   VYD DESIGN SYSTEM - theme.css  v0.10.0
+   VYD DESIGN SYSTEM - theme.css  v1.0.0
    GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
    Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
    ===================================================================== */
@@ -159,6 +159,46 @@
   --vyd-action-primary: var(--vyd-blueprint-500);
   --vyd-action-primary-hover: var(--vyd-blueprint-600);
   --vyd-action-primary-active: var(--vyd-blueprint-700);
+}
+
+[data-vyd-theme="high-contrast"] {
+  --vyd-bg-chrome: #000000;
+  --vyd-bg-panel: #000000;
+  --vyd-bg-canvas: #000000;
+  --vyd-bg-elevated: var(--vyd-neutral-100);
+  --vyd-text-primary: var(--vyd-neutral-1000);
+  --vyd-text-secondary: var(--vyd-neutral-800);
+  --vyd-text-disabled: var(--vyd-neutral-600);
+  --vyd-text-inverse: #000000;
+  --vyd-text-on-accent: var(--vyd-neutral-1000);
+  --vyd-text-accent: var(--vyd-blueprint-200);
+  --vyd-border-default: var(--vyd-neutral-500);
+  --vyd-border-strong: var(--vyd-neutral-700);
+  --vyd-border-accent: var(--vyd-blueprint-300);
+  --vyd-action-primary: var(--vyd-blueprint-400);
+  --vyd-action-primary-hover: var(--vyd-blueprint-300);
+  --vyd-action-primary-active: var(--vyd-blueprint-500);
+}
+
+@media (prefers-contrast: more) {
+    :root:not([data-vyd-theme]) {
+    --vyd-bg-chrome: #000000;
+    --vyd-bg-panel: #000000;
+    --vyd-bg-canvas: #000000;
+    --vyd-bg-elevated: var(--vyd-neutral-100);
+    --vyd-text-primary: var(--vyd-neutral-1000);
+    --vyd-text-secondary: var(--vyd-neutral-800);
+    --vyd-text-disabled: var(--vyd-neutral-600);
+    --vyd-text-inverse: #000000;
+    --vyd-text-on-accent: var(--vyd-neutral-1000);
+    --vyd-text-accent: var(--vyd-blueprint-200);
+    --vyd-border-default: var(--vyd-neutral-500);
+    --vyd-border-strong: var(--vyd-neutral-700);
+    --vyd-border-accent: var(--vyd-blueprint-300);
+    --vyd-action-primary: var(--vyd-blueprint-400);
+    --vyd-action-primary-hover: var(--vyd-blueprint-300);
+    --vyd-action-primary-active: var(--vyd-blueprint-500);
+  }
 }
 
 /* =====================================================================
@@ -349,7 +389,7 @@ body {
   font-size: var(--vyd-text-xs); font-weight: var(--vyd-weight-semibold);
   letter-spacing: var(--vyd-ls-wide); text-transform: uppercase; color: var(--vyd-text-secondary);
 }
-.vyd-field__req { color: var(--vyd-danger); margin-left: 2px; }
+.vyd-field__req { color: var(--vyd-danger); margin-inline-start: 2px; }
 .vyd-field__help { font-size: var(--vyd-text-sm); color: var(--vyd-text-secondary); }
 .vyd-field__error {
   font-size: var(--vyd-text-sm); color: var(--vyd-danger);
@@ -445,10 +485,10 @@ body {
 /* ---- Input group (ícone + input, ex.: busca) ---- */
 .vyd-input-group { position: relative; display: inline-flex; align-items: center; width: 100%; }
 .vyd-input-group > .vyd-icon {
-  position: absolute; left: var(--vyd-space-4); top: 50%; transform: translateY(-50%);
+  position: absolute; inset-inline-start: var(--vyd-space-4); top: 50%; transform: translateY(-50%);
   color: var(--vyd-text-secondary); pointer-events: none;
 }
-.vyd-input-group > .vyd-input { padding-left: var(--vyd-space-8); width: 100%; }
+.vyd-input-group > .vyd-input { padding-inline-start: var(--vyd-space-8); width: 100%; }
 
 /* ---- Choice: controle + rótulo inline ---- */
 .vyd-choice {
@@ -468,14 +508,14 @@ body {
   padding: var(--vyd-space-4) var(--vyd-space-5);
   border-radius: var(--vyd-radius-md);
   border: var(--vyd-border-hairline) solid var(--vyd-border-default);
-  border-left: 3px solid var(--vyd-alert-accent);
+  border-inline-start: 3px solid var(--vyd-alert-accent);
   background: var(--vyd-bg-panel);
 }
 .vyd-alert__icon { color: var(--vyd-alert-accent); flex: none; margin-top: 1px; }
 .vyd-alert__body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .vyd-alert__title { font-size: var(--vyd-text-base); font-weight: var(--vyd-weight-semibold); color: var(--vyd-text-primary); }
 .vyd-alert__text  { font-size: var(--vyd-text-sm); color: var(--vyd-text-secondary); }
-.vyd-alert__close { margin-left: auto; flex: none; background: none; border: 0; color: var(--vyd-text-secondary); cursor: pointer; padding: 2px; border-radius: var(--vyd-radius-sm); }
+.vyd-alert__close { margin-inline-start: auto; flex: none; background: none; border: 0; color: var(--vyd-text-secondary); cursor: pointer; padding: 2px; border-radius: var(--vyd-radius-sm); }
 .vyd-alert__close:hover { color: var(--vyd-text-primary); background: var(--vyd-bg-elevated); }
 .vyd-alert--success { --vyd-alert-accent: var(--vyd-success); }
 .vyd-alert--warning { --vyd-alert-accent: var(--vyd-warning); }
@@ -484,7 +524,7 @@ body {
 /* ---- Toast / notification (região viva) ---- */
 .vyd-toaster {
   position: fixed; z-index: var(--vyd-z-toast);
-  bottom: var(--vyd-space-6); right: var(--vyd-space-6);
+  bottom: var(--vyd-space-6); inset-inline-end: var(--vyd-space-6);
   display: flex; flex-direction: column; gap: var(--vyd-space-3);
   width: min(380px, calc(100vw - var(--vyd-space-8)));
 }
@@ -494,7 +534,7 @@ body {
   padding: var(--vyd-space-4);
   border-radius: var(--vyd-radius-md);
   border: var(--vyd-border-hairline) solid var(--vyd-border-default);
-  border-left: 3px solid var(--vyd-alert-accent);
+  border-inline-start: 3px solid var(--vyd-alert-accent);
   background: var(--vyd-bg-elevated);
   box-shadow: var(--vyd-shadow-lg);
 }
@@ -723,7 +763,7 @@ body {
 .vyd-list__body { display: flex; flex-direction: column; min-width: 0; }
 .vyd-list__title { color: var(--vyd-text-primary); }
 .vyd-list__sub { font-size: var(--vyd-text-sm); color: var(--vyd-text-secondary); }
-.vyd-list__trailing { margin-left: auto; color: var(--vyd-text-secondary); flex: none; }
+.vyd-list__trailing { margin-inline-start: auto; color: var(--vyd-text-secondary); flex: none; }
 
 /* ---- Tree ---- */
 .vyd-tree { display: flex; flex-direction: column; gap: 1px; }
@@ -832,7 +872,7 @@ body {
 .vyd-cmdk__item { display: flex; align-items: center; gap: var(--vyd-space-3); padding: var(--vyd-space-2) var(--vyd-space-3); border-radius: var(--vyd-radius-sm); color: var(--vyd-text-primary); cursor: pointer; }
 .vyd-cmdk__item[aria-selected="true"] { background: color-mix(in srgb, var(--vyd-action-primary) 18%, transparent); }
 .vyd-cmdk__item .vyd-icon { color: var(--vyd-text-secondary); }
-.vyd-cmdk__item-trailing { margin-left: auto; }
+.vyd-cmdk__item-trailing { margin-inline-start: auto; }
 .vyd-cmdk__empty { padding: var(--vyd-space-7); text-align: center; color: var(--vyd-text-secondary); font-size: var(--vyd-text-sm); }
 
 /* ---- Kbd (tecla) ---- */

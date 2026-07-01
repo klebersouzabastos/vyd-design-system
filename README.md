@@ -1,6 +1,6 @@
 # VYD Design System
 
-[![version](https://img.shields.io/badge/version-0.1.0-1E5FC4)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-1.0.0-1E5FC4)](CHANGELOG.md)
 
 Fonte única de verdade visual do ecossistema **VYD** (Value Your Day) — ferramentas
 de software para empresas de engenharia (gestão de obras, gestão de pessoas, geração
@@ -19,11 +19,12 @@ tipo-Autodesk. Este repositório resolve isso com um **token source único** e u
 ## Estrutura
 
 ```
-tokens/        Fonte de verdade (tokens.json + tokens.light.json)  ← EDITE AQUI
+tokens/        Fonte de verdade (tokens.json + .light + .hc overrides)  ← EDITE AQUI
 css/           Primitivas (.vyd-*) + app shell (shell.css), feitas à mão
 build/         Pipeline Style Dictionary (lib.mjs, build.mjs, verify.mjs)
+test/          Regressão visual (Playwright) — ver docs/TESTING.md
 dist/          GERADO pelo build (não editar)
-  ├─ theme.css            variáveis (dark+light) + primitivas  ← drop-in
+  ├─ theme.css            variáveis (dark+light+high-contrast) + primitivas  ← drop-in
   ├─ variables.css        só as variáveis
   ├─ tokens.tailwind.js   preset Tailwind (theme.extend)
   ├─ tokens.js / .mjs     objeto JS (CJS/ESM)
@@ -33,7 +34,7 @@ tailwind/      Entry-point do preset (re-export de dist)
 brand/         Logo (positiva/negativa/mono) + icons/ (favicon, PWA)
 demo/          brand-guide.html (guia visual completo) + index.html (app shell) + preview
 icons/         Ícones-fonte (SVG 24×24, currentColor) — geram dist/icons.*
-docs/          USAGE · FOUNDATIONS · ICONS · FORMS · FEEDBACK · OVERLAYS · DATA · NAV · DATAVIZ · RIBBON · BRAND · BRIEF · PUBLISH · ROADMAP · ROADMAP-PROMPT
+docs/          USAGE · FOUNDATIONS · ICONS · FORMS · FEEDBACK · OVERLAYS · DATA · NAV · DATAVIZ · RIBBON · I18N · TESTING · GOVERNANCE · BRAND · BRIEF · PUBLISH · ROADMAP · ROADMAP-PROMPT
 react/         @vyd/react — componentes React (wrappers sobre .vyd-*)
 ```
 
@@ -55,10 +56,13 @@ editar só este repo. Detalhes e snippets em **[docs/USAGE.md](docs/USAGE.md)**.
 
 ```bash
 npm install
-npm run build     # regenera dist/ a partir de tokens/tokens.json
-npm run verify    # confere que o contrato --vyd-* não quebrou
-# npm test        # build + verify
+npm run build      # regenera dist/ a partir de tokens/tokens.json
+npm run verify     # confere que o contrato --vyd-* não quebrou
+npm run typecheck  # tipos do @vyd/react (strict)
+npm test           # build + verify + typecheck  (gate determinístico do CI)
 ```
+
+Regressão visual (Playwright) e como manter baselines: **[docs/TESTING.md](docs/TESTING.md)**.
 
 ## Consumo (resumo)
 
@@ -68,7 +72,9 @@ npm run verify    # confere que o contrato --vyd-* não quebrou
 @import "@vyd/design-system/theme.css";
 ```
 ```html
-<button class="vyd-btn">Salvar</button>   <!-- tema claro: <html data-vyd-theme="light"> -->
+<button class="vyd-btn">Salvar</button>
+<!-- temas: <html data-vyd-theme="light|dark|high-contrast"> · dark é o default -->
+<!-- high-contrast também auto-aplica em prefers-contrast: more -->
 ```
 
 **Tailwind / Lovable** — importe o CSS e estenda o preset:
@@ -135,10 +141,12 @@ estados e exemplos em **[docs/RIBBON.md](docs/RIBBON.md)**.
 
 ## Governança / versionamento
 
-SemVer. **Toda** mudança de token = build + bump de versão + entrada no
-[CHANGELOG.md](CHANGELOG.md). Apps fixam a versão (tag) que usam e atualizam
-conscientemente. Nunca edite tokens direto num app. Processo detalhado em
-[docs/USAGE.md](docs/USAGE.md#como-propor-uma-mudança-governança).
+SemVer (estável desde **1.0.0**). **Toda** mudança de token = build + bump de versão
++ entrada no [CHANGELOG.md](CHANGELOG.md). Apps fixam a versão (tag) que usam e
+atualizam conscientemente. Nunca edite tokens direto num app. Política de versão,
+ciclo de **depreciação** e classificação de bump em
+**[docs/GOVERNANCE.md](docs/GOVERNANCE.md)**; publicação no npm em
+**[docs/PUBLISH.md](docs/PUBLISH.md)**.
 
 ## Licença
 
