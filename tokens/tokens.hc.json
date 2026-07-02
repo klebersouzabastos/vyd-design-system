@@ -26,9 +26,9 @@
         "accent":  { "value": "{color.brand.blueprint.300}" }
       },
       "action": {
-        "primary":      { "value": "{color.brand.blueprint.400}", "_comment": "azul mais claro p/ visibilidade sobre preto" },
-        "primaryHover": { "value": "{color.brand.blueprint.300}" },
-        "primaryActive":{ "value": "{color.brand.blueprint.500}" }
+        "primary":      { "value": "{color.brand.blueprint.500}", "_comment": "rotulo branco = 6.02 (AA). Antes blueprint.400 reprovava (4.21)." },
+        "primaryHover": { "value": "{color.brand.blueprint.400}" },
+        "primaryActive":{ "value": "{color.brand.blueprint.600}" }
       }
     }
   }

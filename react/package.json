@@ -1,6 +1,6 @@
 {
   "name": "vyd-react",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Componentes React (wrappers finos) do VYD Design System sobre as classes .vyd-* e o app shell. Consome o CSS de vyd-design-system.",
   "license": "MIT",
   "type": "module",
@@ -26,11 +26,12 @@
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18",
-    "vyd-design-system": ">=1"
+    "vyd-design-system": ">=2"
   },
   "peerDependenciesMeta": {
     "vyd-design-system": {
-      "//": "Peer 'de CSS': os componentes só aplicam classes .vyd-*; o app importa vyd-design-system/theme.css uma vez. Não é import de código."
+      "optional": true,
+      "//": "Peer 'de CSS' (optional): os componentes só aplicam classes .vyd-*; o app importa vyd-design-system/theme.css uma vez. Não é import de código, então o install do vyd-react não precisa resolver o pacote (evita chicken-and-egg no publish do monorepo)."
     }
   },
   "devDependencies": {

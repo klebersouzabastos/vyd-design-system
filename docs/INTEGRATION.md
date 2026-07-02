@@ -40,16 +40,21 @@ Integre o design system "vyd-design-system" (npm) neste projeto:
 1. Instale: npm install vyd-design-system
 2. No entry do app (src/main.tsx ou src/index.tsx), como PRIMEIRO import:
      import 'vyd-design-system/theme.css';
+     import 'vyd-design-system/shell.css';   // se for um app com app-shell
 3. Se o projeto usa Tailwind v3, em tailwind.config.js adicione:
      presets: [require('vyd-design-system/tailwind')]
    (Se for Tailwind v4, NÃO use o preset JS — as variáveis do theme.css já
     funcionam; use classes vyd-* e valores como bg-[var(--vyd-action-primary)].)
-4. A partir de agora, estilize SÓ com os tokens VYD. Nada de cores novas.
+4. NAVEGAÇÃO: use SEMPRE o padrão ribbon no topo (abas + comandos agrupados).
+   NUNCA crie menu/sidebar na lateral esquerda. Sem painéis laterais: o canvas
+   ocupa a largura toda. Estrutura: .vyd-app > .vyd-topbar / .vyd-ribbon-tabs /
+   .vyd-ribbon / .vyd-canvas / .vyd-statusbar. Listas/inspetores vão DENTRO do canvas.
+5. Estilize SÓ com tokens VYD. Nada de cores novas.
    - Botão primário: <button class="vyd-btn">…</button>
-   - Superfícies: bg-chrome / bg-panel / bg-canvas; texto: text-primary / text-secondary
-   - Bordas: border-default; acento: bg-action-primary + text-on-accent
-   - Componentes prontos por classe: vyd-input, vyd-card, vyd-table, vyd-alert, vyd-badge…
-5. Densidade técnica: base 13px, cantos contidos (rounded-md), hierarquia por
+   - Superfícies: bg-chrome / bg-panel / bg-canvas; TEXTO DE LEITURA: text-primary
+     (text-secondary só p/ meta). Bordas: border-default; acento: bg-action-primary + text-on-accent
+   - Componentes prontos: vyd-input, vyd-card, vyd-table, vyd-alert, vyd-badge…
+6. Densidade técnica: base 13px, cantos contidos (rounded-md), hierarquia por
    linha (1px) e não por sombra. Tema padrão dark.
 ```
 
@@ -86,8 +91,11 @@ Adicione o vyd-design-system a este projeto e migre a UI para ele:
 - npm install vyd-design-system
 - importe 'vyd-design-system/theme.css' uma vez no entry (ou @import no CSS global)
 - (Tailwind v3) adicione o preset require('vyd-design-system/tailwind')
+- NAVEGAÇÃO: ribbon no topo (abas + comandos). NUNCA menu na lateral esquerda;
+  sem painéis laterais; canvas em largura cheia (.vyd-app > topbar/ribbon-tabs/
+  ribbon/canvas/statusbar). Inspetores/listas são conteúdo dentro do canvas.
 - troque estilos ad-hoc pelas classes .vyd-* e pelas variáveis --vyd-*
-- não crie cores/spacings novos: use só tokens semânticos (bg-panel, action-primary…)
+- só tokens semânticos (bg-panel, action-primary…); texto de leitura = text-primary
 - tema dark por padrão; light via <html data-vyd-theme="light">
 ```
 
@@ -106,6 +114,34 @@ Adicione o vyd-design-system a este projeto e migre a UI para ele:
 import vyd from 'vyd-design-system';
 element.style.background = vyd.color.bg.panel;   // => var(--vyd-bg-panel)
 ```
+
+---
+
+## Regras do projeto (fixe no repo do app)
+
+Cole este bloco no **`CLAUDE.md`** / **`AGENTS.md`** / **`.cursorrules`** do seu app (ou
+no "Knowledge" do Lovable). Assim a IA segue o padrão VYD em toda edição, sem você
+repetir a instrução:
+
+```
+# VYD — regras de UI (obrigatórias)
+- Design system: vyd-design-system (+ vyd-react se React). Importar
+  'vyd-design-system/theme.css' uma vez no entry.
+- NAVEGAÇÃO: SEMPRE ribbon no topo (abas de seção + comandos agrupados).
+  NUNCA criar menu/sidebar/nav na lateral esquerda. Sem painéis laterais:
+  o canvas ocupa a largura toda. Shell = .vyd-app > .vyd-topbar /
+  .vyd-ribbon-tabs / .vyd-ribbon / .vyd-canvas / .vyd-statusbar.
+  Listas, inspetores e propriedades são CONTEÚDO dentro do canvas.
+- CORES: só tokens semânticos (bg-chrome/panel/canvas, text-primary/secondary,
+  border-default, bg-action-primary + text-on-accent). Nunca hex/rgb literal.
+- TEXTO de leitura = text-primary; text-secondary só p/ meta. Nunca cinzas próprios.
+- Temas: dark (padrão), light, high-contrast via <html data-vyd-theme="...">.
+- Densidade: base 13px, rounded-md, hierarquia por linha de 1px (não sombra).
+- Componentes prontos: .vyd-btn, .vyd-input, .vyd-card, .vyd-table, .vyd-alert…
+  (ou vyd-react). Prefira-os a recriar do zero.
+```
+
+> Regras completas e anti-exemplos: [`../AGENTS.md`](../AGENTS.md).
 
 ---
 

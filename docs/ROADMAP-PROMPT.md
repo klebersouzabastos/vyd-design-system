@@ -38,8 +38,9 @@ personalidade e sem quebrar o contrato existente.
 - dist/ = gerado (theme.css, variables.css, tokens.tailwind.js, tokens.js/.mjs/.d.ts,
   tokens.resolved.json). NUNCA edite à mão.
 - css/primitives.css = classes .vyd-* (btn, input, card, mono, ribbon-item).
-- css/shell.css = app shell em ribbon (topbar, ribbon-tabs, ribbon, leftrail, canvas,
-  rightpanel, statusbar). A ribbon é o padrão central — ver docs/RIBBON.md.
+- css/shell.css = app shell ribbon-only, coluna única (topbar, ribbon-tabs, ribbon,
+  canvas em largura cheia, statusbar). SEM menu lateral esquerdo e SEM painéis laterais.
+  A ribbon é a única navegação — ver docs/RIBBON.md e AGENTS.md.
 - tailwind/ = preset. brand/ = logo + ícones. demo/ = brand-guide.html + index.html.
   react/ = vyd-react. docs/ = USAGE/BRAND/BRIEF/PUBLISH/RIBBON/ROADMAP.
 - Versão atual: ver package.json. Governança SemVer.
@@ -87,8 +88,8 @@ Componentes:
 - Formulários: input, textarea, number, select, combobox/autocomplete, checkbox, radio,
   switch, slider, date/time picker, file upload, search, field (label/help/erro),
   fieldset, form layout, validação.
-- Navegação: ribbon (tabs + grupos + comandos), left rail, top bar/switcher,
-  breadcrumbs, tabs, pagination, stepper/wizard, tree, sidebar nav.
+- Navegação: ribbon (tabs + grupos + comandos) — ÚNICA nav; top bar/switcher,
+  breadcrumbs, tabs, pagination, stepper/wizard, tree. (SEM menu lateral esquerdo.)
 - Dados: table/data-grid (denso, ordenação, seleção, sticky, edição inline), list,
   property inspector/key-value, card/panel, tag/chip, badge, avatar, stat/KPI,
   code/mono, tooltip, data-viz (gráficos de engenharia).
@@ -96,8 +97,8 @@ Componentes:
   skeleton, empty state, confirm.
 - Overlays: modal/dialog, drawer/sheet, popover, context menu, toolbar/floating bar.
 - Layout: divider, accordion/disclosure, splitter/resizer, scroll area.
-- App shell completo (já existe): topbar · ribbon · leftrail · canvas · rightpanel ·
-  statusbar.
+- App shell (já existe), ribbon-only e coluna única: topbar · ribbon-tabs · ribbon ·
+  canvas (largura cheia) · statusbar. SEM leftrail e SEM rightpanel.
 
 Transversais: temas (dark/light/high-contrast) · responsividade · i18n (pt-BR, numerais
 tabulares, RTL) · voz/conteúdo · documentação por componente · testes/validação (verify,

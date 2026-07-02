@@ -1,9 +1,15 @@
 # VYD — Ribbon (navegação por comandos)
 
-A **ribbon** é o padrão **invariante** de acesso às funções do sistema em todo app
-VYD — a distribuição dos botões de comando no topo, estilo Autodesk. A casca é
+A **ribbon** é o padrão **invariante** e a **ÚNICA** navegação de todo app VYD — a
+distribuição dos botões de comando no topo, estilo Autodesk/Microsoft. A casca é
 sempre a mesma; só o conteúdo dos comandos muda de ferramenta para ferramenta.
 Isso garante que o usuário reconhece qualquer app VYD e reaproveita a memória motora.
+
+> 🔴 **Regra dura:** o VYD **não usa menu na lateral esquerda** nem painéis laterais.
+> O shell é **coluna única** e o **canvas ocupa a largura toda**. Toda navegação vive
+> na ribbon (abas de seção no 1º nível + comandos agrupados no 2º). Listas, inspetores
+> e propriedades são **conteúdo dentro do canvas**, nunca painéis do shell. Ver
+> [`../AGENTS.md`](../AGENTS.md). O `verify` falha se o shell reintroduzir rail/painel.
 
 > Faz parte do **app shell** (`css/shell.css`). Importe depois do tema:
 > ```css
@@ -57,8 +63,8 @@ Utilitários Tailwind equivalentes (via preset): `h-ribbon-tabs-h`, `h-ribbon-h`
 `aria-disabled` → `text-disabled` · focus → anel.
 
 > A **barra/sublinhado de acento de 2px** (`--vyd-border-thick` na cor
-> `--vyd-border-accent`) é a assinatura de "ativo" do VYD — a mesma no item de
-> rail, na aba e no comando.
+> `--vyd-border-accent`) é a assinatura de "ativo" do VYD — a mesma na aba e no
+> comando da ribbon.
 
 ## Exemplo canônico (CSS puro / HTML)
 
@@ -87,7 +93,9 @@ Utilitários Tailwind equivalentes (via preset): `h-ribbon-tabs-h`, `h-ribbon-h`
     <!-- + grupos: Elementos, Anotar, Vista … -->
   </nav>
 
-  <!-- … leftrail · canvas · rightpanel · statusbar … -->
+  <main class="vyd-canvas vyd-canvas--grid"><!-- a ferramenta, largura cheia --></main>
+  <!-- … statusbar … -->
+  <!-- SEM leftrail e SEM rightpanel: navegação é só a ribbon acima -->
 </div>
 ```
 

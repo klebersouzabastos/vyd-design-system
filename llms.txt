@@ -1,0 +1,26 @@
+# VYD Design System
+
+> Fonte única de verdade visual do ecossistema VYD (apps de engenharia: obras,
+> pessoas, documentos, BIM). Estilo técnico, sóbrio, denso. Acento azul-blueprint
+> (#1E5FC4). Pacotes npm: `vyd-design-system` (tokens/CSS/Tailwind/ícones) e
+> `vyd-react` (componentes React).
+
+## Regras duras (para agentes de IA — nunca quebrar)
+
+- Navegação é SEMPRE a **ribbon no topo** (abas + comandos agrupados). **NUNCA** menu
+  na lateral esquerda. Shell = coluna única, **canvas em largura cheia**, sem painéis
+  laterais. Inspetores/listas são conteúdo DENTRO do canvas.
+- Só **tokens semânticos** `--vyd-*` / classes `.vyd-*` / preset Tailwind. Nunca cor
+  literal.
+- Texto de leitura = `text-primary` (secundário só p/ meta). Contraste WCAG AAA garantido.
+- Importe `vyd-design-system/theme.css` uma vez; `shell.css` se usar o app shell.
+- Temas: dark (padrão), light, high-contrast via `data-vyd-theme`.
+
+## Docs
+
+- [AGENTS.md](AGENTS.md): regras completas para IA (LEIA PRIMEIRO).
+- [docs/INTEGRATION.md](docs/INTEGRATION.md): instalar/consumir em Lovable, Claude Code, React.
+- [docs/RIBBON.md](docs/RIBBON.md): anatomia do padrão ribbon (a única navegação).
+- [docs/FOUNDATIONS.md](docs/FOUNDATIONS.md): tokens (cor, tipografia, espaço, temas).
+- [docs/USAGE.md](docs/USAGE.md): uso em CSS/Tailwind/JS.
+- [README.md](README.md): visão geral.

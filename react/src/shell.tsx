@@ -5,17 +5,17 @@ import { CubeMark } from './CubeMark';
 /* =====================================================================
    App shell — React mirror of css/shell.css. Requires the app to import
    `vyd-design-system/theme.css` and `vyd-design-system/shell.css`.
+
+   REGRA DURA (ver AGENTS.md): navegação é SEMPRE a ribbon no topo. NÃO
+   existe menu lateral esquerdo nem painéis laterais. O shell é coluna
+   única: TopBar · RibbonTabs (opcional) · Ribbon · Canvas (cheio) ·
+   StatusBar. Qualquer lista/inspetor do app vai DENTRO do Canvas.
    ===================================================================== */
 
-/** Root grid. `railCollapsed` toggles the 240→48px left rail. */
-export function AppShell({
-  railCollapsed = false,
-  className,
-  children,
-  ...rest
-}: HTMLAttributes<HTMLDivElement> & { railCollapsed?: boolean }) {
+/** Root grid (coluna única, canvas em largura cheia). */
+export function AppShell({ className, children, ...rest }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cx('vyd-app', railCollapsed && 'vyd-app--rail-collapsed', className)} {...rest}>
+    <div className={cx('vyd-app', className)} {...rest}>
       {children}
     </div>
   );
@@ -140,33 +140,6 @@ export function RibbonItem({
   );
 }
 
-/* ---- Left rail ---- */
-export function LeftRail({ className, children, ...rest }: HTMLAttributes<HTMLElement>) {
-  return (
-    <aside className={cx('vyd-leftrail', className)} {...rest}>
-      {children}
-    </aside>
-  );
-}
-
-export function RailSectionLabel({ children }: { children: ReactNode }) {
-  return <div className="vyd-rail-section__label">{children}</div>;
-}
-
-export function RailItem({
-  current = false,
-  dotColor,
-  children,
-  ...rest
-}: HTMLAttributes<HTMLDivElement> & { current?: boolean; dotColor?: string }) {
-  return (
-    <div className="vyd-rail-item" aria-current={current || undefined} {...rest}>
-      <span className="dot" style={dotColor ? { background: dotColor } : undefined} />
-      <span>{children}</span>
-    </div>
-  );
-}
-
 /* ---- Canvas ---- */
 export function Canvas({
   grid = false,
@@ -178,29 +151,6 @@ export function Canvas({
     <main className={cx('vyd-canvas', grid && 'vyd-canvas--grid', className)} {...rest}>
       {children}
     </main>
-  );
-}
-
-/* ---- Right panel ---- */
-export function RightPanel({ className, children, ...rest }: HTMLAttributes<HTMLElement>) {
-  return (
-    <aside className={cx('vyd-rightpanel', className)} {...rest}>
-      {children}
-    </aside>
-  );
-}
-
-export function PanelSectionLabel({ children }: { children: ReactNode }) {
-  return <div className="vyd-panel-section__label">{children}</div>;
-}
-
-/** Key/value property row (mono value with tabular figures). */
-export function Prop({ label, children }: { label: ReactNode; children: ReactNode }) {
-  return (
-    <div className="vyd-prop">
-      <span className="vyd-prop__key">{label}</span>
-      <span className="vyd-prop__val">{children}</span>
-    </div>
   );
 }
 

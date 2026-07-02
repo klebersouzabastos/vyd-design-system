@@ -1,18 +1,25 @@
 /* =====================================================================
    VYD DESIGN SYSTEM — css/shell.css
-   App shell INVARIANTE (a "ribbon Autodesk"). Layout idêntico em TODA
-   ferramenta VYD; só o conteúdo do canvas muda. Usa as dimensões
+   App shell INVARIANTE (a "ribbon Autodesk/Microsoft"). Layout idêntico
+   em TODA ferramenta VYD; só o conteúdo do canvas muda. Usa as dimensões
    --vyd-layout-* e apenas tokens semânticos.
+
+   REGRA DURA (ver AGENTS.md): a navegação é SEMPRE a ribbon no topo
+   (abas + grupos de comandos). O VYD **não usa** menu na lateral esquerda
+   nem painéis laterais — o canvas ocupa a largura toda. Listas/inspetores
+   são conteúdo DENTRO do canvas, nunca parte do shell.
 
    Opt-in: importe depois de theme.css.
      @import "vyd-design-system/theme.css";
      @import "vyd-design-system/shell.css";
 
-   Estrutura:
+   Estrutura (coluna única):
      .vyd-app
-       .vyd-topbar  .vyd-ribbon  .vyd-leftrail  .vyd-canvas
-       .vyd-rightpanel  .vyd-statusbar
-   Modificador: .vyd-app--rail-collapsed  (left rail 240 -> 48px)
+       .vyd-topbar
+       .vyd-ribbon-tabs   (opcional)
+       .vyd-ribbon
+       .vyd-canvas        (largura cheia)
+       .vyd-statusbar
    ===================================================================== */
 
 .vyd-app {
@@ -25,16 +32,13 @@
     var(--vyd-layout-ribbon-h)
     1fr
     var(--vyd-layout-statusbar-h);
-  grid-template-columns:
-    var(--vyd-layout-leftrail-w)
-    1fr
-    var(--vyd-layout-rightpanel-w);
+  grid-template-columns: 1fr;
   grid-template-areas:
-    "topbar     topbar     topbar"
-    "ribbontabs ribbontabs ribbontabs"
-    "ribbon     ribbon     ribbon"
-    "leftrail   canvas     rightpanel"
-    "statusbar  statusbar  statusbar";
+    "topbar"
+    "ribbontabs"
+    "ribbon"
+    "canvas"
+    "statusbar";
   height: 100vh;
   background: var(--vyd-bg-canvas);
   color: var(--vyd-text-primary);
@@ -42,12 +46,6 @@
   font-size: var(--vyd-text-base);
   letter-spacing: var(--vyd-ls-tight);
   overflow: hidden;
-}
-.vyd-app--rail-collapsed {
-  grid-template-columns:
-    var(--vyd-layout-leftrail-w-min)
-    1fr
-    var(--vyd-layout-rightpanel-w);
 }
 
 /* ---------------------------------------------------------------------
@@ -102,9 +100,10 @@
 }
 
 /* ---------------------------------------------------------------------
-   RIBBON TABS — faixa de abas acima dos comandos (opcional).
+   RIBBON TABS — faixa de abas acima dos comandos (opcional). É a
+   navegação de PRIMEIRO nível (as "seções" do app).
    normal -> text-secondary | hover/selected -> text-primary
-   selected -> sublinhado de acento 2px (mesmo padrão do item ativo)
+   selected -> sublinhado de acento 2px (assinatura de "ativo" do VYD)
    --------------------------------------------------------------------- */
 .vyd-ribbon-tabs {
   grid-area: ribbontabs;
@@ -137,7 +136,8 @@
 }
 
 /* ---------------------------------------------------------------------
-   RIBBON — comandos agrupados. Estrutura fixa; muda só o conteúdo.
+   RIBBON — comandos agrupados. É a navegação de SEGUNDO nível (ações).
+   Estrutura fixa; muda só o conteúdo.
    --------------------------------------------------------------------- */
 .vyd-ribbon {
   grid-area: ribbon;
@@ -177,49 +177,9 @@
 }
 
 /* ---------------------------------------------------------------------
-   LEFT RAIL — navegação / árvore. Colapsável (240 -> 48).
-   --------------------------------------------------------------------- */
-.vyd-leftrail {
-  grid-area: leftrail;
-  background: var(--vyd-bg-panel);
-  border-inline-end: var(--vyd-border-hairline) solid var(--vyd-border-default);
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-}
-.vyd-rail-section__label {
-  font-size: var(--vyd-text-xs);
-  letter-spacing: var(--vyd-ls-wide);
-  text-transform: uppercase;
-  color: var(--vyd-text-secondary);
-  padding: var(--vyd-space-5) var(--vyd-space-5) var(--vyd-space-3);
-}
-.vyd-rail-item {
-  display: flex;
-  align-items: center;
-  gap: var(--vyd-space-3);
-  padding: var(--vyd-space-3) var(--vyd-space-5);
-  color: var(--vyd-text-primary);
-  border-inline-start: var(--vyd-border-thick) solid transparent;
-  cursor: pointer;
-  white-space: nowrap;
-}
-.vyd-rail-item:hover { background: var(--vyd-bg-elevated); }
-.vyd-rail-item[aria-current="true"] {
-  color: var(--vyd-text-accent);
-  border-inline-start-color: var(--vyd-border-accent);
-  background: var(--vyd-bg-elevated);
-}
-.vyd-rail-item .dot {
-  width: 7px; height: 7px; border-radius: var(--vyd-radius-full);
-  background: var(--vyd-text-secondary); flex: none;
-}
-/* No estado colapsado, esconda os rótulos textuais */
-.vyd-app--rail-collapsed .vyd-rail-item span,
-.vyd-app--rail-collapsed .vyd-rail-section__label { display: none; }
-
-/* ---------------------------------------------------------------------
-   CANVAS — a ferramenta. Fundo opcional de malha blueprint.
+   CANVAS — a ferramenta, em largura CHEIA. Fundo opcional de malha
+   blueprint. Qualquer navegação/lista/inspetor específico do app vive
+   AQUI dentro (como conteúdo), nunca como painel lateral do shell.
    --------------------------------------------------------------------- */
 .vyd-canvas {
   grid-area: canvas;
@@ -233,32 +193,6 @@
     linear-gradient(90deg, color-mix(in srgb, var(--vyd-border-default) 55%, transparent) 1px, transparent 1px);
   background-size: var(--vyd-space-7) var(--vyd-space-7);
 }
-
-/* ---------------------------------------------------------------------
-   RIGHT PANEL — inspector / propriedades.
-   --------------------------------------------------------------------- */
-.vyd-rightpanel {
-  grid-area: rightpanel;
-  background: var(--vyd-bg-panel);
-  border-inline-start: var(--vyd-border-hairline) solid var(--vyd-border-default);
-  overflow: auto;
-}
-.vyd-panel-section__label {
-  font-size: var(--vyd-text-xs);
-  letter-spacing: var(--vyd-ls-wide);
-  text-transform: uppercase;
-  color: var(--vyd-text-secondary);
-  padding: var(--vyd-space-5) var(--vyd-space-5) var(--vyd-space-3);
-}
-.vyd-prop {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--vyd-space-4);
-  padding: var(--vyd-space-2) var(--vyd-space-5);
-  border-bottom: var(--vyd-border-hairline) solid var(--vyd-border-default);
-}
-.vyd-prop__key { color: var(--vyd-text-secondary); }
-.vyd-prop__val { font-family: var(--vyd-font-mono); font-variant-numeric: tabular-nums; }
 
 /* ---------------------------------------------------------------------
    STATUS BAR — fina, densa, idêntica em todo app.
@@ -278,34 +212,12 @@
 .vyd-statusbar__spacer { flex: 1; }
 
 /* ---------------------------------------------------------------------
-   RESPONSIVO — o shell é desktop-first (ferramenta densa). Abaixo de
-   certos breakpoints, painéis auxiliares cedem espaço ao canvas, que é
-   o que importa numa tela menor. Progressivo:
-     ≤ lg (1024): esconde o right panel (inspector) — canvas ganha a coluna
-     ≤ md (768):  left rail vira só ícones (rótulos ocultos)
-     ≤ sm (640):  left rail some; ribbon compacta (some rótulos de grupo)
-   Media queries usam px LITERAL (não leem var()); espelham os tokens
-   --vyd-bp-*. Opt-out por app: adicione a classe .vyd-app--fixed para
-   preservar o layout de 3 colunas em qualquer largura.
+   RESPONSIVO — coluna única em qualquer largura (o canvas sempre ocupa
+   tudo). Em telas estreitas a ribbon rola horizontalmente; abaixo de
+   sm (640px) os rótulos dos GRUPOS da ribbon somem para ganhar espaço,
+   deixando só os ícones dos comandos. Media query usa px LITERAL
+   (não lê var()); espelha --vyd-bp-sm.
    --------------------------------------------------------------------- */
-@media (max-width: 1024px) {
-  .vyd-app:not(.vyd-app--fixed) {
-    grid-template-columns: var(--vyd-layout-leftrail-w) 1fr 0;
-  }
-  .vyd-app:not(.vyd-app--fixed) .vyd-rightpanel { display: none; }
-}
-@media (max-width: 768px) {
-  .vyd-app:not(.vyd-app--fixed) {
-    grid-template-columns: var(--vyd-layout-leftrail-w-min) 1fr 0;
-  }
-  .vyd-app:not(.vyd-app--fixed) .vyd-rail-item span,
-  .vyd-app:not(.vyd-app--fixed) .vyd-rail-section__label { display: none; }
-  .vyd-app:not(.vyd-app--fixed) .vyd-rail-item { justify-content: center; }
-}
 @media (max-width: 640px) {
-  .vyd-app:not(.vyd-app--fixed) {
-    grid-template-columns: 0 1fr 0;
-  }
-  .vyd-app:not(.vyd-app--fixed) .vyd-leftrail { display: none; }
-  .vyd-app:not(.vyd-app--fixed) .vyd-ribbon-group__label { display: none; }
+  .vyd-ribbon-group__label { display: none; }
 }

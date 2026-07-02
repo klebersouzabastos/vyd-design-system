@@ -18,9 +18,6 @@ const LAYOUT_MAP = {
   'layout.ribbon.height':           'vyd-layout-ribbon-h',
   'layout.ribbon.tabsHeight':       'vyd-layout-ribbon-tabs-h',
   'layout.ribbon.commandHeight':    'vyd-layout-ribbon-command-h',
-  'layout.leftRail.width':          'vyd-layout-leftrail-w',
-  'layout.leftRail.collapsedWidth': 'vyd-layout-leftrail-w-min',
-  'layout.rightPanel.width':        'vyd-layout-rightpanel-w',
   'layout.statusbar.height':        'vyd-layout-statusbar-h',
 };
 

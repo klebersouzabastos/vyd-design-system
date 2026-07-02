@@ -15,6 +15,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { vydName, isSemantic } from './lib.mjs';
+import { runContrast } from './contrast.mjs';
 
 const ROOT = process.env.VYD_ROOT || join(dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(import.meta.url);
@@ -97,6 +98,32 @@ try {
   if (vyd.layout['topbar-h'] !== 'var(--vyd-layout-topbar-h)') throw new Error('layout.topbar-h errado');
   ok('tokens.js: objeto válido (color/font/layout conferidos)');
 } catch (e) { fail('tokens.js: ' + e.message); }
+
+/* --- 5: contraste WCAG (gate de legibilidade) --- */
+{
+  const { rows, failures } = runContrast();
+  for (const f of failures) {
+    fail(`contraste ${f.theme}: ${f.label} = ${f.ratio.toFixed(2)} (< ${f.min})`);
+  }
+  if (!failures.length) {
+    const gated = rows.filter((r) => r.gated).length;
+    ok(`contraste: ${gated} pares aprovados (texto AAA≥7, onAccent AA≥4.5, disabled≥3) em dark/light/high-contrast`);
+  }
+}
+
+/* --- 6: shell ribbon-only (sem menu lateral esquerdo) --- */
+{
+  const shellPath = join(ROOT, 'css', 'shell.css');
+  const shell = readFileSync(shellPath, 'utf8');
+  if (/\.vyd-leftrail|\.vyd-rail-/.test(shell)) fail('shell.css ainda contém .vyd-leftrail / .vyd-rail-* (menu lateral esquerdo é proibido no VYD)');
+  else ok('shell.css sem left rail (.vyd-leftrail/.vyd-rail-*)');
+  if (/\.vyd-rightpanel|\.vyd-prop\b/.test(shell)) fail('shell.css ainda contém .vyd-rightpanel / .vyd-prop (shell é ribbon + canvas cheio, sem painéis laterais)');
+  else ok('shell.css sem painéis laterais (.vyd-rightpanel/.vyd-prop)');
+  // .vyd-app deve ter uma única coluna de conteúdo
+  const appBlock = (shell.split('.vyd-app {')[1] || '').split('}')[0];
+  if (!/grid-template-columns:\s*1fr\s*;/.test(appBlock)) fail('.vyd-app não usa grid-template-columns: 1fr (deve ser coluna única, canvas cheio)');
+  else ok('.vyd-app é coluna única (canvas cheio, sem trilha de rail/painel)');
+}
 
 console.log(failures ? `\nVERIFY FALHOU (${failures})` : '\nVERIFY OK');
 process.exit(failures ? 1 : 0);

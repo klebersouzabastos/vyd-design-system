@@ -42,24 +42,33 @@ import { Button, Input, Card, Mono, CubeMark } from 'vyd-react';
 `value`…). Em Next.js (App Router), use-os dentro de um componente `'use client'`
 quando precisar de handlers.
 
-## App shell invariante
+## App shell invariante (ribbon-only)
+
+🔴 **Regra dura:** navegação é SEMPRE a ribbon no topo. **Sem menu lateral esquerdo e
+sem painéis laterais** — o canvas ocupa a largura toda. Listas/inspetores/propriedades
+são conteúdo DENTRO do `Canvas`. (Não existem `LeftRail`/`RightPanel` — foram removidos
+na v2. Ver [`../AGENTS.md`](../AGENTS.md).)
 
 ```tsx
 import {
   AppShell, TopBar, TopBarBrand, ToolSwitcher, TopBarSpacer, Avatar,
-  Ribbon, RibbonGroup, RibbonItem, LeftRail, RailSectionLabel, RailItem,
-  Canvas, RightPanel, PanelSectionLabel, Prop, StatusBar, StatusBarSpacer,
-  Button, Mono,
+  RibbonTabs, RibbonTab, Ribbon, RibbonGroup, RibbonItem,
+  Canvas, StatusBar, StatusBarSpacer, Card, Mono,
 } from 'vyd-react';
 
-<AppShell railCollapsed={collapsed}>
+<AppShell>
   <TopBar>
     <TopBarBrand />
     <ToolSwitcher>Gestão de Obras</ToolSwitcher>
     <TopBarSpacer />
-    <Button variant="ghost" onClick={toggle}>Colapsar rail</Button>
     <Avatar title="Kleber">K</Avatar>
   </TopBar>
+
+  <RibbonTabs>
+    <RibbonTab selected>Início</RibbonTab>
+    <RibbonTab>Modelagem</RibbonTab>
+    <RibbonTab>Documentos</RibbonTab>
+  </RibbonTabs>
 
   <Ribbon>
     <RibbonGroup label="Projeto">
@@ -68,18 +77,12 @@ import {
     </RibbonGroup>
   </Ribbon>
 
-  <LeftRail>
-    <RailSectionLabel>Disciplinas</RailSectionLabel>
-    <RailItem current>Arquitetura</RailItem>
-    <RailItem>Estrutura</RailItem>
-  </LeftRail>
-
-  <Canvas grid>{/* a ferramenta */}</Canvas>
-
-  <RightPanel>
-    <PanelSectionLabel>Propriedades</PanelSectionLabel>
-    <Prop label="ID"><Mono>A-103·W12</Mono></Prop>
-  </RightPanel>
+  <Canvas grid>
+    {/* a ferramenta, em largura cheia. Inspetores/listas vão AQUI (ex.: um Card). */}
+    <Card>
+      <Mono>A-103·W12</Mono>
+    </Card>
+  </Canvas>
 
   <StatusBar>
     <span>Pronto</span>

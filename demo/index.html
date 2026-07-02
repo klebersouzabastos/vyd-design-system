@@ -100,7 +100,6 @@
       <span aria-hidden="true">▾</span>
     </button>
     <span class="vyd-topbar__spacer"></span>
-    <button class="vyd-btn vyd-btn--ghost" type="button" onclick="document.getElementById('app').classList.toggle('vyd-app--rail-collapsed')">Colapsar rail</button>
     <button class="vyd-btn" type="button">Publicar</button>
     <span class="vyd-avatar" title="Kleber">K</span>
   </header>
@@ -148,21 +147,9 @@
     </div>
   </nav>
 
-  <!-- LEFT RAIL -->
-  <aside class="vyd-leftrail">
-    <div class="vyd-rail-section__label">Disciplinas</div>
-    <div class="vyd-rail-item" aria-current="true"><span class="dot" style="background:var(--vyd-action-primary)"></span><span>Arquitetura</span></div>
-    <div class="vyd-rail-item"><span class="dot"></span><span>Estrutura</span></div>
-    <div class="vyd-rail-item"><span class="dot"></span><span>Hidráulica</span></div>
-    <div class="vyd-rail-item"><span class="dot"></span><span>Elétrica</span></div>
-    <div class="vyd-rail-item"><span class="dot"></span><span>HVAC</span></div>
-    <div class="vyd-rail-section__label">Vistas</div>
-    <div class="vyd-rail-item"><span class="dot"></span><span>Pavimento Térreo</span></div>
-    <div class="vyd-rail-item"><span class="dot"></span><span>Pavimento Tipo</span></div>
-    <div class="vyd-rail-item"><span class="dot"></span><span>Cobertura</span></div>
-  </aside>
-
-  <!-- CANVAS -->
+  <!-- CANVAS (largura cheia — SEM menu lateral esquerdo, SEM painel lateral;
+       a navegação é a ribbon acima. Inspetores/listas, quando necessários,
+       são conteúdo DENTRO do canvas, como o cartão flutuante abaixo.) -->
   <main class="vyd-canvas vyd-canvas--grid">
     <div class="demo-floatbar">
       <button class="vyd-btn vyd-btn--ghost" type="button">Selecionar</button>
@@ -195,23 +182,6 @@
       </div>
     </div>
   </main>
-
-  <!-- RIGHT PANEL -->
-  <aside class="vyd-rightpanel">
-    <div class="vyd-panel-section__label">Propriedades</div>
-    <div class="vyd-prop"><span class="vyd-prop__key">ID</span><span class="vyd-prop__val">A-103·W12</span></div>
-    <div class="vyd-prop"><span class="vyd-prop__key">Tipo</span><span class="vyd-prop__val">Parede</span></div>
-    <div class="vyd-prop"><span class="vyd-prop__key">Nível</span><span class="vyd-prop__val">+0.000</span></div>
-    <div class="vyd-prop"><span class="vyd-prop__key">Comprimento</span><span class="vyd-prop__val">4.200 m</span></div>
-    <div class="vyd-prop"><span class="vyd-prop__key">Altura</span><span class="vyd-prop__val">2.800 m</span></div>
-    <div class="vyd-prop"><span class="vyd-prop__key">Espessura</span><span class="vyd-prop__val">0.150 m</span></div>
-    <div class="vyd-prop"><span class="vyd-prop__key">Material</span><span class="vyd-prop__val">Alvenaria</span></div>
-    <div class="vyd-panel-section__label">Ações</div>
-    <div style="padding: var(--vyd-space-4) var(--vyd-space-5); display:flex; gap: var(--vyd-space-3);">
-      <button class="vyd-btn" type="button">Aplicar</button>
-      <button class="vyd-btn vyd-btn--ghost" type="button">Duplicar</button>
-    </div>
-  </aside>
 
   <!-- STATUS BAR -->
   <footer class="vyd-statusbar">
