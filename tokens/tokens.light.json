@@ -14,15 +14,15 @@
       },
       "text": {
         "primary":   { "value": "{color.neutral.100}" },
-        "secondary": { "value": "{color.neutral.400}" },
-        "disabled":  { "value": "{color.neutral.500}" },
+        "secondary": { "value": "{color.neutral.300}" },
+        "disabled":  { "value": "{color.neutral.400}" },
         "inverse":   { "value": "{color.neutral.1000}" },
         "onAccent":  { "value": "{color.neutral.1000}" },
         "accent":    { "value": "{color.brand.blueprint.600}" }
       },
       "border": {
-        "default": { "value": "{color.neutral.800}" },
-        "strong":  { "value": "{color.neutral.700}" },
+        "default": { "value": "{color.neutral.700}" },
+        "strong":  { "value": "{color.neutral.600}" },
         "accent":  { "value": "{color.brand.blueprint.500}" }
       },
       "action": {

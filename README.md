@@ -1,6 +1,9 @@
 # VYD Design System
 
-[![version](https://img.shields.io/badge/version-1.0.0-1E5FC4)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-2.0.0-1E5FC4)](CHANGELOG.md)
+
+> **Para IA (Claude/Lovable/Cursor):** leia **[AGENTS.md](AGENTS.md)** — regras duras do
+> padrão (ribbon no topo, **sem menu lateral**, só tokens semânticos).
 
 Fonte única de verdade visual do ecossistema **VYD** (Value Your Day) — ferramentas
 de software para empresas de engenharia (gestão de obras, gestão de pessoas, geração
@@ -105,25 +108,30 @@ Detalhes e o app shell completo em React em **[react/README.md](react/README.md)
 Passo a passo completo (incluindo uso programático em JS/TS) em
 **[docs/USAGE.md](docs/USAGE.md)**.
 
-## App shell invariante (a "ribbon Autodesk")
+## App shell invariante (a "ribbon Autodesk/Microsoft")
 
-A casca é constante, o recheio muda. Dimensões fixas em TODA ferramenta
-(`--vyd-layout-*`):
+A casca é constante, o recheio muda. **Navegação SÓ pela ribbon no topo — sem menu
+lateral esquerdo e sem painéis laterais.** O canvas ocupa a largura toda:
 
 ```
 ┌──────────────────────────────────────────────────────────┐
 │ TOP BAR 44px — logo VYD + switcher de ferramenta + conta   │ ← idêntico
 ├──────────────────────────────────────────────────────────┤
-│ RIBBON TABS 34px — Início · Modelagem · Documentos …       │ ← abas (opcional)
-│ RIBBON 88px — comandos agrupados em tiles (muda o conteúdo) │ ← estrutura fixa
-├────────┬────────────────────────────────────┬─────────────┤
-│ LEFT   │                                     │  RIGHT      │
-│ RAIL   │         CANVAS (a ferramenta)       │  PANEL      │
-│ 240px  │                                     │  300px      │
-├────────┴────────────────────────────────────┴─────────────┤
+│ RIBBON TABS 34px — Início · Modelagem · Documentos …       │ ← abas (1º nível)
+│ RIBBON 88px — comandos agrupados em tiles (muda o conteúdo) │ ← comandos (2º nível)
+├──────────────────────────────────────────────────────────┤
+│                                                            │
+│              CANVAS (a ferramenta) — largura CHEIA          │
+│        listas/inspetores são conteúdo AQUI dentro           │
+│                                                            │
+├──────────────────────────────────────────────────────────┤
 │ STATUS BAR 26px                                            │ ← idêntico
 └──────────────────────────────────────────────────────────┘
 ```
+
+> 🔴 **Regra dura:** o VYD **não usa** menu na lateral esquerda nem painéis laterais no
+> shell. Toda navegação é a ribbon. Ver **[AGENTS.md](AGENTS.md)** — o `verify` falha se
+> o shell reintroduzir rail/painel.
 
 Implementação pronta em `css/shell.css` (layout opt-in). Importe depois do theme:
 
@@ -132,11 +140,10 @@ Implementação pronta em `css/shell.css` (layout opt-in). Importe depois do the
 @import "vyd-design-system/shell.css";
 ```
 
-Estrutura: `.vyd-app` › `.vyd-topbar` · `.vyd-ribbon-tabs` · `.vyd-ribbon` ·
-`.vyd-leftrail` · `.vyd-canvas` · `.vyd-rightpanel` · `.vyd-statusbar` (modificador
-`.vyd-app--rail-collapsed`). Exemplo montado em `demo/index.html`.
+Estrutura (coluna única): `.vyd-app` › `.vyd-topbar` · `.vyd-ribbon-tabs` ·
+`.vyd-ribbon` · `.vyd-canvas` · `.vyd-statusbar`. Exemplo montado em `demo/index.html`.
 
-**A ribbon (navegação por comandos) é o padrão central** — anatomia, dimensões,
+**A ribbon é o padrão central e a única navegação** — anatomia, dimensões,
 estados e exemplos em **[docs/RIBBON.md](docs/RIBBON.md)**.
 
 ## Governança / versionamento

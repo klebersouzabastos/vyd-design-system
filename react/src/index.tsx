@@ -58,13 +58,7 @@ export {
   Ribbon,
   RibbonGroup,
   RibbonItem,
-  LeftRail,
-  RailSectionLabel,
-  RailItem,
   Canvas,
-  RightPanel,
-  PanelSectionLabel,
-  Prop,
   StatusBar,
   StatusBarSpacer,
 } from './shell';

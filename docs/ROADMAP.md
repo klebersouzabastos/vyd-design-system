@@ -1,6 +1,9 @@
 # VYD Design System — Auditoria de cobertura & Roadmap
 
-_Baseline: **v1.0.0** (estável) · Fases **0–8 ✅** concluídas — catálogo fechado.
+_Baseline: **v2.0.0** (estável) · Fases **0–8 ✅** + endurecimento pós-1.0 (shell
+ribbon-only, contraste AAA, enforcement p/ IA) · catálogo fechado._
+_(v1.0.0 fechou as fases; v2.0.0 travou o padrão de UI antes da adoção ampla.)_
+
 Método e regras: [`ROADMAP-PROMPT.md`](ROADMAP-PROMPT.md). Evolução daqui em diante
 segue [GOVERNANCE.md](GOVERNANCE.md) (SemVer + depreciação)._
 
@@ -41,11 +44,11 @@ Legenda: ✅ pronto · 🟡 parcial · ⛔ ausente
 |---|---|---|
 | **Ações** | button, button--ghost, icon-button, **menu/dropdown**, command palette (cmdk) | toggle, segmented, split-button |
 | **Formulários** | input, textarea, number, **select**, **checkbox**, **radio**, **switch**, range/slider, search, input-group, choice, **field (label/help/erro)** | combobox, date/time picker, file upload |
-| **Navegação** | **ribbon (tabs+grupos+comandos)**, left rail, top bar/switcher, tabs (standalone), breadcrumbs, pagination, steps/wizard, cmdk, kbd, **tree** | — |
+| **Navegação** | **ribbon (tabs+grupos+comandos) — única nav**, top bar/switcher, tabs (standalone), breadcrumbs, pagination, steps/wizard, cmdk, kbd, **tree** | — |
 | **Dados** | card, prop (key-value), avatar, mono, **table**, list, tag, **badge**, stat/KPI, **tooltip**, data-viz | data-grid editável (apps: lib sobre tokens) |
 | **Feedback** | **alert/banner**, **toast**, **progress**, spinner, skeleton, empty state | inline message, confirm dedicado |
 | **Overlays** | **modal/dialog**, drawer/sheet, **popover**, menu, tooltip, toolbar/floating bar | context menu nativo |
-| **Layout** | canvas, rightpanel, statusbar, **divider** | accordion, splitter/resizer, scroll area |
+| **Layout** | topbar, ribbon, canvas (largura cheia), statusbar, **divider** | accordion, splitter/resizer, scroll area |
 
 **Leitura:** catálogo fechado para 1.0 — **formulários, feedback, overlays, dados
 densos, navegação e data-viz** entregues (Fases 2–7). O que resta é **aditivo**

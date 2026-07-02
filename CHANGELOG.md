@@ -9,20 +9,55 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 ## [Não lançado]
 
-### Alterado
+- —
 
-- **Nome do pacote npm**: `@vyd/design-system` → **`vyd-design-system`** (sem escopo).
-  O escopo `@vyd` já estava registrado por outra conta no npm. Como o pacote ainda
-  **não** havia sido publicado, a renomeação não afeta nenhum consumidor. Imports
-  passam a ser `vyd-design-system/theme.css`, `vyd-design-system/tailwind` etc.
+## [2.0.0] — 2026-07-02
+
+> **Major.** Trava o padrão de UI antes da adoção ampla: shell **ribbon-only** (sem
+> menu lateral), contraste **WCAG AAA** com gate no build, e arquivos de regra para IA.
+> Adoção ainda ~zero, então o custo de quebrar agora é mínimo e o ganho (padrão correto
+> e legível) é permanente.
+
+### ⚠️ BREAKING CHANGES
+
+- **App shell é ribbon-only, coluna única.** Removidos do `shell.css`: **left rail**
+  (`.vyd-leftrail`, `.vyd-rail-section__label`, `.vyd-rail-item`, `.vyd-app--rail-collapsed`)
+  e **right panel** (`.vyd-rightpanel`, `.vyd-panel-section__label`, `.vyd-prop*`). O
+  `.vyd-app` agora é `grid-template-columns: 1fr` (canvas em largura cheia).
+- **`vyd-react`:** removidos `LeftRail`, `RailSectionLabel`, `RailItem`, `RightPanel`,
+  `PanelSectionLabel`, `Prop`; `AppShell` perdeu a prop `railCollapsed`.
+- **Tokens de layout removidos:** `layout.leftRail` e `layout.rightPanel`
+  (`--vyd-layout-leftrail-w`, `-w-min`, `-rightpanel-w`) — somem do CSS, do preset
+  Tailwind e do objeto de tokens.
+- **Valores de token de cor alterados (contraste AAA):** dark `text-secondary`
+  (neutral.500→700), `text-disabled` (400→500), `text-accent` (blueprint.300→200),
+  `border-default` (neutral.300→400); light `text-secondary` (400→300),
+  `text-disabled` (500→400), `border-default` (800→700); high-contrast `action-primary`
+  (blueprint.400→500, corrige rótulo de botão). Nomes intactos; só os valores mudaram.
+
+**Migração:** navegação → **ribbon** (abas + comandos no topo). Listas/inspetores/
+propriedades que ficavam no rail ou no painel direito viram **conteúdo dentro do
+canvas** (um card, um painel flutuante). Nada de menu lateral.
+
+### Adicionado
+
+- **`AGENTS.md`** e **`llms.txt`** (raiz, publicados no pacote): regras duras para IA
+  (Claude/Lovable/Cursor) — ribbon é a única navegação, sem menu lateral, só tokens
+  semânticos, texto legível.
+- **Gate de contraste** (`build/contrast.mjs` + `verify.mjs`): calcula WCAG 2.1 por
+  tema e **falha o build** se texto < AAA (7:1), onAccent < AA (4.5:1) ou disabled < 3:1.
+- **Gate estrutural "sem rail"** no `verify.mjs`: falha se o shell reintroduzir
+  `.vyd-leftrail`/`.vyd-rail-*`/`.vyd-rightpanel` ou perder a coluna única.
+- **`docs/INTEGRATION.md`:** bloco "Regras do projeto" pronto p/ colar no
+  `CLAUDE.md`/`.cursorrules`/Knowledge do Lovable; prompts atualizados com a regra
+  ribbon-only. `docs/GOVERNANCE.md`: shell e contraste entram no contrato público.
 
 ### Distribuição
 
-- **`vyd-react` publicável** (era `@vyd/react`, privado/dev-only). Agora é um pacote
-  próprio no npm: `npm install vyd-react`. Compilado com `tsc` (JS ESM + `.d.ts`,
-  diretiva `'use client'` preservada); publicado pelo CI (`release.yml`) junto do
-  `vyd-design-system`. Peers: `react`, `react-dom`, `vyd-design-system` (o app importa
-  o `theme.css` uma vez). Versão inicial **1.0.0**.
+- Publicados **`vyd-design-system@2.0.0`** e **`vyd-react@2.0.0`** (peer
+  `vyd-design-system >=2`). (Contexto: na 1.0.0 o pacote passou de `@vyd/design-system`
+  a `vyd-design-system` — escopo `@vyd` indisponível — e `@vyd/react` virou o pacote
+  publicável `vyd-react`, compilado com `'use client'` preservado.)
 
 ## [1.0.0] — 2026-07-01
 
@@ -281,6 +316,7 @@ Primeira versão estruturada do design system como pacote publicável.
   Apps que já importavam `theme.css` continuam funcionando ao trocar para
   `dist/theme.css`. As únicas adições são os tokens citados acima.
 
-[Não lançado]: https://github.com/klebersouzabastos/vyd-design-system/compare/v1.0.0...HEAD
+[Não lançado]: https://github.com/klebersouzabastos/vyd-design-system/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v2.0.0
 [1.0.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v1.0.0
 [0.1.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v0.1.0

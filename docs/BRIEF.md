@@ -38,8 +38,9 @@ como referência histórica (antes vivia no `README.md`).
 > 4. Grid de espaçamento (base 4px) e raios.
 > 5. Amostra de componentes no estilo: botão primário, botão fantasma, input,
 >    card/painel, e UM item de ribbon nos estados normal/hover/ativo.
-> 6. Uma faixa mostrando o "app shell" invariante: top bar (logo + switcher de
->    ferramenta), ribbon de comandos, left rail, canvas, right panel, status bar.
+> 6. Uma faixa mostrando o "app shell" invariante (ribbon-only, coluna única): top bar
+>    (logo + switcher de ferramenta), ribbon-tabs, ribbon de comandos, canvas em
+>    largura cheia, status bar. SEM menu lateral esquerdo e SEM painéis laterais.
 >
 > Mostre tudo em tema escuro (chrome do app). Layout do guia: denso, organizado
 > em seções com rótulos pequenos em caixa alta.

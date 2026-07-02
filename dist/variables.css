@@ -1,5 +1,5 @@
 /* =====================================================================
-   VYD DESIGN SYSTEM - variables.css  v1.0.0
+   VYD DESIGN SYSTEM - variables.css  v2.0.0
    GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
    Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
    ===================================================================== */
@@ -90,9 +90,6 @@
   --vyd-layout-ribbon-h: 88px;
   --vyd-layout-ribbon-tabs-h: 34px;
   --vyd-layout-ribbon-command-h: 48px;
-  --vyd-layout-leftrail-w: 240px;
-  --vyd-layout-leftrail-w-min: 48px;
-  --vyd-layout-rightpanel-w: 300px;
   --vyd-layout-statusbar-h: 26px;
   --vyd-duration-fast: 120ms;
   --vyd-duration-normal: 200ms;
@@ -129,13 +126,13 @@
   --vyd-bg-canvas: var(--vyd-neutral-100);
   --vyd-bg-elevated: var(--vyd-neutral-200);
   --vyd-text-primary: var(--vyd-neutral-800);
-  --vyd-text-secondary: var(--vyd-neutral-500);
-  --vyd-text-disabled: var(--vyd-neutral-400);
+  --vyd-text-secondary: var(--vyd-neutral-700);
+  --vyd-text-disabled: var(--vyd-neutral-500);
   --vyd-text-inverse: var(--vyd-neutral-0);
   --vyd-text-on-accent: var(--vyd-neutral-1000);
-  --vyd-text-accent: var(--vyd-blueprint-300);
-  --vyd-border-default: var(--vyd-neutral-300);
-  --vyd-border-strong: var(--vyd-neutral-400);
+  --vyd-text-accent: var(--vyd-blueprint-200);
+  --vyd-border-default: var(--vyd-neutral-400);
+  --vyd-border-strong: var(--vyd-neutral-500);
   --vyd-border-accent: var(--vyd-blueprint-500);
   --vyd-action-primary: var(--vyd-blueprint-500);
   --vyd-action-primary-hover: var(--vyd-blueprint-400);
@@ -148,13 +145,13 @@
   --vyd-bg-canvas: var(--vyd-neutral-1000);
   --vyd-bg-elevated: var(--vyd-neutral-1000);
   --vyd-text-primary: var(--vyd-neutral-100);
-  --vyd-text-secondary: var(--vyd-neutral-400);
-  --vyd-text-disabled: var(--vyd-neutral-500);
+  --vyd-text-secondary: var(--vyd-neutral-300);
+  --vyd-text-disabled: var(--vyd-neutral-400);
   --vyd-text-inverse: var(--vyd-neutral-1000);
   --vyd-text-on-accent: var(--vyd-neutral-1000);
   --vyd-text-accent: var(--vyd-blueprint-600);
-  --vyd-border-default: var(--vyd-neutral-800);
-  --vyd-border-strong: var(--vyd-neutral-700);
+  --vyd-border-default: var(--vyd-neutral-700);
+  --vyd-border-strong: var(--vyd-neutral-600);
   --vyd-border-accent: var(--vyd-blueprint-500);
   --vyd-action-primary: var(--vyd-blueprint-500);
   --vyd-action-primary-hover: var(--vyd-blueprint-600);
@@ -175,9 +172,9 @@
   --vyd-border-default: var(--vyd-neutral-500);
   --vyd-border-strong: var(--vyd-neutral-700);
   --vyd-border-accent: var(--vyd-blueprint-300);
-  --vyd-action-primary: var(--vyd-blueprint-400);
-  --vyd-action-primary-hover: var(--vyd-blueprint-300);
-  --vyd-action-primary-active: var(--vyd-blueprint-500);
+  --vyd-action-primary: var(--vyd-blueprint-500);
+  --vyd-action-primary-hover: var(--vyd-blueprint-400);
+  --vyd-action-primary-active: var(--vyd-blueprint-600);
 }
 
 @media (prefers-contrast: more) {
@@ -195,8 +192,8 @@
     --vyd-border-default: var(--vyd-neutral-500);
     --vyd-border-strong: var(--vyd-neutral-700);
     --vyd-border-accent: var(--vyd-blueprint-300);
-    --vyd-action-primary: var(--vyd-blueprint-400);
-    --vyd-action-primary-hover: var(--vyd-blueprint-300);
-    --vyd-action-primary-active: var(--vyd-blueprint-500);
+    --vyd-action-primary: var(--vyd-blueprint-500);
+    --vyd-action-primary-hover: var(--vyd-blueprint-400);
+    --vyd-action-primary-active: var(--vyd-blueprint-600);
   }
 }

@@ -140,9 +140,6 @@ declare const vyd: {
     "ribbon-h": string;
     "ribbon-tabs-h": string;
     "ribbon-command-h": string;
-    "leftrail-w": string;
-    "leftrail-w-min": string;
-    "rightpanel-w": string;
     "statusbar-h": string;
   };
   duration: {

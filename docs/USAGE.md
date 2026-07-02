@@ -93,18 +93,16 @@ module.exports = {
   Salvar
 </button>
 
-<aside class="bg-panel text-primary border border-default w-leftrail-w">
-  left rail
-</aside>
-
 <div class="h-topbar-h bg-chrome">top bar</div>
+<div class="h-ribbon-h bg-chrome">ribbon</div>
 ```
 
 Cores disponíveis (exemplos): `bg-chrome`, `bg-panel`, `bg-canvas`, `bg-elevated`,
 `text-primary`, `text-secondary`, `text-on-accent`, `border-default`, `action-primary`,
 `success`, `warning`, `danger`, além das escalas `blueprint-500`, `neutral-0`, etc.
 Espaçamentos: `1`–`9` (grid 4px) e dimensões do app shell `topbar-h`, `ribbon-h`,
-`leftrail-w`, `leftrail-w-min`, `rightpanel-w`, `statusbar-h`.
+`ribbon-tabs-h`, `ribbon-command-h`, `statusbar-h`. (O shell é **coluna única** —
+ribbon no topo, canvas cheio, **sem rail/painel lateral**; ver [RIBBON.md](RIBBON.md).)
 
 > No Lovable: cole o conteúdo de `dist/theme.css` no CSS global e o preset no
 > `tailwind.config`. Instrua o Lovable a usar **apenas** utilitários/variáveis VYD.
@@ -141,6 +139,7 @@ Para valores resolvidos (hex/px), use `dist/tokens.resolved.json`.
 
 ## App shell invariante
 
-A casca é constante em toda ferramenta VYD; só o canvas muda. Dimensões em
-`--vyd-layout-*`: top bar 44px, ribbon 88px, left rail 240px (48px colapsada),
-right panel 300px, status bar 26px.
+A casca é constante em toda ferramenta VYD; só o canvas muda. **Coluna única:
+ribbon no topo + canvas em largura cheia — sem menu lateral esquerdo e sem painéis
+laterais** (ver [RIBBON.md](RIBBON.md) / [../AGENTS.md](../AGENTS.md)). Dimensões em
+`--vyd-layout-*`: top bar 44px, ribbon-tabs 34px, ribbon 88px, status bar 26px.
