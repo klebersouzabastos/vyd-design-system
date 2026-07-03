@@ -154,5 +154,30 @@ try {
   }
 }
 
+/* --- 8: reduced-motion (toda transition/animation coberta pela receita) --- */
+{
+  // Animações keyframe com duração literal DELIBERADA (tratadas no bloco
+  // prefers-reduced-motion: spinner desacelera; skeleton/indeterminate param).
+  const ANIM_WHITELIST = ['vyd-spin', 'vyd-skeleton', 'vyd-progress-slide'];
+  for (const file of ['css/primitives.css', 'css/shell.css']) {
+    const css = readFileSync(join(ROOT, file), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    const offenders = [];
+    for (const m of css.matchAll(/transition:\s*([^;]+);/g)) {
+      if (!m[1].includes('var(--vyd-duration-')) offenders.push('transition: ' + m[1].trim().slice(0, 40));
+    }
+    for (const m of css.matchAll(/animation:\s*([^;]+);/g)) {
+      const v = m[1];
+      if (v.trim() === 'none') continue;
+      if (!ANIM_WHITELIST.some((w) => v.includes(w))) offenders.push('animation: ' + v.trim().slice(0, 40));
+    }
+    if (offenders.length) fail(`${file}: motion fora da receita reduced-motion: ${offenders.slice(0, 3).join(' | ')}`);
+    else ok(`${file}: todo motion usa var(--vyd-duration-*) ou está na whitelist de keyframes`);
+  }
+  const prim = readFileSync(join(ROOT, 'css', 'primitives.css'), 'utf8');
+  if (!/prefers-reduced-motion:\s*reduce[\s\S]*?--vyd-duration-fast:\s*0\.01ms/.test(prim)) {
+    fail('primitives.css: receita global de reduced-motion (zerar --vyd-duration-*) ausente');
+  } else ok('receita global de reduced-motion presente (zera tokens de duração)');
+}
+
 console.log(failures ? `\nVERIFY FALHOU (${failures})` : '\nVERIFY OK');
 process.exit(failures ? 1 : 0);

@@ -416,7 +416,16 @@ body {
 .vyd-tag__close:hover { color: var(--vyd-text-primary); }
 
 /* ---- Motion reduzido: desliga animações não essenciais ---- */
+/* Receita GLOBAL de reduced-motion: todas as transitions do sistema usam
+   var(--vyd-duration-*), então zerar os tokens desliga TODAS de uma vez
+   (tooltip, tree-toggle, progress width, sort, hovers e futuras).
+   Exceções deliberadas: spinner segue girando (mais lento — é indicador de
+   atividade, não decoração) e skeleton/indeterminate param. */
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --vyd-duration-fast: 0.01ms;
+    --vyd-duration-normal: 0.01ms;
+  }
   .vyd-spinner { animation-duration: 1.6s; }
   .vyd-skeleton, .vyd-progress--indeterminate .vyd-progress__bar { animation: none; }
 }
