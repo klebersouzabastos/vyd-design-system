@@ -154,6 +154,19 @@ try {
   }
 }
 
+/* --- 7.5: wide-gamut P3 (motor OKLCH) --- */
+{
+  const m = theme.match(/@media \(color-gamut: p3\) \{([\s\S]*?)\n\}/);
+  if (!m) fail('theme.css: bloco @media (color-gamut: p3) ausente');
+  else {
+    const block = m[1];
+    const wantBlueprint = ['50','100','200','300','400','500','600','700','800','900'].every((s) => block.includes(`--vyd-blueprint-${s}: oklch(`));
+    const wantViz = ['1','2','3','4','5','6'].every((n) => block.includes(`--vyd-viz-${n}: oklch(`));
+    if (!wantBlueprint || !wantViz) fail('bloco P3 não cobre blueprint 50–900 + viz 1–6 em oklch()');
+    else ok('bloco P3 cobre blueprint 50–900 + viz.cat 1–6 (oklch, chroma boost)');
+  }
+}
+
 /* --- 8: reduced-motion (toda transition/animation coberta pela receita) --- */
 {
   // Animações keyframe com duração literal DELIBERADA (tratadas no bloco

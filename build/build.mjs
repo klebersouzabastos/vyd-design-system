@@ -25,6 +25,7 @@ import {
   kebab, vydName, cssValue, isSemantic, renderBlock, tokenValue,
 } from './lib.mjs';
 import { resolveTheme, THEMES } from './contrast.mjs';
+import { oklchCss } from './color.mjs';
 
 const ROOT = process.env.VYD_ROOT || join(dirname(fileURLToPath(import.meta.url)), '..');
 const TOKENS = join(ROOT, 'tokens');
@@ -380,7 +381,37 @@ const densityCss = [
   densityBlock('[data-vyd-density="comfortable"]', 'comfortable'),
 ].join('\n');
 
-const vars = baseCss + '\n\n' + lightCss + '\n\n' + hcCss + '\n\n' + iconsCss + '\n\n' + densityCss;
+/* ---------------------------------------------------------------------
+   Wide-gamut P3 — em telas modernas, o acento de MARCA e a paleta viz
+   ficam levemente mais vivos (OKLCH, chroma +8%; L e matiz intactos).
+   Redefinir --vyd-blueprint-* basta: a cadeia brand-accent -> action/border/
+   text.accent propaga sozinha. sRGB (fallback) permanece byte-idêntico.
+   --------------------------------------------------------------------- */
+const P3_BOOST = 1.08;
+const p3Tokens = [];
+{
+  const src = JSON.parse(readFileSync(join(TOKENS, 'tokens.json'), 'utf8'));
+  for (const [step, node] of Object.entries(src.color.brand.blueprint)) {
+    if (node && node.$value && !String(node.$value).includes('{')) {
+      p3Tokens.push([`vyd-blueprint-${step}`, oklchCss(node.$value, P3_BOOST)]);
+    }
+  }
+  for (const [n, node] of Object.entries(src.color.viz.cat)) {
+    if (node && node.$value && !String(node.$value).includes('{')) {
+      p3Tokens.push([`vyd-viz-${n}`, oklchCss(node.$value, P3_BOOST)]);
+    }
+  }
+}
+const p3Css = [
+  '/* Wide-gamut P3 (gerado pelo motor OKLCH; sRGB continua o fallback pinado) */',
+  '@media (color-gamut: p3) {',
+  '  :root {',
+  ...p3Tokens.map(([n, v]) => `    --${n}: ${v};`),
+  '  }',
+  '}',
+].join('\n');
+
+const vars = baseCss + '\n\n' + lightCss + '\n\n' + hcCss + '\n\n' + iconsCss + '\n\n' + densityCss + '\n\n' + p3Css;
 const variablesCss = header('variables.css') + '\n\n' + FONT_IMPORT + '\n\n' + vars + '\n';
 writeFileSync(join(DIST, 'variables.css'), variablesCss);
 
