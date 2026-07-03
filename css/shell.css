@@ -22,6 +22,10 @@
        .vyd-statusbar
    ===================================================================== */
 
+/* Todo o shell vive em @layer vyd.components (mesma camada do theme.css):
+   estilos não-layered do app vencem sem guerra de especificidade. */
+@layer vyd.components {
+
 .vyd-app {
   display: grid;
   /* A faixa de abas (ribbontabs) é opcional: sem um .vyd-ribbon-tabs no markup,
@@ -220,4 +224,5 @@
    --------------------------------------------------------------------- */
 @media (max-width: 640px) {
   .vyd-ribbon-group__label { display: none; }
+}
 }

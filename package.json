@@ -19,6 +19,7 @@
       "require": "./dist/tokens.js"
     },
     "./theme.css": "./dist/theme.css",
+    "./theme.unlayered.css": "./dist/theme.unlayered.css",
     "./variables.css": "./dist/variables.css",
     "./shell.css": "./css/shell.css",
     "./tailwind": "./dist/tokens.tailwind.js",

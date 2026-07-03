@@ -167,6 +167,25 @@ try {
   }
 }
 
+/* --- 7.8: cascade layers --- */
+{
+  for (const file of ['theme.css', 'variables.css']) {
+    const css = readFileSync(join(ROOT, 'dist', file), 'utf8');
+    if (!css.includes('@layer vyd.tokens, vyd.components;')) fail(`${file}: declaração de ordem @layer ausente`);
+    else ok(`${file}: ordem de layers declarada (vyd.tokens, vyd.components)`);
+    if (!/@layer vyd\.tokens \{/.test(css)) fail(`${file}: variáveis fora de @layer vyd.tokens`);
+    else ok(`${file}: variáveis dentro de @layer vyd.tokens`);
+  }
+  if (!/@layer vyd\.components \{/.test(theme)) fail('theme.css: primitivas fora de @layer vyd.components');
+  else ok('theme.css: primitivas dentro de @layer vyd.components');
+  const unl = readFileSync(join(ROOT, 'dist', 'theme.unlayered.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+  if (/@layer/.test(unl)) fail('theme.unlayered.css NÃO deveria conter @layer (escape hatch)');
+  else ok('theme.unlayered.css sem @layer (escape hatch íntegro)');
+  const shellCss = readFileSync(join(ROOT, 'css', 'shell.css'), 'utf8');
+  if (!/@layer vyd\.components \{/.test(shellCss)) fail('shell.css fora de @layer vyd.components');
+  else ok('shell.css dentro de @layer vyd.components');
+}
+
 /* --- 8: reduced-motion (toda transition/animation coberta pela receita) --- */
 {
   // Animações keyframe com duração literal DELIBERADA (tratadas no bloco

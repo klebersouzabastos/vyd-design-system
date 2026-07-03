@@ -6,6 +6,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
+@layer vyd.tokens, vyd.components;
+
+@layer vyd.tokens {
 :root {
   --vyd-blueprint-50: #EAF1FB;
   --vyd-blueprint-100: #CBDDF5;
@@ -285,4 +288,5 @@
     --vyd-viz-5: oklch(59.00% 0.1918 24.4);
     --vyd-viz-6: oklch(71.70% 0.0232 250.5);
   }
+}
 }

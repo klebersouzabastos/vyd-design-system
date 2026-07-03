@@ -412,11 +412,30 @@ const p3Css = [
 ].join('\n');
 
 const vars = baseCss + '\n\n' + lightCss + '\n\n' + hcCss + '\n\n' + iconsCss + '\n\n' + densityCss + '\n\n' + p3Css;
-const variablesCss = header('variables.css') + '\n\n' + FONT_IMPORT + '\n\n' + vars + '\n';
+/* ---------------------------------------------------------------------
+   Cascade layers: estilos do VYD vivem em @layer (vyd.tokens < vyd.
+   components). Estilos NÃO-layered do app consumidor vencem os layered
+   por definição — override previsível, sem guerra de especificidade.
+   Escape hatch de transição: dist/theme.unlayered.css (1 ciclo).
+   --------------------------------------------------------------------- */
+const LAYER_DECL = '@layer vyd.tokens, vyd.components;';
+const inLayer = (name, css) => `@layer ${name} {\n${css}\n}`;
+
+const variablesCss = header('variables.css') + '\n\n' + FONT_IMPORT + '\n\n'
+  + LAYER_DECL + '\n\n' + inLayer('vyd.tokens', vars) + '\n';
 writeFileSync(join(DIST, 'variables.css'), variablesCss);
 
-const themeCss = header('theme.css') + '\n\n' + FONT_IMPORT + '\n\n' + vars + '\n\n' + primitives + '\n';
+const themeCss = header('theme.css') + '\n\n' + FONT_IMPORT + '\n\n'
+  + LAYER_DECL + '\n\n' + inLayer('vyd.tokens', vars) + '\n\n'
+  + inLayer('vyd.components', primitives) + '\n';
 writeFileSync(join(DIST, 'theme.css'), themeCss);
+
+const themeUnlayeredCss = header('theme.unlayered.css') + '\n'
+  + '/* ESCAPE HATCH de transição p/ 3.x: idêntico ao theme.css, SEM @layer.\n'
+  + '   Use apenas se o seu app dependia de vencer .vyd-* por ordem/especificidade.\n'
+  + '   Será removido em um major futuro — migre para theme.css. */\n\n'
+  + FONT_IMPORT + '\n\n' + vars + '\n\n' + primitives + '\n';
+writeFileSync(join(DIST, 'theme.unlayered.css'), themeUnlayeredCss);
 
 rmSync(PARTS, { recursive: true, force: true });
 rmSync(CLEAN, { recursive: true, force: true });
