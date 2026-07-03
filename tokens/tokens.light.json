@@ -45,7 +45,7 @@
           "$value": "{color.neutral.1000}"
         },
         "accent": {
-          "$value": "{color.brand.blueprint.600}"
+          "$value": "{color.brand.accent.600}"
         },
         "tooltip": {
           "$value": "{color.neutral.1000}"
@@ -59,18 +59,18 @@
           "$value": "{color.neutral.600}"
         },
         "accent": {
-          "$value": "{color.brand.blueprint.500}"
+          "$value": "{color.brand.accent.500}"
         }
       },
       "action": {
         "primary": {
-          "$value": "{color.brand.blueprint.500}"
+          "$value": "{color.brand.accent.500}"
         },
         "primaryHover": {
-          "$value": "{color.brand.blueprint.600}"
+          "$value": "{color.brand.accent.600}"
         },
         "primaryActive": {
-          "$value": "{color.brand.blueprint.700}"
+          "$value": "{color.brand.accent.700}"
         }
       }
     }

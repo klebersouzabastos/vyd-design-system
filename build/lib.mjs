@@ -29,6 +29,7 @@ export function vydName(path) {
 
   if (p[0] === 'color') {
     if (p[1] === 'brand' && p[2] === 'blueprint') return `vyd-blueprint-${p[3]}`;
+    if (p[1] === 'brand' && p[2] === 'accent')    return `vyd-brand-accent-${p[3]}`; // tier de marca (white-label)
     if (p[1] === 'neutral') return `vyd-neutral-${p[2]}`;
     if (p[1] === 'semantic') {
       const grp = p[2];

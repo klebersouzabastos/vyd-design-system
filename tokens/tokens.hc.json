@@ -49,7 +49,7 @@
           "$value": "{color.neutral.1000}"
         },
         "accent": {
-          "$value": "{color.brand.blueprint.200}",
+          "$value": "{color.brand.accent.200}",
           "$description": "acento bem claro sobre preto"
         },
         "tooltip": {
@@ -65,19 +65,19 @@
           "$value": "{color.neutral.700}"
         },
         "accent": {
-          "$value": "{color.brand.blueprint.300}"
+          "$value": "{color.brand.accent.300}"
         }
       },
       "action": {
         "primary": {
-          "$value": "{color.brand.blueprint.500}",
+          "$value": "{color.brand.accent.500}",
           "$description": "rotulo branco = 6.02 (AA). Antes blueprint.400 reprovava (4.21)."
         },
         "primaryHover": {
-          "$value": "{color.brand.blueprint.400}"
+          "$value": "{color.brand.accent.400}"
         },
         "primaryActive": {
-          "$value": "{color.brand.blueprint.600}"
+          "$value": "{color.brand.accent.600}"
         }
       }
     }

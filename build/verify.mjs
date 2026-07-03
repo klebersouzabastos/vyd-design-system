@@ -77,8 +77,13 @@ if (!theme.includes('--vyd-text-on-accent')) fail('theme.css não define --vyd-t
 else ok('--vyd-text-on-accent presente');
 if (/\.vyd-btn\s*\{[^}]*color:\s*var\(--vyd-neutral-1000\)/s.test(theme)) fail('.vyd-btn ainda usa --vyd-neutral-1000 (escala bruta)');
 else ok('.vyd-btn usa token semântico para a cor do texto');
-if (!theme.includes('--vyd-shadow-focus: 0 0 0 2px var(--vyd-blueprint-500)')) fail('shadow-focus não preservou a indireção var()');
-else ok('shadow-focus mantém var(--vyd-blueprint-500)');
+if (!theme.includes('--vyd-shadow-focus: 0 0 0 2px var(--vyd-brand-accent-500)')) fail('shadow-focus não preservou a indireção var() via tier de marca');
+else ok('shadow-focus mantém var(--vyd-brand-accent-500)');
+// cadeia de marca: semânticos -> brand-accent -> blueprint (white-label = sobrescrever só brand-accent)
+if (!theme.includes('--vyd-brand-accent-500: var(--vyd-blueprint-500)')) fail('tier de marca quebrado: --vyd-brand-accent-500 não aponta p/ blueprint-500');
+else ok('cadeia de marca intacta (--vyd-brand-accent-* -> --vyd-blueprint-*)');
+if (!theme.includes('--vyd-action-primary: var(--vyd-brand-accent-500)')) fail('action.primary não consome o tier de marca');
+else ok('action.primary consome o tier de marca');
 
 /* --- 4: JS artifacts --- */
 try {

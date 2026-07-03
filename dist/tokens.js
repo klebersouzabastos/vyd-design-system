@@ -14,6 +14,18 @@ const vyd = {
       "800": "var(--vyd-blueprint-800)",
       "900": "var(--vyd-blueprint-900)"
     },
+    "brandAccent": {
+      "50": "var(--vyd-brand-accent-50)",
+      "100": "var(--vyd-brand-accent-100)",
+      "200": "var(--vyd-brand-accent-200)",
+      "300": "var(--vyd-brand-accent-300)",
+      "400": "var(--vyd-brand-accent-400)",
+      "500": "var(--vyd-brand-accent-500)",
+      "600": "var(--vyd-brand-accent-600)",
+      "700": "var(--vyd-brand-accent-700)",
+      "800": "var(--vyd-brand-accent-800)",
+      "900": "var(--vyd-brand-accent-900)"
+    },
     "neutral": {
       "0": "var(--vyd-neutral-0)",
       "50": "var(--vyd-neutral-50)",
