@@ -156,6 +156,23 @@ declare const vyd: {
   easing: {
     standard: string;
   };
+  state: {
+    hover: {
+      mix: string;
+    };
+    selected: {
+      mix: string;
+    };
+    zebra: {
+      mix: string;
+    };
+    gridline: {
+      mix: string;
+    };
+    skeleton: {
+      mix: string;
+    };
+  };
   zIndex: {
     base: string;
     raised: string;

@@ -189,8 +189,8 @@
 }
 .vyd-canvas--grid {
   background-image:
-    linear-gradient(color-mix(in srgb, var(--vyd-border-default) 55%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--vyd-border-default) 55%, transparent) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--vyd-border-default) calc(var(--vyd-state-gridline-mix) * 1%), transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--vyd-border-default) calc(var(--vyd-state-gridline-mix) * 1%), transparent) 1px, transparent 1px);
   background-size: var(--vyd-space-7) var(--vyd-space-7);
 }
 

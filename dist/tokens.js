@@ -157,6 +157,23 @@ const vyd = {
   "easing": {
     "standard": "var(--vyd-ease-standard)"
   },
+  "state": {
+    "hover": {
+      "mix": "var(--vyd-state-hover-mix)"
+    },
+    "selected": {
+      "mix": "var(--vyd-state-selected-mix)"
+    },
+    "zebra": {
+      "mix": "var(--vyd-state-zebra-mix)"
+    },
+    "gridline": {
+      "mix": "var(--vyd-state-gridline-mix)"
+    },
+    "skeleton": {
+      "mix": "var(--vyd-state-skeleton-mix)"
+    }
+  },
   "zIndex": {
     "base": "var(--vyd-z-base)",
     "raised": "var(--vyd-z-raised)",

@@ -99,6 +99,7 @@ function buildObject(allTokens) {
     else if (p[0] === 'layout') set(['layout', vydName(t.path).replace('vyd-layout-', '')], v);
     else if (p[0] === 'motion' && p[1] === 'duration') set(['duration', p[2]], v);
     else if (p[0] === 'motion' && p[1] === 'easing') set(['easing', p[2]], v);
+    else if (p[0] === 'state') set(['state', p[1], p[2]], v);
     else if (p[0] === 'zIndex') set(['zIndex', p[1]], v);
     else if (p[0] === 'opacity') set(['opacity', p[1]], v);
     else if (p[0] === 'size') set(['size', p[1], p[2]], v);

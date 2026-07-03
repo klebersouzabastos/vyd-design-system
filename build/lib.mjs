@@ -52,6 +52,7 @@ export function vydName(path) {
   if (p[0] === 'radius') return `vyd-radius-${kebab(p[1])}`;
   if (p[0] === 'border' && p[1] === 'width') return `vyd-border-${kebab(p[2])}`;
   if (p[0] === 'shadow') return `vyd-shadow-${kebab(p[1])}`;
+  if (p[0] === 'state')      return `vyd-state-${kebab(p[1])}-${kebab(p[2])}`; // state.selected.mix -> vyd-state-selected-mix
   if (p[0] === 'zIndex')     return `vyd-z-${kebab(p[1])}`;
   if (p[0] === 'opacity')    return `vyd-opacity-${kebab(p[1])}`;
   if (p[0] === 'size')       return `vyd-size-${kebab(p[1])}-${kebab(p[2])}`; // size.control.md -> vyd-size-control-md

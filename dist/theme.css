@@ -97,6 +97,11 @@
   --vyd-duration-fast: 120ms;
   --vyd-duration-normal: 200ms;
   --vyd-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --vyd-state-hover-mix: 60;
+  --vyd-state-selected-mix: 16;
+  --vyd-state-zebra-mix: 70;
+  --vyd-state-gridline-mix: 55;
+  --vyd-state-skeleton-mix: 55;
   --vyd-z-base: 0;
   --vyd-z-raised: 1;
   --vyd-z-sticky: 100;
@@ -255,6 +260,15 @@ body {
 :root                                { --vyd-control-h: var(--vyd-size-control-md); }
 [data-vyd-density="comfortable"]     { --vyd-control-h: var(--vyd-size-control-lg); }
 [data-vyd-density="compact"]         { --vyd-control-h: var(--vyd-size-control-sm); }
+
+/* ---------------------------------------------------------------------
+   State layers derivados — receitas prontas p/ consumo (a % vem dos
+   tokens --vyd-state-*-mix; receita única, sem números mágicos).
+   --------------------------------------------------------------------- */
+:root {
+  --vyd-state-selected-bg: color-mix(in srgb, var(--vyd-action-primary) calc(var(--vyd-state-selected-mix) * 1%), transparent);
+  --vyd-state-hover-bg: color-mix(in srgb, var(--vyd-bg-elevated) calc(var(--vyd-state-hover-mix) * 1%), var(--vyd-border-default));
+}
 
 /* ---------------------------------------------------------------------
    Estilos de texto (roles) — compõem os tokens de tipografia.
@@ -589,7 +603,7 @@ body {
 .vyd-skeleton {
   display: block; height: 1em; border-radius: var(--vyd-radius-sm);
   background: linear-gradient(90deg, var(--vyd-bg-elevated) 25%,
-    color-mix(in srgb, var(--vyd-bg-elevated) 55%, var(--vyd-border-default)) 37%, var(--vyd-bg-elevated) 63%);
+    color-mix(in srgb, var(--vyd-bg-elevated) calc(var(--vyd-state-skeleton-mix) * 1%), var(--vyd-border-default)) 37%, var(--vyd-bg-elevated) 63%);
   background-size: 400% 100%;
   animation: vyd-skeleton 1.4s ease infinite;
 }
@@ -696,7 +710,7 @@ body {
   text-align: left; cursor: pointer; white-space: nowrap;
 }
 .vyd-menu__item:hover,
-.vyd-menu__item:focus-visible { outline: none; background: color-mix(in srgb, var(--vyd-bg-elevated) 60%, var(--vyd-border-default)); }
+.vyd-menu__item:focus-visible { outline: none; background: var(--vyd-state-hover-bg); }
 .vyd-menu__item--danger { color: var(--vyd-danger); }
 .vyd-menu__item[disabled] { color: var(--vyd-text-disabled); cursor: not-allowed; }
 .vyd-menu__item[disabled]:hover { background: none; }
@@ -760,9 +774,9 @@ body {
 .vyd-table tbody tr:last-child td { border-bottom: 0; }
 .vyd-table .vyd-num { text-align: right; font-family: var(--vyd-font-mono); font-variant-numeric: tabular-nums; }
 .vyd-table--compact th, .vyd-table--compact td { padding: var(--vyd-space-1) var(--vyd-space-3); }
-.vyd-table--zebra tbody tr:nth-child(even) { background: color-mix(in srgb, var(--vyd-bg-panel) 70%, var(--vyd-bg-elevated)); }
+.vyd-table--zebra tbody tr:nth-child(even) { background: color-mix(in srgb, var(--vyd-bg-panel) calc(var(--vyd-state-zebra-mix) * 1%), var(--vyd-bg-elevated)); }
 .vyd-table tbody tr:hover { background: var(--vyd-bg-elevated); }
-.vyd-table tbody tr[aria-selected="true"] { background: color-mix(in srgb, var(--vyd-action-primary) 16%, transparent); }
+.vyd-table tbody tr[aria-selected="true"] { background: var(--vyd-state-selected-bg); }
 .vyd-table__sort {
   display: inline-flex; align-items: center; gap: var(--vyd-space-2);
   background: none; border: 0; padding: 0; margin: 0; cursor: pointer;
@@ -895,7 +909,8 @@ body {
 .vyd-cmdk__input::placeholder { color: var(--vyd-text-secondary); }
 .vyd-cmdk__list { overflow: auto; padding: var(--vyd-space-2); }
 .vyd-cmdk__item { display: flex; align-items: center; gap: var(--vyd-space-3); padding: var(--vyd-space-2) var(--vyd-space-3); border-radius: var(--vyd-radius-sm); color: var(--vyd-text-primary); cursor: pointer; }
-.vyd-cmdk__item[aria-selected="true"] { background: color-mix(in srgb, var(--vyd-action-primary) 18%, transparent); }
+/* unificado com a seleção de tabela via --vyd-state-selected-bg (era 18%, agora 16%) */
+.vyd-cmdk__item[aria-selected="true"] { background: var(--vyd-state-selected-bg); }
 .vyd-cmdk__item .vyd-icon { color: var(--vyd-text-secondary); }
 .vyd-cmdk__item-trailing { margin-inline-start: auto; }
 .vyd-cmdk__empty { padding: var(--vyd-space-7); text-align: center; color: var(--vyd-text-secondary); font-size: var(--vyd-text-sm); }
