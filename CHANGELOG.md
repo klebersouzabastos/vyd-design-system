@@ -11,6 +11,31 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - —
 
+## [2.1.0] — 2026-07-03
+
+> **Pré-fase do programa VYD 3.0 — rede de segurança.** Antes dos refactors da
+> Fundação 3.0, os gates que provam pixel-neutralidade e acessibilidade entram no ar.
+
+### Adicionado
+
+- **Regressão visual vira GATE** no CI: o job `visual` compara contra baselines
+  commitadas (`test/__screenshots__/`) e **falha** em qualquer diff. Baselines são
+  geradas **sempre pelo runner de CI** via novo workflow
+  [`update-baselines.yml`](.github/workflows/update-baselines.yml) (push numa branch
+  `baselines/*` → PNGs commitados de volta na branch). Fim do falso-verde
+  (`--update-snapshots` + `continue-on-error` removidos).
+- **Acessibilidade automatizada**: `test/a11y.spec.ts` (axe-core, WCAG 2.1 A/AA) em
+  todas as demos × 3 temas; job `a11y` **report-only** nesta fase (vira gate na
+  Fase 10). Script `npm run test:a11y`.
+- **Theme + density switcher nos demos** (`demo/demo.js`): alterna
+  dark/light/high-contrast e compact/comfortable em qualquer página de demo;
+  auto-oculto em automação (não contamina baselines nem axe).
+
+### Corrigido
+
+- **`vyd-react` instalável via GitHub**: adicionado `"prepare": "npm run build"`
+  (o `dist/` é gitignored; sem `prepare`, `npm install github:…` vinha vazio).
+
 ## [2.0.0] — 2026-07-02
 
 > **Major.** Trava o padrão de UI antes da adoção ampla: shell **ribbon-only** (sem
@@ -316,7 +341,8 @@ Primeira versão estruturada do design system como pacote publicável.
   Apps que já importavam `theme.css` continuam funcionando ao trocar para
   `dist/theme.css`. As únicas adições são os tokens citados acima.
 
-[Não lançado]: https://github.com/klebersouzabastos/vyd-design-system/compare/v2.0.0...HEAD
+[Não lançado]: https://github.com/klebersouzabastos/vyd-design-system/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v2.1.0
 [2.0.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v2.0.0
 [1.0.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v1.0.0
 [0.1.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v0.1.0

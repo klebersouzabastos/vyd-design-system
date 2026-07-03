@@ -1,6 +1,6 @@
 {
   "name": "vyd-design-system",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "VYD Design System — fonte única de verdade visual do ecossistema VYD (apps de engenharia). Estilo técnico, sóbrio, denso. Acento azul-blueprint.",
   "license": "MIT",
   "author": "K2+ / VYD",
@@ -56,8 +56,9 @@
     "prebuild": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "typecheck": "npm --workspace vyd-react run typecheck",
     "test": "npm run build && npm run verify && npm run typecheck",
-    "test:visual": "playwright test",
-    "test:visual:update": "playwright test --update-snapshots"
+    "test:visual": "playwright test visual.spec.ts",
+    "test:visual:update": "playwright test visual.spec.ts --update-snapshots",
+    "test:a11y": "playwright test a11y.spec.ts"
   },
   "keywords": [
     "design-system",
@@ -78,6 +79,7 @@
     "node": ">=18"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.0",
     "@playwright/test": "^1.48.0",
     "style-dictionary": "^4.0.0"
   }

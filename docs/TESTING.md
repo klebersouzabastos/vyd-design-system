@@ -32,30 +32,31 @@ npm run test:visual          # compara contra as baselines
 npm run test:visual:update   # regera as baselines (após mudança intencional)
 ```
 
-### Baselines são sensíveis ao ambiente
+### Baselines: SEMPRE geradas pelo runner de CI (desde a 2.1.0)
 
-Renderização de fonte/antialias muda entre máquinas, então **baselines geradas no
-seu Mac não batem com o Linux do CI**. Regra:
+Renderização de fonte/antialias muda entre máquinas, então baselines geradas na sua
+máquina não batem com o Linux do CI. Por isso a regeneração é **automatizada no
+próprio runner** via [`update-baselines.yml`](../.github/workflows/update-baselines.yml):
 
-- **Sempre gere/commite baselines no mesmo runner** — o container de CI
-  (`ubuntu-latest` + `npx playwright install chromium`). Localmente, use o mesmo via
-  Docker se precisar regenerar fora do CI:
-  ```bash
-  docker run --rm -v "$PWD":/w -w /w mcr.microsoft.com/playwright:v1.48.0-jammy \
-    sh -c "npm install && npm run build && npm run test:visual:update"
-  ```
-- Tolerância já configurada (`maxDiffPixelRatio: 0.01`) para ruído de antialias.
-- Fonts web via `@import` (Google Fonts) podem faltar offline; o runner de CI tem
-  rede, então as baselines saem estáveis lá.
+```bash
+# regenerar baselines (após mudança visual INTENCIONAL):
+git checkout -b baselines/minha-mudanca && git push -u origin HEAD
+# → o workflow roda no runner de CI e commita os PNGs de volta NESSA branch
+# → git pull, revise o diff visual, e faça merge na main
+```
 
-### Por que não é gate obrigatório (ainda)
+- O job `visual` do CI é **gate**: compara contra `test/__screenshots__/` e falha em
+  qualquer diff acima de `maxDiffPixelRatio: 0.01` (ruído de antialias tolerado).
+  Enquanto não existirem baselines commitadas (bootstrap), o passo é pulado com warning.
+- Nunca commite baselines geradas fora do runner — falso-verde é pior que ausência
+  de teste.
 
-O job `visual` roda com `continue-on-error: true` e sobe os snapshots como
-artefato. Vira gate assim que houver um lote de baselines commitado a partir do
-runner de CI (rode o job com `--update-snapshots`, baixe o artefato, commite em
-`test/__screenshots__/`, e remova o `continue-on-error`). Preferimos **sem
-baseline** a uma baseline que só bate numa máquina — falso-verde é pior que
-ausência de teste.
+## 3. Acessibilidade automatizada (axe) — `npm run test:a11y`
+
+`test/a11y.spec.ts` roda o axe-core (WCAG 2.1 A/AA) em todas as páginas de `demo/`
+nos 3 temas e falha em violações **serious/critical**. Na 2.1.0 o job `a11y` do CI é
+**report-only** (`continue-on-error`) — vira gate na Fase 10, quando os achados
+conhecidos de teclado/ARIA forem corrigidos.
 
 ## Escopo de teste por camada
 

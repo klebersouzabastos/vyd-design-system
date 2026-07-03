@@ -37,12 +37,52 @@ jobs:
         run: git diff --exit-code -- dist react/src/icons.generated.ts || (echo "::error::Artefatos gerados divergem do commit. Rode 'npm run build' e commite dist/ + react/src/icons.generated.ts." && exit 1)
 
   # ---------------------------------------------------------------------
-  # Regressão visual (Playwright). NÃO é gate até existirem baselines
-  # commitadas: gera/atualiza snapshots e sobe como artefato p/ revisão.
-  # Ver docs/TESTING.md. Rode local: `npm run test:visual:update`.
+  # Regressão visual (Playwright) — GATE. Compara contra as baselines
+  # commitadas em test/__screenshots__/ (geradas SEMPRE pelo runner de CI —
+  # ver .github/workflows/update-baselines.yml e docs/TESTING.md).
+  # Enquanto não houver baselines commitadas, o passo é pulado (bootstrap).
   # ---------------------------------------------------------------------
   visual:
     name: regressão visual
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checar baselines
+        id: base
+        run: |
+          if [ -d test/__screenshots__ ] && [ -n "$(ls -A test/__screenshots__ 2>/dev/null)" ]; then
+            echo "have=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "have=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Sem baselines em test/__screenshots__ — rode o workflow update-baselines (push numa branch baselines/*)."
+          fi
+      - uses: actions/setup-node@v4
+        if: steps.base.outputs.have == 'true'
+        with:
+          node-version: 20
+      - if: steps.base.outputs.have == 'true'
+        run: npm install
+      - if: steps.base.outputs.have == 'true'
+        run: npm run build
+      - name: Instalar Playwright + Chromium
+        if: steps.base.outputs.have == 'true'
+        run: npx --yes playwright install --with-deps chromium
+      - name: Comparar contra baselines (gate)
+        if: steps.base.outputs.have == 'true'
+        run: npm run test:visual
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: visual-diffs
+          path: test-results/
+          if-no-files-found: warn
+
+  # ---------------------------------------------------------------------
+  # Acessibilidade automatizada (axe-core sobre demo/ nos 3 temas).
+  # REPORT-ONLY nesta fase (vira gate na Fase 10, após corrigir os achados).
+  # ---------------------------------------------------------------------
+  a11y:
+    name: axe (report-only)
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
@@ -54,11 +94,5 @@ jobs:
       - run: npm run build
       - name: Instalar Playwright + Chromium
         run: npx --yes playwright install --with-deps chromium
-      - name: Rodar snapshots visuais
-        run: npm run test:visual -- --update-snapshots
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: visual-snapshots
-          path: test/__screenshots__/
-          if-no-files-found: warn
+      - name: Rodar axe
+        run: npm run test:a11y
