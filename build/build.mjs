@@ -22,7 +22,7 @@ import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import {
-  kebab, vydName, cssValue, isSemantic, renderBlock,
+  kebab, vydName, cssValue, isSemantic, renderBlock, tokenValue,
 } from './lib.mjs';
 
 const ROOT = process.env.VYD_ROOT || join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -43,15 +43,18 @@ const FONT_IMPORT =
 const LOG = { warnings: 'disabled', verbosity: 'silent' };
 
 /* ---------------------------------------------------------------------
-   0. Strip human-only keys (_meta, _comment, $schema) into a clean copy
-      so Style Dictionary sees only real tokens.
+   0. Strip metadata-only keys into a clean copy so Style Dictionary sees
+      only real tokens/groups. DTCG (2025.10): $value/$type ficam;
+      $description/$extensions são metadados (removidos p/ neutralizar a
+      travessia de grupos do SD e manter os formats enxutos).
    --------------------------------------------------------------------- */
+const STRIP_KEYS = new Set(['$schema', '$description', '$extensions']);
 function strip(node) {
   if (Array.isArray(node)) return node.map(strip);
   if (node && typeof node === 'object') {
     const out = {};
     for (const [k, val] of Object.entries(node)) {
-      if (k.startsWith('_') || k === '$schema') continue;
+      if (k.startsWith('_') || STRIP_KEYS.has(k)) continue;
       out[k] = strip(val);
     }
     return out;
@@ -182,7 +185,7 @@ StyleDictionary.registerFormat({
     );
     // Breakpoints must be literal px (media queries can't resolve var()).
     const screens = {};
-    for (const t of all) if (t.path[0] === 'breakpoint') screens[t.path[1]] = String(t.value);
+    for (const t of all) if (t.path[0] === 'breakpoint') screens[t.path[1]] = String(tokenValue(t));
     const fontFamily = {};
     for (const t of all) if (t.path[0] === 'typography' && t.path[1] === 'family') fontFamily[t.path[2]] = [v(t)];
     const preset = {
@@ -250,7 +253,7 @@ StyleDictionary.registerFormat({
   name: 'vyd/resolved-json',
   format: ({ dictionary }) => {
     const out = {};
-    for (const t of dictionary.allTokens) out[vydName(t.path)] = t.value;
+    for (const t of dictionary.allTokens) out[vydName(t.path)] = tokenValue(t);
     return JSON.stringify(out, null, 2) + '\n';
   },
 });

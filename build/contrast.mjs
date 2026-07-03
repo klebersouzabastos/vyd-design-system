@@ -57,9 +57,9 @@ export function resolveTheme(overrideFiles = []) {
     if (typeof val !== 'string') return val;
     const m = val.match(/^\{(.+)\}$/);
     if (!m) return val;
-    return resolve(get(m[1]).value);
+    return resolve(get(m[1]).$value);
   };
-  const sem = (p) => resolve(get('color.semantic.' + p).value);
+  const sem = (p) => resolve(get('color.semantic.' + p).$value);
   return {
     bg: { chrome: sem('bg.chrome'), panel: sem('bg.panel'), canvas: sem('bg.canvas'), elevated: sem('bg.elevated') },
     text: {

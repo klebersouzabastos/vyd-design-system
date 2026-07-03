@@ -69,14 +69,19 @@ export function refToVar(str) {
   return String(str).replace(/\{([^}]+)\}/g, (_, ref) => `var(--${vydName(ref.split('.'))})`);
 }
 
+/** Valor de um token independente do modo do SD (DTCG `$value` ou legado `value`). */
+export function tokenValue(token) {
+  return token.$value !== undefined ? token.$value : token.value;
+}
+
 /** CSS emission value: keep the var() indirection when the SOURCE value is a
  *  reference (so the raw scale stays the single definition); otherwise emit the
  *  resolved literal (hex/px/etc), preserving original casing. */
 export function cssValue(token) {
-  const orig = token.original && token.original.value != null
-    ? String(token.original.value)
-    : String(token.value);
-  return orig.includes('{') ? refToVar(orig) : String(token.value);
+  const o = token.original || {};
+  const origRaw = o.$value !== undefined ? o.$value : o.value;
+  const orig = origRaw != null ? String(origRaw) : String(tokenValue(token));
+  return orig.includes('{') ? refToVar(orig) : String(tokenValue(token));
 }
 
 /** Theme-dependent tokens that live in the [data-vyd-theme=...] blocks. */

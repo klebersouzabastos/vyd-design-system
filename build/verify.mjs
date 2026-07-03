@@ -26,7 +26,8 @@ const ok = (m) => console.log('  ✓ ' + m);
 /* --- flatten a token JSON to leaf paths --- */
 function flatten(node, prefix = [], out = []) {
   if (node && typeof node === 'object') {
-    if ('value' in node && typeof node.value !== 'object') { out.push(prefix); return out; }
+    if ('$value' in node && typeof node.$value !== 'object') { out.push(prefix); return out; }
+    if ('value' in node && !('$value' in node)) { throw new Error('token LEGADO (value sem $) em ' + prefix.join('.') + ' — use $value (DTCG)'); }
     for (const [k, v] of Object.entries(node)) {
       if (k.startsWith('_') || k === '$schema') continue;
       flatten(v, [...prefix, k], out);
