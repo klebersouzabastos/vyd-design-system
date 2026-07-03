@@ -126,5 +126,28 @@ try {
   else ok('.vyd-app é coluna única (canvas cheio, sem trilha de rail/painel)');
 }
 
+/* --- 7: semantic-only (nenhuma cor crua/escala bruta em css/) --- */
+{
+  // Whitelist explícita: padrões legítimos por design.
+  //  - scrim de backdrop: preto puro com opacidade TOKENIZADA (igual em todo tema)
+  const WHITELIST = [/rgb\(0 0 0 \/ var\(--vyd-opacity-backdrop\)\)/g];
+  for (const file of ['css/primitives.css', 'css/shell.css']) {
+    let css = readFileSync(join(ROOT, file), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const w of WHITELIST) css = css.replace(w, '/*wl*/');
+    const bad = [
+      ...css.matchAll(/#[0-9a-fA-F]{3,8}\b/g),
+      ...css.matchAll(/\b(?:rgb|rgba|hsl|hsla|hwb|lab|lch|oklab|oklch)\(/g),
+      ...css.matchAll(/var\(--vyd-(?:neutral|blueprint|brand-accent)-\d+\)/g),
+    ].map((m) => m[0]);
+    if (bad.length) fail(`${file}: cor crua/escala bruta proibida (semantic-only): ${[...new Set(bad)].slice(0, 6).join(', ')}`);
+    else ok(`${file}: semantic-only OK (sem hex/rgb/escala bruta fora da whitelist)`);
+  }
+  // Ícones de controle derivados de token devem estar emitidos
+  for (const name of ['--vyd-icon-select-arrow', '--vyd-icon-checkbox-check']) {
+    if (!theme.includes(name + ':')) fail(`theme.css não emite ${name} (ícone derivado de control.*)`);
+    else ok(`${name} emitido pelo build (derivado de tokens)`);
+  }
+}
+
 console.log(failures ? `\nVERIFY FALHOU (${failures})` : '\nVERIFY OK');
 process.exit(failures ? 1 : 0);

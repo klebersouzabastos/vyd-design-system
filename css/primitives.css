@@ -228,7 +228,8 @@ body {
   border-radius: var(--vyd-radius-md);
   border: var(--vyd-border-hairline) solid var(--vyd-border-default);
   background-color: var(--vyd-bg-panel); color: var(--vyd-text-primary);
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%237B8794%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M6%209l6%206%206-6%27%2F%3E%3C%2Fsvg%3E");
+  /* seta gerada pelo build a partir de color.semantic.control.glyph (tematizável) */
+  background-image: var(--vyd-icon-select-arrow);
   background-repeat: no-repeat; background-position: right var(--vyd-space-4) center; background-size: 14px;
   cursor: pointer;
 }
@@ -249,7 +250,8 @@ body {
 .vyd-checkbox:hover, .vyd-radio:hover { border-color: var(--vyd-border-accent); }
 .vyd-checkbox:focus-visible, .vyd-radio:focus-visible { outline: none; box-shadow: var(--vyd-shadow-focus); }
 .vyd-checkbox:checked {
-  background: var(--vyd-action-primary) url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23ffffff%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012l5%205L20%206%27%2F%3E%3C%2Fsvg%3E") center / 72% no-repeat;
+  /* check gerado pelo build a partir de color.semantic.control.checkGlyph */
+  background: var(--vyd-action-primary) var(--vyd-icon-checkbox-check) center / 72% no-repeat;
   border-color: var(--vyd-action-primary);
 }
 .vyd-radio:checked {
@@ -388,7 +390,7 @@ body {
 }
 .vyd-badge--primary { background: var(--vyd-action-primary); color: var(--vyd-text-on-accent); }
 .vyd-badge--success { background: var(--vyd-success); color: var(--vyd-text-on-accent); }
-.vyd-badge--warning { background: var(--vyd-warning); color: var(--vyd-neutral-0); }
+.vyd-badge--warning { background: var(--vyd-warning); color: var(--vyd-on-warning); }
 .vyd-badge--danger  { background: var(--vyd-danger);  color: var(--vyd-text-on-accent); }
 .vyd-badge--dot { min-width: 8px; width: 8px; height: 8px; padding: 0; }
 
@@ -489,7 +491,7 @@ body {
 .vyd-tooltip {
   position: absolute; bottom: calc(100% + var(--vyd-space-2)); left: 50%; transform: translateX(-50%);
   white-space: nowrap; padding: var(--vyd-space-2) var(--vyd-space-3);
-  background: var(--vyd-neutral-0); color: var(--vyd-text-primary);
+  background: var(--vyd-bg-tooltip); color: var(--vyd-text-tooltip);
   border: var(--vyd-border-hairline) solid var(--vyd-border-default);
   border-radius: var(--vyd-radius-sm); font-size: var(--vyd-text-xs);
   box-shadow: var(--vyd-shadow-md); opacity: 0; pointer-events: none;

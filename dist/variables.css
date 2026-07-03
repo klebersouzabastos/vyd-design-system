@@ -31,8 +31,11 @@
   --vyd-neutral-1000: #FFFFFF;
   --vyd-success: #2E9E6B;
   --vyd-warning: #D9920A;
+  --vyd-on-warning: var(--vyd-neutral-0);
   --vyd-danger: #D24545;
   --vyd-info: var(--vyd-blueprint-400);
+  --vyd-control-glyph: var(--vyd-neutral-500);
+  --vyd-control-check-glyph: var(--vyd-neutral-1000);
   --vyd-viz-1: #3E7BD4;
   --vyd-viz-2: #2AA6A0;
   --vyd-viz-3: #D9920A;
@@ -125,12 +128,14 @@
   --vyd-bg-panel: var(--vyd-neutral-50);
   --vyd-bg-canvas: var(--vyd-neutral-100);
   --vyd-bg-elevated: var(--vyd-neutral-200);
+  --vyd-bg-tooltip: var(--vyd-neutral-0);
   --vyd-text-primary: var(--vyd-neutral-800);
   --vyd-text-secondary: var(--vyd-neutral-700);
   --vyd-text-disabled: var(--vyd-neutral-500);
   --vyd-text-inverse: var(--vyd-neutral-0);
   --vyd-text-on-accent: var(--vyd-neutral-1000);
   --vyd-text-accent: var(--vyd-blueprint-200);
+  --vyd-text-tooltip: var(--vyd-neutral-800);
   --vyd-border-default: var(--vyd-neutral-400);
   --vyd-border-strong: var(--vyd-neutral-500);
   --vyd-border-accent: var(--vyd-blueprint-500);
@@ -144,12 +149,14 @@
   --vyd-bg-panel: var(--vyd-neutral-1000);
   --vyd-bg-canvas: var(--vyd-neutral-1000);
   --vyd-bg-elevated: var(--vyd-neutral-1000);
+  --vyd-bg-tooltip: var(--vyd-neutral-100);
   --vyd-text-primary: var(--vyd-neutral-100);
   --vyd-text-secondary: var(--vyd-neutral-300);
   --vyd-text-disabled: var(--vyd-neutral-400);
   --vyd-text-inverse: var(--vyd-neutral-1000);
   --vyd-text-on-accent: var(--vyd-neutral-1000);
   --vyd-text-accent: var(--vyd-blueprint-600);
+  --vyd-text-tooltip: var(--vyd-neutral-1000);
   --vyd-border-default: var(--vyd-neutral-700);
   --vyd-border-strong: var(--vyd-neutral-600);
   --vyd-border-accent: var(--vyd-blueprint-500);
@@ -163,12 +170,14 @@
   --vyd-bg-panel: #000000;
   --vyd-bg-canvas: #000000;
   --vyd-bg-elevated: var(--vyd-neutral-100);
+  --vyd-bg-tooltip: var(--vyd-neutral-100);
   --vyd-text-primary: var(--vyd-neutral-1000);
   --vyd-text-secondary: var(--vyd-neutral-800);
   --vyd-text-disabled: var(--vyd-neutral-600);
   --vyd-text-inverse: #000000;
   --vyd-text-on-accent: var(--vyd-neutral-1000);
   --vyd-text-accent: var(--vyd-blueprint-200);
+  --vyd-text-tooltip: var(--vyd-neutral-1000);
   --vyd-border-default: var(--vyd-neutral-500);
   --vyd-border-strong: var(--vyd-neutral-700);
   --vyd-border-accent: var(--vyd-blueprint-300);
@@ -183,12 +192,14 @@
     --vyd-bg-panel: #000000;
     --vyd-bg-canvas: #000000;
     --vyd-bg-elevated: var(--vyd-neutral-100);
+    --vyd-bg-tooltip: var(--vyd-neutral-100);
     --vyd-text-primary: var(--vyd-neutral-1000);
     --vyd-text-secondary: var(--vyd-neutral-800);
     --vyd-text-disabled: var(--vyd-neutral-600);
     --vyd-text-inverse: #000000;
     --vyd-text-on-accent: var(--vyd-neutral-1000);
     --vyd-text-accent: var(--vyd-blueprint-200);
+    --vyd-text-tooltip: var(--vyd-neutral-1000);
     --vyd-border-default: var(--vyd-neutral-500);
     --vyd-border-strong: var(--vyd-neutral-700);
     --vyd-border-accent: var(--vyd-blueprint-300);
@@ -196,4 +207,19 @@
     --vyd-action-primary-hover: var(--vyd-blueprint-400);
     --vyd-action-primary-active: var(--vyd-blueprint-600);
   }
+}
+
+/* Ícones de controle derivados dos tokens control.* (gerados pelo build) */
+:root,
+[data-vyd-theme="dark"] {
+  --vyd-icon-select-arrow: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%237B8794%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M6%209l6%206%206-6%27%2F%3E%3C%2Fsvg%3E");
+  --vyd-icon-checkbox-check: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23FFFFFF%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012l5%205L20%206%27%2F%3E%3C%2Fsvg%3E");
+}
+[data-vyd-theme="light"] {
+  --vyd-icon-select-arrow: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%237B8794%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M6%209l6%206%206-6%27%2F%3E%3C%2Fsvg%3E");
+  --vyd-icon-checkbox-check: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23FFFFFF%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012l5%205L20%206%27%2F%3E%3C%2Fsvg%3E");
+}
+[data-vyd-theme="high-contrast"] {
+  --vyd-icon-select-arrow: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%237B8794%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M6%209l6%206%206-6%27%2F%3E%3C%2Fsvg%3E");
+  --vyd-icon-checkbox-check: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23FFFFFF%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012l5%205L20%206%27%2F%3E%3C%2Fsvg%3E");
 }

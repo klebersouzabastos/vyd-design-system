@@ -24,6 +24,7 @@ import { fileURLToPath } from 'node:url';
 import {
   kebab, vydName, cssValue, isSemantic, renderBlock, tokenValue,
 } from './lib.mjs';
+import { resolveTheme, THEMES } from './contrast.mjs';
 
 const ROOT = process.env.VYD_ROOT || join(dirname(fileURLToPath(import.meta.url)), '..');
 const TOKENS = join(ROOT, 'tokens');
@@ -335,7 +336,25 @@ const primitives = existsSync(join(ROOT, 'css', 'primitives.css'))
   ? readFileSync(join(ROOT, 'css', 'primitives.css'), 'utf8').trimEnd()
   : '';
 
-const vars = baseCss + '\n\n' + lightCss + '\n\n' + hcCss;
+/* ---------------------------------------------------------------------
+   Ícones de controle (seta do select, check do checkbox) como data-URIs
+   GERADOS a partir dos tokens color.semantic.control.* — url() não aceita
+   var(), então a cor resolvida é injetada aqui, por tema. Mantém css/
+   100% livre de cor crua (gate semantic-only) e tematizável.
+   --------------------------------------------------------------------- */
+const enc = (hex) => '%23' + String(hex).replace('#', '');
+const ARROW = (c) => `url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27${enc(c)}%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M6%209l6%206%206-6%27%2F%3E%3C%2Fsvg%3E")`;
+const CHECK = (c) => `url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27${enc(c)}%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012l5%205L20%206%27%2F%3E%3C%2Fsvg%3E")`;
+const iconBlock = (selector, t) =>
+  `${selector} {\n  --vyd-icon-select-arrow: ${ARROW(t.control.glyph)};\n  --vyd-icon-checkbox-check: ${CHECK(t.control.checkGlyph)};\n}`;
+const iconsCss = [
+  '/* Ícones de controle derivados dos tokens control.* (gerados pelo build) */',
+  iconBlock(':root,\n[data-vyd-theme="dark"]', resolveTheme(THEMES[0].overrides)),
+  iconBlock('[data-vyd-theme="light"]', resolveTheme(THEMES[1].overrides)),
+  iconBlock('[data-vyd-theme="high-contrast"]', resolveTheme(THEMES[2].overrides)),
+].join('\n');
+
+const vars = baseCss + '\n\n' + lightCss + '\n\n' + hcCss + '\n\n' + iconsCss;
 const variablesCss = header('variables.css') + '\n\n' + FONT_IMPORT + '\n\n' + vars + '\n';
 writeFileSync(join(DIST, 'variables.css'), variablesCss);
 

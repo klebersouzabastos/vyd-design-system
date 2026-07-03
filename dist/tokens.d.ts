@@ -32,6 +32,7 @@ declare const vyd: {
       panel: string;
       canvas: string;
       elevated: string;
+      tooltip: string;
     };
     text: {
       primary: string;
@@ -40,6 +41,7 @@ declare const vyd: {
       inverse: string;
       onAccent: string;
       accent: string;
+      tooltip: string;
     };
     border: {
       default: string;
@@ -54,8 +56,13 @@ declare const vyd: {
     feedback: {
       success: string;
       warning: string;
+      onWarning: string;
       danger: string;
       info: string;
+    };
+    control: {
+      glyph: string;
+      checkGlyph: string;
     };
     viz: {
       cat: {

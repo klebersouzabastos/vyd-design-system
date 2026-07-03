@@ -32,7 +32,8 @@ const vyd = {
       "chrome": "var(--vyd-bg-chrome)",
       "panel": "var(--vyd-bg-panel)",
       "canvas": "var(--vyd-bg-canvas)",
-      "elevated": "var(--vyd-bg-elevated)"
+      "elevated": "var(--vyd-bg-elevated)",
+      "tooltip": "var(--vyd-bg-tooltip)"
     },
     "text": {
       "primary": "var(--vyd-text-primary)",
@@ -40,7 +41,8 @@ const vyd = {
       "disabled": "var(--vyd-text-disabled)",
       "inverse": "var(--vyd-text-inverse)",
       "onAccent": "var(--vyd-text-on-accent)",
-      "accent": "var(--vyd-text-accent)"
+      "accent": "var(--vyd-text-accent)",
+      "tooltip": "var(--vyd-text-tooltip)"
     },
     "border": {
       "default": "var(--vyd-border-default)",
@@ -55,8 +57,13 @@ const vyd = {
     "feedback": {
       "success": "var(--vyd-success)",
       "warning": "var(--vyd-warning)",
+      "onWarning": "var(--vyd-on-warning)",
       "danger": "var(--vyd-danger)",
       "info": "var(--vyd-info)"
+    },
+    "control": {
+      "glyph": "var(--vyd-control-glyph)",
+      "checkGlyph": "var(--vyd-control-check-glyph)"
     },
     "viz": {
       "cat": {

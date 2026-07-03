@@ -25,6 +25,9 @@
         "elevated": {
           "$value": "{color.neutral.100}",
           "$description": "menus/popovers — leve elevacao p/ separar do preto"
+        },
+        "tooltip": {
+          "$value": "{color.neutral.100}"
         }
       },
       "text": {
@@ -48,6 +51,9 @@
         "accent": {
           "$value": "{color.brand.blueprint.200}",
           "$description": "acento bem claro sobre preto"
+        },
+        "tooltip": {
+          "$value": "{color.neutral.1000}"
         }
       },
       "border": {
