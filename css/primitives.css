@@ -22,13 +22,9 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* ---------------------------------------------------------------------
-   Densidade — troca a altura de controle em runtime (padrão: md).
-     <html data-vyd-density="comfortable">  |  "compact"
-   --------------------------------------------------------------------- */
-:root                                { --vyd-control-h: var(--vyd-size-control-md); }
-[data-vyd-density="comfortable"]     { --vyd-control-h: var(--vyd-size-control-lg); }
-[data-vyd-density="compact"]         { --vyd-control-h: var(--vyd-size-control-sm); }
+/* Densidade: --vyd-control-h / --vyd-control-pad-x / --vyd-row-pad-y são
+   EMITIDAS PELO BUILD a partir dos component tokens (component.*), com os
+   blocos [data-vyd-density="compact|comfortable"]. Nada à mão aqui. */
 
 /* ---------------------------------------------------------------------
    State layers derivados — receitas prontas p/ consumo (a % vem dos
@@ -73,7 +69,7 @@ body {
   gap: var(--vyd-space-2);
   min-height: var(--vyd-control-h);
   font: var(--vyd-weight-medium) var(--vyd-text-base)/1 var(--vyd-font-sans);
-  padding: 0 var(--vyd-space-5);
+  padding: 0 var(--vyd-control-pad-x);
   border-radius: var(--vyd-radius-md);
   border: var(--vyd-border-hairline) solid transparent;
   background: var(--vyd-action-primary);
@@ -539,7 +535,7 @@ body {
 }
 .vyd-table { width: 100%; border-collapse: collapse; font-size: var(--vyd-text-sm); }
 .vyd-table th, .vyd-table td {
-  padding: var(--vyd-space-2) var(--vyd-space-4); text-align: left;
+  padding: var(--vyd-row-pad-y) var(--vyd-space-4); text-align: left;
   border-bottom: var(--vyd-border-hairline) solid var(--vyd-border-default);
   white-space: nowrap;
 }

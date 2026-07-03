@@ -53,6 +53,10 @@ export function vydName(path) {
   if (p[0] === 'radius') return `vyd-radius-${kebab(p[1])}`;
   if (p[0] === 'border' && p[1] === 'width') return `vyd-border-${kebab(p[2])}`;
   if (p[0] === 'shadow') return `vyd-shadow-${kebab(p[1])}`;
+  if (p[0] === 'component') {
+    // component.control.h.default -> vyd-control-h-default (variantes de densidade)
+    return `vyd-${kebab(p[1])}-${kebab(p[2])}-${kebab(p[3])}`;
+  }
   if (p[0] === 'state')      return `vyd-state-${kebab(p[1])}-${kebab(p[2])}`; // state.selected.mix -> vyd-state-selected-mix
   if (p[0] === 'zIndex')     return `vyd-z-${kebab(p[1])}`;
   if (p[0] === 'opacity')    return `vyd-opacity-${kebab(p[1])}`;

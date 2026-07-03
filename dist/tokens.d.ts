@@ -168,6 +168,27 @@ declare const vyd: {
   easing: {
     standard: string;
   };
+  component: {
+    control: {
+      h: {
+        default: string;
+        compact: string;
+        comfortable: string;
+      };
+      padX: {
+        default: string;
+        compact: string;
+        comfortable: string;
+      };
+    };
+    row: {
+      padY: {
+        default: string;
+        compact: string;
+        comfortable: string;
+      };
+    };
+  };
   state: {
     hover: {
       mix: string;

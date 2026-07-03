@@ -100,6 +100,7 @@ function buildObject(allTokens) {
     else if (p[0] === 'layout') set(['layout', vydName(t.path).replace('vyd-layout-', '')], v);
     else if (p[0] === 'motion' && p[1] === 'duration') set(['duration', p[2]], v);
     else if (p[0] === 'motion' && p[1] === 'easing') set(['easing', p[2]], v);
+    else if (p[0] === 'component') set(['component', p[1], p[2], p[3]], v);
     else if (p[0] === 'state') set(['state', p[1], p[2]], v);
     else if (p[0] === 'zIndex') set(['zIndex', p[1]], v);
     else if (p[0] === 'opacity') set(['opacity', p[1]], v);
@@ -357,7 +358,29 @@ const iconsCss = [
   iconBlock('[data-vyd-theme="high-contrast"]', resolveTheme(THEMES[2].overrides)),
 ].join('\n');
 
-const vars = baseCss + '\n\n' + lightCss + '\n\n' + hcCss + '\n\n' + iconsCss;
+/* ---------------------------------------------------------------------
+   Densidade — as vars de MODO (--vyd-control-h, --vyd-control-pad-x,
+   --vyd-row-pad-y) apontam para a variante do component token conforme
+   [data-vyd-density]. Gerado dos tokens component.* (antes vivia à mão
+   em primitives.css).
+   --------------------------------------------------------------------- */
+const DENSITY_VARS = [
+  ['vyd-control-h', 'vyd-control-h'],
+  ['vyd-control-pad-x', 'vyd-control-pad-x'],
+  ['vyd-row-pad-y', 'vyd-row-pad-y'],
+];
+const densityBlock = (selector, variant) =>
+  `${selector} {\n` +
+  DENSITY_VARS.map(([pub, base]) => `  --${pub}: var(--${base}-${variant});`).join('\n') +
+  '\n}';
+const densityCss = [
+  '/* Densidade (gerada de component.*): default | compact | comfortable */',
+  densityBlock(':root', 'default'),
+  densityBlock('[data-vyd-density="compact"]', 'compact'),
+  densityBlock('[data-vyd-density="comfortable"]', 'comfortable'),
+].join('\n');
+
+const vars = baseCss + '\n\n' + lightCss + '\n\n' + hcCss + '\n\n' + iconsCss + '\n\n' + densityCss;
 const variablesCss = header('variables.css') + '\n\n' + FONT_IMPORT + '\n\n' + vars + '\n';
 writeFileSync(join(DIST, 'variables.css'), variablesCss);
 

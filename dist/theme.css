@@ -107,6 +107,15 @@
   --vyd-duration-fast: 120ms;
   --vyd-duration-normal: 200ms;
   --vyd-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --vyd-control-h-default: var(--vyd-size-control-md);
+  --vyd-control-h-compact: var(--vyd-size-control-sm);
+  --vyd-control-h-comfortable: var(--vyd-size-control-lg);
+  --vyd-control-pad-x-default: var(--vyd-space-5);
+  --vyd-control-pad-x-compact: var(--vyd-space-4);
+  --vyd-control-pad-x-comfortable: var(--vyd-space-6);
+  --vyd-row-pad-y-default: var(--vyd-space-2);
+  --vyd-row-pad-y-compact: var(--vyd-space-1);
+  --vyd-row-pad-y-comfortable: var(--vyd-space-3);
   --vyd-state-hover-mix: 60;
   --vyd-state-selected-mix: 16;
   --vyd-state-zebra-mix: 70;
@@ -239,6 +248,23 @@
   --vyd-icon-checkbox-check: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23FFFFFF%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012l5%205L20%206%27%2F%3E%3C%2Fsvg%3E");
 }
 
+/* Densidade (gerada de component.*): default | compact | comfortable */
+:root {
+  --vyd-control-h: var(--vyd-control-h-default);
+  --vyd-control-pad-x: var(--vyd-control-pad-x-default);
+  --vyd-row-pad-y: var(--vyd-row-pad-y-default);
+}
+[data-vyd-density="compact"] {
+  --vyd-control-h: var(--vyd-control-h-compact);
+  --vyd-control-pad-x: var(--vyd-control-pad-x-compact);
+  --vyd-row-pad-y: var(--vyd-row-pad-y-compact);
+}
+[data-vyd-density="comfortable"] {
+  --vyd-control-h: var(--vyd-control-h-comfortable);
+  --vyd-control-pad-x: var(--vyd-control-pad-x-comfortable);
+  --vyd-row-pad-y: var(--vyd-row-pad-y-comfortable);
+}
+
 /* =====================================================================
    VYD DESIGN SYSTEM — css/primitives.css
    Hand-authored component primitives. SOURCE OF TRUTH for these classes.
@@ -263,13 +289,9 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* ---------------------------------------------------------------------
-   Densidade — troca a altura de controle em runtime (padrão: md).
-     <html data-vyd-density="comfortable">  |  "compact"
-   --------------------------------------------------------------------- */
-:root                                { --vyd-control-h: var(--vyd-size-control-md); }
-[data-vyd-density="comfortable"]     { --vyd-control-h: var(--vyd-size-control-lg); }
-[data-vyd-density="compact"]         { --vyd-control-h: var(--vyd-size-control-sm); }
+/* Densidade: --vyd-control-h / --vyd-control-pad-x / --vyd-row-pad-y são
+   EMITIDAS PELO BUILD a partir dos component tokens (component.*), com os
+   blocos [data-vyd-density="compact|comfortable"]. Nada à mão aqui. */
 
 /* ---------------------------------------------------------------------
    State layers derivados — receitas prontas p/ consumo (a % vem dos
@@ -314,7 +336,7 @@ body {
   gap: var(--vyd-space-2);
   min-height: var(--vyd-control-h);
   font: var(--vyd-weight-medium) var(--vyd-text-base)/1 var(--vyd-font-sans);
-  padding: 0 var(--vyd-space-5);
+  padding: 0 var(--vyd-control-pad-x);
   border-radius: var(--vyd-radius-md);
   border: var(--vyd-border-hairline) solid transparent;
   background: var(--vyd-action-primary);
@@ -780,7 +802,7 @@ body {
 }
 .vyd-table { width: 100%; border-collapse: collapse; font-size: var(--vyd-text-sm); }
 .vyd-table th, .vyd-table td {
-  padding: var(--vyd-space-2) var(--vyd-space-4); text-align: left;
+  padding: var(--vyd-row-pad-y) var(--vyd-space-4); text-align: left;
   border-bottom: var(--vyd-border-hairline) solid var(--vyd-border-default);
   white-space: nowrap;
 }

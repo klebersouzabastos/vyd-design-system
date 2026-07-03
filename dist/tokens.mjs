@@ -169,6 +169,27 @@ const vyd = {
   "easing": {
     "standard": "var(--vyd-ease-standard)"
   },
+  "component": {
+    "control": {
+      "h": {
+        "default": "var(--vyd-control-h-default)",
+        "compact": "var(--vyd-control-h-compact)",
+        "comfortable": "var(--vyd-control-h-comfortable)"
+      },
+      "padX": {
+        "default": "var(--vyd-control-pad-x-default)",
+        "compact": "var(--vyd-control-pad-x-compact)",
+        "comfortable": "var(--vyd-control-pad-x-comfortable)"
+      }
+    },
+    "row": {
+      "padY": {
+        "default": "var(--vyd-row-pad-y-default)",
+        "compact": "var(--vyd-row-pad-y-compact)",
+        "comfortable": "var(--vyd-row-pad-y-comfortable)"
+      }
+    }
+  },
   "state": {
     "hover": {
       "mix": "var(--vyd-state-hover-mix)"
