@@ -1,6 +1,6 @@
 {
   "name": "vyd-react",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Componentes React (wrappers finos) do VYD Design System sobre as classes .vyd-* e o app shell. Consome o CSS de vyd-design-system.",
   "license": "MIT",
   "type": "module",

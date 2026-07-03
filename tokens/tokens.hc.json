@@ -1,34 +1,84 @@
 {
-  "_meta": {
-    "name": "VYD Design System — High-contrast overrides",
-    "description": "Overrides do TEMA ALTO-CONTRASTE (acessibilidade / WCAG AAA). Base escura levada ao extremo: preto puro nas superficies, branco puro no texto, bordas fortes (linha define regiao, nao sombra) e acento azul mais claro p/ visibilidade sobre preto. Contem APENAS os tokens semanticos que mudam vs o dark default — primitivas vivem em tokens.json. O build mescla este arquivo SOBRE tokens.json so para emitir o bloco [data-vyd-theme=\"high-contrast\"]. Ative com data-vyd-theme=\"high-contrast\" (ou via prefers-contrast: more, ver theme.css)."
+  "$extensions": {
+    "vyd": {
+      "meta": {
+        "name": "VYD Design System — High-contrast overrides",
+        "description": "Overrides do TEMA ALTO-CONTRASTE (acessibilidade / WCAG AAA). Base escura levada ao extremo: preto puro nas superficies, branco puro no texto, bordas fortes (linha define regiao, nao sombra) e acento azul mais claro p/ visibilidade sobre preto. Contem APENAS os tokens semanticos que mudam vs o dark default — primitivas vivem em tokens.json. O build mescla este arquivo SOBRE tokens.json so para emitir o bloco [data-vyd-theme=\"high-contrast\"]. Ative com data-vyd-theme=\"high-contrast\" (ou via prefers-contrast: more, ver theme.css)."
+      }
+    }
   },
-
   "color": {
+    "$type": "color",
     "semantic": {
       "bg": {
-        "chrome":   { "value": "#000000", "_comment": "preto puro — chrome/topbar/ribbon/statusbar" },
-        "panel":    { "value": "#000000", "_comment": "rails/inspector — regiao definida por borda, nao por tom" },
-        "canvas":   { "value": "#000000" },
-        "elevated": { "value": "{color.neutral.100}", "_comment": "menus/popovers — leve elevacao p/ separar do preto" }
+        "chrome": {
+          "$value": "#000000",
+          "$description": "preto puro — chrome/topbar/ribbon/statusbar"
+        },
+        "panel": {
+          "$value": "#000000",
+          "$description": "rails/inspector — regiao definida por borda, nao por tom"
+        },
+        "canvas": {
+          "$value": "#000000"
+        },
+        "elevated": {
+          "$value": "{color.neutral.100}",
+          "$description": "menus/popovers — leve elevacao p/ separar do preto"
+        },
+        "tooltip": {
+          "$value": "{color.neutral.100}"
+        }
       },
       "text": {
-        "primary":   { "value": "{color.neutral.1000}", "_comment": "branco puro" },
-        "secondary": { "value": "{color.neutral.800}",  "_comment": "secundario elevado (era 500 no dark) p/ contraste AAA" },
-        "disabled":  { "value": "{color.neutral.600}" },
-        "inverse":   { "value": "#000000" },
-        "onAccent":  { "value": "{color.neutral.1000}" },
-        "accent":    { "value": "{color.brand.blueprint.200}", "_comment": "acento bem claro sobre preto" }
+        "primary": {
+          "$value": "{color.neutral.1000}",
+          "$description": "branco puro"
+        },
+        "secondary": {
+          "$value": "{color.neutral.800}",
+          "$description": "secundario elevado (era 500 no dark) p/ contraste AAA"
+        },
+        "disabled": {
+          "$value": "{color.neutral.600}"
+        },
+        "inverse": {
+          "$value": "#000000"
+        },
+        "onAccent": {
+          "$value": "{color.neutral.1000}"
+        },
+        "accent": {
+          "$value": "{color.brand.accent.200}",
+          "$description": "acento bem claro sobre preto"
+        },
+        "tooltip": {
+          "$value": "{color.neutral.1000}"
+        }
       },
       "border": {
-        "default": { "value": "{color.neutral.500}", "_comment": "borda forte — hierarquia por linha visivel" },
-        "strong":  { "value": "{color.neutral.700}" },
-        "accent":  { "value": "{color.brand.blueprint.300}" }
+        "default": {
+          "$value": "{color.neutral.500}",
+          "$description": "borda forte — hierarquia por linha visivel"
+        },
+        "strong": {
+          "$value": "{color.neutral.700}"
+        },
+        "accent": {
+          "$value": "{color.brand.accent.300}"
+        }
       },
       "action": {
-        "primary":      { "value": "{color.brand.blueprint.500}", "_comment": "rotulo branco = 6.02 (AA). Antes blueprint.400 reprovava (4.21)." },
-        "primaryHover": { "value": "{color.brand.blueprint.400}" },
-        "primaryActive":{ "value": "{color.brand.blueprint.600}" }
+        "primary": {
+          "$value": "{color.brand.accent.500}",
+          "$description": "rotulo branco = 6.02 (AA). Antes blueprint.400 reprovava (4.21)."
+        },
+        "primaryHover": {
+          "$value": "{color.brand.accent.400}"
+        },
+        "primaryActive": {
+          "$value": "{color.brand.accent.600}"
+        }
       }
     }
   }

@@ -26,7 +26,8 @@ const ok = (m) => console.log('  ✓ ' + m);
 /* --- flatten a token JSON to leaf paths --- */
 function flatten(node, prefix = [], out = []) {
   if (node && typeof node === 'object') {
-    if ('value' in node && typeof node.value !== 'object') { out.push(prefix); return out; }
+    if ('$value' in node && typeof node.$value !== 'object') { out.push(prefix); return out; }
+    if ('value' in node && !('$value' in node)) { throw new Error('token LEGADO (value sem $) em ' + prefix.join('.') + ' — use $value (DTCG)'); }
     for (const [k, v] of Object.entries(node)) {
       if (k.startsWith('_') || k === '$schema') continue;
       flatten(v, [...prefix, k], out);
@@ -76,8 +77,13 @@ if (!theme.includes('--vyd-text-on-accent')) fail('theme.css não define --vyd-t
 else ok('--vyd-text-on-accent presente');
 if (/\.vyd-btn\s*\{[^}]*color:\s*var\(--vyd-neutral-1000\)/s.test(theme)) fail('.vyd-btn ainda usa --vyd-neutral-1000 (escala bruta)');
 else ok('.vyd-btn usa token semântico para a cor do texto');
-if (!theme.includes('--vyd-shadow-focus: 0 0 0 2px var(--vyd-blueprint-500)')) fail('shadow-focus não preservou a indireção var()');
-else ok('shadow-focus mantém var(--vyd-blueprint-500)');
+if (!theme.includes('--vyd-shadow-focus: 0 0 0 2px var(--vyd-brand-accent-500)')) fail('shadow-focus não preservou a indireção var() via tier de marca');
+else ok('shadow-focus mantém var(--vyd-brand-accent-500)');
+// cadeia de marca: semânticos -> brand-accent -> blueprint (white-label = sobrescrever só brand-accent)
+if (!theme.includes('--vyd-brand-accent-500: var(--vyd-blueprint-500)')) fail('tier de marca quebrado: --vyd-brand-accent-500 não aponta p/ blueprint-500');
+else ok('cadeia de marca intacta (--vyd-brand-accent-* -> --vyd-blueprint-*)');
+if (!theme.includes('--vyd-action-primary: var(--vyd-brand-accent-500)')) fail('action.primary não consome o tier de marca');
+else ok('action.primary consome o tier de marca');
 
 /* --- 4: JS artifacts --- */
 try {
@@ -123,6 +129,86 @@ try {
   const appBlock = (shell.split('.vyd-app {')[1] || '').split('}')[0];
   if (!/grid-template-columns:\s*1fr\s*;/.test(appBlock)) fail('.vyd-app não usa grid-template-columns: 1fr (deve ser coluna única, canvas cheio)');
   else ok('.vyd-app é coluna única (canvas cheio, sem trilha de rail/painel)');
+}
+
+/* --- 7: semantic-only (nenhuma cor crua/escala bruta em css/) --- */
+{
+  // Whitelist explícita: padrões legítimos por design.
+  //  - scrim de backdrop: preto puro com opacidade TOKENIZADA (igual em todo tema)
+  const WHITELIST = [/rgb\(0 0 0 \/ var\(--vyd-opacity-backdrop\)\)/g];
+  for (const file of ['css/primitives.css', 'css/shell.css']) {
+    let css = readFileSync(join(ROOT, file), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const w of WHITELIST) css = css.replace(w, '/*wl*/');
+    const bad = [
+      ...css.matchAll(/#[0-9a-fA-F]{3,8}\b/g),
+      ...css.matchAll(/\b(?:rgb|rgba|hsl|hsla|hwb|lab|lch|oklab|oklch)\(/g),
+      ...css.matchAll(/var\(--vyd-(?:neutral|blueprint|brand-accent)-\d+\)/g),
+    ].map((m) => m[0]);
+    if (bad.length) fail(`${file}: cor crua/escala bruta proibida (semantic-only): ${[...new Set(bad)].slice(0, 6).join(', ')}`);
+    else ok(`${file}: semantic-only OK (sem hex/rgb/escala bruta fora da whitelist)`);
+  }
+  // Ícones de controle derivados de token devem estar emitidos
+  for (const name of ['--vyd-icon-select-arrow', '--vyd-icon-checkbox-check']) {
+    if (!theme.includes(name + ':')) fail(`theme.css não emite ${name} (ícone derivado de control.*)`);
+    else ok(`${name} emitido pelo build (derivado de tokens)`);
+  }
+}
+
+/* --- 7.5: wide-gamut P3 (motor OKLCH) --- */
+{
+  const m = theme.match(/@media \(color-gamut: p3\) \{([\s\S]*?)\n\}/);
+  if (!m) fail('theme.css: bloco @media (color-gamut: p3) ausente');
+  else {
+    const block = m[1];
+    const wantBlueprint = ['50','100','200','300','400','500','600','700','800','900'].every((s) => block.includes(`--vyd-blueprint-${s}: oklch(`));
+    const wantViz = ['1','2','3','4','5','6'].every((n) => block.includes(`--vyd-viz-${n}: oklch(`));
+    if (!wantBlueprint || !wantViz) fail('bloco P3 não cobre blueprint 50–900 + viz 1–6 em oklch()');
+    else ok('bloco P3 cobre blueprint 50–900 + viz.cat 1–6 (oklch, chroma boost)');
+  }
+}
+
+/* --- 7.8: cascade layers --- */
+{
+  for (const file of ['theme.css', 'variables.css']) {
+    const css = readFileSync(join(ROOT, 'dist', file), 'utf8');
+    if (!css.includes('@layer vyd.tokens, vyd.components;')) fail(`${file}: declaração de ordem @layer ausente`);
+    else ok(`${file}: ordem de layers declarada (vyd.tokens, vyd.components)`);
+    if (!/@layer vyd\.tokens \{/.test(css)) fail(`${file}: variáveis fora de @layer vyd.tokens`);
+    else ok(`${file}: variáveis dentro de @layer vyd.tokens`);
+  }
+  if (!/@layer vyd\.components \{/.test(theme)) fail('theme.css: primitivas fora de @layer vyd.components');
+  else ok('theme.css: primitivas dentro de @layer vyd.components');
+  const unl = readFileSync(join(ROOT, 'dist', 'theme.unlayered.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+  if (/@layer/.test(unl)) fail('theme.unlayered.css NÃO deveria conter @layer (escape hatch)');
+  else ok('theme.unlayered.css sem @layer (escape hatch íntegro)');
+  const shellCss = readFileSync(join(ROOT, 'css', 'shell.css'), 'utf8');
+  if (!/@layer vyd\.components \{/.test(shellCss)) fail('shell.css fora de @layer vyd.components');
+  else ok('shell.css dentro de @layer vyd.components');
+}
+
+/* --- 8: reduced-motion (toda transition/animation coberta pela receita) --- */
+{
+  // Animações keyframe com duração literal DELIBERADA (tratadas no bloco
+  // prefers-reduced-motion: spinner desacelera; skeleton/indeterminate param).
+  const ANIM_WHITELIST = ['vyd-spin', 'vyd-skeleton', 'vyd-progress-slide'];
+  for (const file of ['css/primitives.css', 'css/shell.css']) {
+    const css = readFileSync(join(ROOT, file), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    const offenders = [];
+    for (const m of css.matchAll(/transition:\s*([^;]+);/g)) {
+      if (!m[1].includes('var(--vyd-duration-')) offenders.push('transition: ' + m[1].trim().slice(0, 40));
+    }
+    for (const m of css.matchAll(/animation:\s*([^;]+);/g)) {
+      const v = m[1];
+      if (v.trim() === 'none') continue;
+      if (!ANIM_WHITELIST.some((w) => v.includes(w))) offenders.push('animation: ' + v.trim().slice(0, 40));
+    }
+    if (offenders.length) fail(`${file}: motion fora da receita reduced-motion: ${offenders.slice(0, 3).join(' | ')}`);
+    else ok(`${file}: todo motion usa var(--vyd-duration-*) ou está na whitelist de keyframes`);
+  }
+  const prim = readFileSync(join(ROOT, 'css', 'primitives.css'), 'utf8');
+  if (!/prefers-reduced-motion:\s*reduce[\s\S]*?--vyd-duration-fast:\s*0\.01ms/.test(prim)) {
+    fail('primitives.css: receita global de reduced-motion (zerar --vyd-duration-*) ausente');
+  } else ok('receita global de reduced-motion presente (zera tokens de duração)');
 }
 
 console.log(failures ? `\nVERIFY FALHOU (${failures})` : '\nVERIFY OK');

@@ -29,6 +29,7 @@ export function vydName(path) {
 
   if (p[0] === 'color') {
     if (p[1] === 'brand' && p[2] === 'blueprint') return `vyd-blueprint-${p[3]}`;
+    if (p[1] === 'brand' && p[2] === 'accent')    return `vyd-brand-accent-${p[3]}`; // tier de marca (white-label)
     if (p[1] === 'neutral') return `vyd-neutral-${p[2]}`;
     if (p[1] === 'semantic') {
       const grp = p[2];
@@ -52,6 +53,11 @@ export function vydName(path) {
   if (p[0] === 'radius') return `vyd-radius-${kebab(p[1])}`;
   if (p[0] === 'border' && p[1] === 'width') return `vyd-border-${kebab(p[2])}`;
   if (p[0] === 'shadow') return `vyd-shadow-${kebab(p[1])}`;
+  if (p[0] === 'component') {
+    // component.control.h.default -> vyd-control-h-default (variantes de densidade)
+    return `vyd-${kebab(p[1])}-${kebab(p[2])}-${kebab(p[3])}`;
+  }
+  if (p[0] === 'state')      return `vyd-state-${kebab(p[1])}-${kebab(p[2])}`; // state.selected.mix -> vyd-state-selected-mix
   if (p[0] === 'zIndex')     return `vyd-z-${kebab(p[1])}`;
   if (p[0] === 'opacity')    return `vyd-opacity-${kebab(p[1])}`;
   if (p[0] === 'size')       return `vyd-size-${kebab(p[1])}-${kebab(p[2])}`; // size.control.md -> vyd-size-control-md
@@ -69,14 +75,19 @@ export function refToVar(str) {
   return String(str).replace(/\{([^}]+)\}/g, (_, ref) => `var(--${vydName(ref.split('.'))})`);
 }
 
+/** Valor de um token independente do modo do SD (DTCG `$value` ou legado `value`). */
+export function tokenValue(token) {
+  return token.$value !== undefined ? token.$value : token.value;
+}
+
 /** CSS emission value: keep the var() indirection when the SOURCE value is a
  *  reference (so the raw scale stays the single definition); otherwise emit the
  *  resolved literal (hex/px/etc), preserving original casing. */
 export function cssValue(token) {
-  const orig = token.original && token.original.value != null
-    ? String(token.original.value)
-    : String(token.value);
-  return orig.includes('{') ? refToVar(orig) : String(token.value);
+  const o = token.original || {};
+  const origRaw = o.$value !== undefined ? o.$value : o.value;
+  const orig = origRaw != null ? String(origRaw) : String(tokenValue(token));
+  return orig.includes('{') ? refToVar(orig) : String(tokenValue(token));
 }
 
 /** Theme-dependent tokens that live in the [data-vyd-theme=...] blocks. */

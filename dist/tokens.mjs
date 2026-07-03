@@ -14,6 +14,18 @@ const vyd = {
       "800": "var(--vyd-blueprint-800)",
       "900": "var(--vyd-blueprint-900)"
     },
+    "brandAccent": {
+      "50": "var(--vyd-brand-accent-50)",
+      "100": "var(--vyd-brand-accent-100)",
+      "200": "var(--vyd-brand-accent-200)",
+      "300": "var(--vyd-brand-accent-300)",
+      "400": "var(--vyd-brand-accent-400)",
+      "500": "var(--vyd-brand-accent-500)",
+      "600": "var(--vyd-brand-accent-600)",
+      "700": "var(--vyd-brand-accent-700)",
+      "800": "var(--vyd-brand-accent-800)",
+      "900": "var(--vyd-brand-accent-900)"
+    },
     "neutral": {
       "0": "var(--vyd-neutral-0)",
       "50": "var(--vyd-neutral-50)",
@@ -32,7 +44,8 @@ const vyd = {
       "chrome": "var(--vyd-bg-chrome)",
       "panel": "var(--vyd-bg-panel)",
       "canvas": "var(--vyd-bg-canvas)",
-      "elevated": "var(--vyd-bg-elevated)"
+      "elevated": "var(--vyd-bg-elevated)",
+      "tooltip": "var(--vyd-bg-tooltip)"
     },
     "text": {
       "primary": "var(--vyd-text-primary)",
@@ -40,7 +53,8 @@ const vyd = {
       "disabled": "var(--vyd-text-disabled)",
       "inverse": "var(--vyd-text-inverse)",
       "onAccent": "var(--vyd-text-on-accent)",
-      "accent": "var(--vyd-text-accent)"
+      "accent": "var(--vyd-text-accent)",
+      "tooltip": "var(--vyd-text-tooltip)"
     },
     "border": {
       "default": "var(--vyd-border-default)",
@@ -55,8 +69,13 @@ const vyd = {
     "feedback": {
       "success": "var(--vyd-success)",
       "warning": "var(--vyd-warning)",
+      "onWarning": "var(--vyd-on-warning)",
       "danger": "var(--vyd-danger)",
       "info": "var(--vyd-info)"
+    },
+    "control": {
+      "glyph": "var(--vyd-control-glyph)",
+      "checkGlyph": "var(--vyd-control-check-glyph)"
     },
     "viz": {
       "cat": {
@@ -149,6 +168,44 @@ const vyd = {
   },
   "easing": {
     "standard": "var(--vyd-ease-standard)"
+  },
+  "component": {
+    "control": {
+      "h": {
+        "default": "var(--vyd-control-h-default)",
+        "compact": "var(--vyd-control-h-compact)",
+        "comfortable": "var(--vyd-control-h-comfortable)"
+      },
+      "padX": {
+        "default": "var(--vyd-control-pad-x-default)",
+        "compact": "var(--vyd-control-pad-x-compact)",
+        "comfortable": "var(--vyd-control-pad-x-comfortable)"
+      }
+    },
+    "row": {
+      "padY": {
+        "default": "var(--vyd-row-pad-y-default)",
+        "compact": "var(--vyd-row-pad-y-compact)",
+        "comfortable": "var(--vyd-row-pad-y-comfortable)"
+      }
+    }
+  },
+  "state": {
+    "hover": {
+      "mix": "var(--vyd-state-hover-mix)"
+    },
+    "selected": {
+      "mix": "var(--vyd-state-selected-mix)"
+    },
+    "zebra": {
+      "mix": "var(--vyd-state-zebra-mix)"
+    },
+    "gridline": {
+      "mix": "var(--vyd-state-gridline-mix)"
+    },
+    "skeleton": {
+      "mix": "var(--vyd-state-skeleton-mix)"
+    }
   },
   "zIndex": {
     "base": "var(--vyd-z-base)",

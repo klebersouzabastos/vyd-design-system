@@ -22,13 +22,18 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* Densidade: --vyd-control-h / --vyd-control-pad-x / --vyd-row-pad-y são
+   EMITIDAS PELO BUILD a partir dos component tokens (component.*), com os
+   blocos [data-vyd-density="compact|comfortable"]. Nada à mão aqui. */
+
 /* ---------------------------------------------------------------------
-   Densidade — troca a altura de controle em runtime (padrão: md).
-     <html data-vyd-density="comfortable">  |  "compact"
+   State layers derivados — receitas prontas p/ consumo (a % vem dos
+   tokens --vyd-state-*-mix; receita única, sem números mágicos).
    --------------------------------------------------------------------- */
-:root                                { --vyd-control-h: var(--vyd-size-control-md); }
-[data-vyd-density="comfortable"]     { --vyd-control-h: var(--vyd-size-control-lg); }
-[data-vyd-density="compact"]         { --vyd-control-h: var(--vyd-size-control-sm); }
+:root {
+  --vyd-state-selected-bg: color-mix(in srgb, var(--vyd-action-primary) calc(var(--vyd-state-selected-mix) * 1%), transparent);
+  --vyd-state-hover-bg: color-mix(in srgb, var(--vyd-bg-elevated) calc(var(--vyd-state-hover-mix) * 1%), var(--vyd-border-default));
+}
 
 /* ---------------------------------------------------------------------
    Estilos de texto (roles) — compõem os tokens de tipografia.
@@ -64,7 +69,7 @@ body {
   gap: var(--vyd-space-2);
   min-height: var(--vyd-control-h);
   font: var(--vyd-weight-medium) var(--vyd-text-base)/1 var(--vyd-font-sans);
-  padding: 0 var(--vyd-space-5);
+  padding: 0 var(--vyd-control-pad-x);
   border-radius: var(--vyd-radius-md);
   border: var(--vyd-border-hairline) solid transparent;
   background: var(--vyd-action-primary);
@@ -228,7 +233,8 @@ body {
   border-radius: var(--vyd-radius-md);
   border: var(--vyd-border-hairline) solid var(--vyd-border-default);
   background-color: var(--vyd-bg-panel); color: var(--vyd-text-primary);
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%237B8794%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M6%209l6%206%206-6%27%2F%3E%3C%2Fsvg%3E");
+  /* seta gerada pelo build a partir de color.semantic.control.glyph (tematizável) */
+  background-image: var(--vyd-icon-select-arrow);
   background-repeat: no-repeat; background-position: right var(--vyd-space-4) center; background-size: 14px;
   cursor: pointer;
 }
@@ -249,7 +255,8 @@ body {
 .vyd-checkbox:hover, .vyd-radio:hover { border-color: var(--vyd-border-accent); }
 .vyd-checkbox:focus-visible, .vyd-radio:focus-visible { outline: none; box-shadow: var(--vyd-shadow-focus); }
 .vyd-checkbox:checked {
-  background: var(--vyd-action-primary) url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23ffffff%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012l5%205L20%206%27%2F%3E%3C%2Fsvg%3E") center / 72% no-repeat;
+  /* check gerado pelo build a partir de color.semantic.control.checkGlyph */
+  background: var(--vyd-action-primary) var(--vyd-icon-checkbox-check) center / 72% no-repeat;
   border-color: var(--vyd-action-primary);
 }
 .vyd-radio:checked {
@@ -361,7 +368,7 @@ body {
 .vyd-skeleton {
   display: block; height: 1em; border-radius: var(--vyd-radius-sm);
   background: linear-gradient(90deg, var(--vyd-bg-elevated) 25%,
-    color-mix(in srgb, var(--vyd-bg-elevated) 55%, var(--vyd-border-default)) 37%, var(--vyd-bg-elevated) 63%);
+    color-mix(in srgb, var(--vyd-bg-elevated) calc(var(--vyd-state-skeleton-mix) * 1%), var(--vyd-border-default)) 37%, var(--vyd-bg-elevated) 63%);
   background-size: 400% 100%;
   animation: vyd-skeleton 1.4s ease infinite;
 }
@@ -388,7 +395,7 @@ body {
 }
 .vyd-badge--primary { background: var(--vyd-action-primary); color: var(--vyd-text-on-accent); }
 .vyd-badge--success { background: var(--vyd-success); color: var(--vyd-text-on-accent); }
-.vyd-badge--warning { background: var(--vyd-warning); color: var(--vyd-neutral-0); }
+.vyd-badge--warning { background: var(--vyd-warning); color: var(--vyd-on-warning); }
 .vyd-badge--danger  { background: var(--vyd-danger);  color: var(--vyd-text-on-accent); }
 .vyd-badge--dot { min-width: 8px; width: 8px; height: 8px; padding: 0; }
 
@@ -405,7 +412,16 @@ body {
 .vyd-tag__close:hover { color: var(--vyd-text-primary); }
 
 /* ---- Motion reduzido: desliga animações não essenciais ---- */
+/* Receita GLOBAL de reduced-motion: todas as transitions do sistema usam
+   var(--vyd-duration-*), então zerar os tokens desliga TODAS de uma vez
+   (tooltip, tree-toggle, progress width, sort, hovers e futuras).
+   Exceções deliberadas: spinner segue girando (mais lento — é indicador de
+   atividade, não decoração) e skeleton/indeterminate param. */
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --vyd-duration-fast: 0.01ms;
+    --vyd-duration-normal: 0.01ms;
+  }
   .vyd-spinner { animation-duration: 1.6s; }
   .vyd-skeleton, .vyd-progress--indeterminate .vyd-progress__bar { animation: none; }
 }
@@ -468,7 +484,7 @@ body {
   text-align: left; cursor: pointer; white-space: nowrap;
 }
 .vyd-menu__item:hover,
-.vyd-menu__item:focus-visible { outline: none; background: color-mix(in srgb, var(--vyd-bg-elevated) 60%, var(--vyd-border-default)); }
+.vyd-menu__item:focus-visible { outline: none; background: var(--vyd-state-hover-bg); }
 .vyd-menu__item--danger { color: var(--vyd-danger); }
 .vyd-menu__item[disabled] { color: var(--vyd-text-disabled); cursor: not-allowed; }
 .vyd-menu__item[disabled]:hover { background: none; }
@@ -489,7 +505,7 @@ body {
 .vyd-tooltip {
   position: absolute; bottom: calc(100% + var(--vyd-space-2)); left: 50%; transform: translateX(-50%);
   white-space: nowrap; padding: var(--vyd-space-2) var(--vyd-space-3);
-  background: var(--vyd-neutral-0); color: var(--vyd-text-primary);
+  background: var(--vyd-bg-tooltip); color: var(--vyd-text-tooltip);
   border: var(--vyd-border-hairline) solid var(--vyd-border-default);
   border-radius: var(--vyd-radius-sm); font-size: var(--vyd-text-xs);
   box-shadow: var(--vyd-shadow-md); opacity: 0; pointer-events: none;
@@ -519,7 +535,7 @@ body {
 }
 .vyd-table { width: 100%; border-collapse: collapse; font-size: var(--vyd-text-sm); }
 .vyd-table th, .vyd-table td {
-  padding: var(--vyd-space-2) var(--vyd-space-4); text-align: left;
+  padding: var(--vyd-row-pad-y) var(--vyd-space-4); text-align: left;
   border-bottom: var(--vyd-border-hairline) solid var(--vyd-border-default);
   white-space: nowrap;
 }
@@ -532,9 +548,9 @@ body {
 .vyd-table tbody tr:last-child td { border-bottom: 0; }
 .vyd-table .vyd-num { text-align: right; font-family: var(--vyd-font-mono); font-variant-numeric: tabular-nums; }
 .vyd-table--compact th, .vyd-table--compact td { padding: var(--vyd-space-1) var(--vyd-space-3); }
-.vyd-table--zebra tbody tr:nth-child(even) { background: color-mix(in srgb, var(--vyd-bg-panel) 70%, var(--vyd-bg-elevated)); }
+.vyd-table--zebra tbody tr:nth-child(even) { background: color-mix(in srgb, var(--vyd-bg-panel) calc(var(--vyd-state-zebra-mix) * 1%), var(--vyd-bg-elevated)); }
 .vyd-table tbody tr:hover { background: var(--vyd-bg-elevated); }
-.vyd-table tbody tr[aria-selected="true"] { background: color-mix(in srgb, var(--vyd-action-primary) 16%, transparent); }
+.vyd-table tbody tr[aria-selected="true"] { background: var(--vyd-state-selected-bg); }
 .vyd-table__sort {
   display: inline-flex; align-items: center; gap: var(--vyd-space-2);
   background: none; border: 0; padding: 0; margin: 0; cursor: pointer;
@@ -667,7 +683,8 @@ body {
 .vyd-cmdk__input::placeholder { color: var(--vyd-text-secondary); }
 .vyd-cmdk__list { overflow: auto; padding: var(--vyd-space-2); }
 .vyd-cmdk__item { display: flex; align-items: center; gap: var(--vyd-space-3); padding: var(--vyd-space-2) var(--vyd-space-3); border-radius: var(--vyd-radius-sm); color: var(--vyd-text-primary); cursor: pointer; }
-.vyd-cmdk__item[aria-selected="true"] { background: color-mix(in srgb, var(--vyd-action-primary) 18%, transparent); }
+/* unificado com a seleção de tabela via --vyd-state-selected-bg (era 18%, agora 16%) */
+.vyd-cmdk__item[aria-selected="true"] { background: var(--vyd-state-selected-bg); }
 .vyd-cmdk__item .vyd-icon { color: var(--vyd-text-secondary); }
 .vyd-cmdk__item-trailing { margin-inline-start: auto; }
 .vyd-cmdk__empty { padding: var(--vyd-space-7); text-align: center; color: var(--vyd-text-secondary); font-size: var(--vyd-text-sm); }

@@ -1,6 +1,6 @@
 # VYD Design System
 
-[![version](https://img.shields.io/badge/version-2.0.0-1E5FC4)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-3.0.0-1E5FC4)](CHANGELOG.md)
 
 > **Para IA (Claude/Lovable/Cursor):** leia **[AGENTS.md](AGENTS.md)** — regras duras do
 > padrão (ribbon no topo, **sem menu lateral**, só tokens semânticos).

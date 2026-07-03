@@ -57,17 +57,23 @@ export function resolveTheme(overrideFiles = []) {
     if (typeof val !== 'string') return val;
     const m = val.match(/^\{(.+)\}$/);
     if (!m) return val;
-    return resolve(get(m[1]).value);
+    return resolve(get(m[1]).$value);
   };
-  const sem = (p) => resolve(get('color.semantic.' + p).value);
+  const sem = (p) => resolve(get('color.semantic.' + p).$value);
   return {
-    bg: { chrome: sem('bg.chrome'), panel: sem('bg.panel'), canvas: sem('bg.canvas'), elevated: sem('bg.elevated') },
+    bg: {
+      chrome: sem('bg.chrome'), panel: sem('bg.panel'), canvas: sem('bg.canvas'),
+      elevated: sem('bg.elevated'), tooltip: sem('bg.tooltip'),
+    },
     text: {
       primary: sem('text.primary'), secondary: sem('text.secondary'),
       disabled: sem('text.disabled'), onAccent: sem('text.onAccent'), accent: sem('text.accent'),
+      tooltip: sem('text.tooltip'),
     },
     action: { primary: sem('action.primary') },
     border: { default: sem('border.default') },
+    feedback: { warning: sem('feedback.warning'), onWarning: sem('feedback.onWarning') },
+    control: { glyph: sem('control.glyph'), checkGlyph: sem('control.checkGlyph') },
   };
 }
 
@@ -91,6 +97,9 @@ export function checkTheme(t) {
   add('text.accent on bg.panel', t.text.accent, t.bg.panel, AAA);
   add('text.disabled on bg.panel', t.text.disabled, t.bg.panel, UI);
   add('onAccent on action.primary', t.text.onAccent, t.action.primary, AA);
+  add('text.tooltip on bg.tooltip', t.text.tooltip, t.bg.tooltip, AAA);
+  add('onWarning on feedback.warning', t.feedback.onWarning, t.feedback.warning, AA);
+  add('control.glyph on bg.panel', t.control.glyph, t.bg.panel, UI);
   add('border.default on bg.panel', t.border.default, t.bg.panel, UI, false); // info
   return rows.map((r) => ({ ...r, pass: !r.gated || r.ratio >= r.min }));
 }

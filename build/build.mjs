@@ -22,8 +22,10 @@ import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import {
-  kebab, vydName, cssValue, isSemantic, renderBlock,
+  kebab, vydName, cssValue, isSemantic, renderBlock, tokenValue,
 } from './lib.mjs';
+import { resolveTheme, THEMES } from './contrast.mjs';
+import { oklchCss } from './color.mjs';
 
 const ROOT = process.env.VYD_ROOT || join(dirname(fileURLToPath(import.meta.url)), '..');
 const TOKENS = join(ROOT, 'tokens');
@@ -43,15 +45,18 @@ const FONT_IMPORT =
 const LOG = { warnings: 'disabled', verbosity: 'silent' };
 
 /* ---------------------------------------------------------------------
-   0. Strip human-only keys (_meta, _comment, $schema) into a clean copy
-      so Style Dictionary sees only real tokens.
+   0. Strip metadata-only keys into a clean copy so Style Dictionary sees
+      only real tokens/groups. DTCG (2025.10): $value/$type ficam;
+      $description/$extensions são metadados (removidos p/ neutralizar a
+      travessia de grupos do SD e manter os formats enxutos).
    --------------------------------------------------------------------- */
+const STRIP_KEYS = new Set(['$schema', '$description', '$extensions']);
 function strip(node) {
   if (Array.isArray(node)) return node.map(strip);
   if (node && typeof node === 'object') {
     const out = {};
     for (const [k, val] of Object.entries(node)) {
-      if (k.startsWith('_') || k === '$schema') continue;
+      if (k.startsWith('_') || STRIP_KEYS.has(k)) continue;
       out[k] = strip(val);
     }
     return out;
@@ -80,6 +85,7 @@ function buildObject(allTokens) {
     const v = `var(--${vydName(t.path)})`;
     const p = t.path;
     if (p[0] === 'color' && p[1] === 'brand' && p[2] === 'blueprint') set(['color', 'blueprint', p[3]], v);
+    else if (p[0] === 'color' && p[1] === 'brand' && p[2] === 'accent') set(['color', 'brandAccent', p[3]], v);
     else if (p[0] === 'color' && p[1] === 'neutral') set(['color', 'neutral', p[2]], v);
     else if (p[0] === 'color' && p[1] === 'viz') set(['color', 'viz', p[2], p[3]], v);
     else if (p[0] === 'color' && p[1] === 'semantic') set(['color', p[2], p[3]], v);
@@ -95,6 +101,8 @@ function buildObject(allTokens) {
     else if (p[0] === 'layout') set(['layout', vydName(t.path).replace('vyd-layout-', '')], v);
     else if (p[0] === 'motion' && p[1] === 'duration') set(['duration', p[2]], v);
     else if (p[0] === 'motion' && p[1] === 'easing') set(['easing', p[2]], v);
+    else if (p[0] === 'component') set(['component', p[1], p[2], p[3]], v);
+    else if (p[0] === 'state') set(['state', p[1], p[2]], v);
     else if (p[0] === 'zIndex') set(['zIndex', p[1]], v);
     else if (p[0] === 'opacity') set(['opacity', p[1]], v);
     else if (p[0] === 'size') set(['size', p[1], p[2]], v);
@@ -168,6 +176,7 @@ StyleDictionary.registerFormat({
     for (const t of all) {
       const p = t.path;
       if (p[0] === 'color' && p[1] === 'brand' && p[2] === 'blueprint') colors['blueprint-' + p[3]] = v(t);
+      else if (p[0] === 'color' && p[1] === 'brand' && p[2] === 'accent') colors['brand-accent-' + p[3]] = v(t);
       else if (p[0] === 'color' && p[1] === 'neutral') colors['neutral-' + p[2]] = v(t);
       else if (p[0] === 'color' && p[1] === 'viz') colors[vydName(t.path).replace('vyd-', '')] = v(t);
       else if (p[0] === 'color' && p[1] === 'semantic') {
@@ -182,7 +191,7 @@ StyleDictionary.registerFormat({
     );
     // Breakpoints must be literal px (media queries can't resolve var()).
     const screens = {};
-    for (const t of all) if (t.path[0] === 'breakpoint') screens[t.path[1]] = String(t.value);
+    for (const t of all) if (t.path[0] === 'breakpoint') screens[t.path[1]] = String(tokenValue(t));
     const fontFamily = {};
     for (const t of all) if (t.path[0] === 'typography' && t.path[1] === 'family') fontFamily[t.path[2]] = [v(t)];
     const preset = {
@@ -250,7 +259,7 @@ StyleDictionary.registerFormat({
   name: 'vyd/resolved-json',
   format: ({ dictionary }) => {
     const out = {};
-    for (const t of dictionary.allTokens) out[vydName(t.path)] = t.value;
+    for (const t of dictionary.allTokens) out[vydName(t.path)] = tokenValue(t);
     return JSON.stringify(out, null, 2) + '\n';
   },
 });
@@ -332,12 +341,101 @@ const primitives = existsSync(join(ROOT, 'css', 'primitives.css'))
   ? readFileSync(join(ROOT, 'css', 'primitives.css'), 'utf8').trimEnd()
   : '';
 
-const vars = baseCss + '\n\n' + lightCss + '\n\n' + hcCss;
-const variablesCss = header('variables.css') + '\n\n' + FONT_IMPORT + '\n\n' + vars + '\n';
+/* ---------------------------------------------------------------------
+   Ícones de controle (seta do select, check do checkbox) como data-URIs
+   GERADOS a partir dos tokens color.semantic.control.* — url() não aceita
+   var(), então a cor resolvida é injetada aqui, por tema. Mantém css/
+   100% livre de cor crua (gate semantic-only) e tematizável.
+   --------------------------------------------------------------------- */
+const enc = (hex) => '%23' + String(hex).replace('#', '');
+const ARROW = (c) => `url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27${enc(c)}%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M6%209l6%206%206-6%27%2F%3E%3C%2Fsvg%3E")`;
+const CHECK = (c) => `url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27${enc(c)}%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012l5%205L20%206%27%2F%3E%3C%2Fsvg%3E")`;
+const iconBlock = (selector, t) =>
+  `${selector} {\n  --vyd-icon-select-arrow: ${ARROW(t.control.glyph)};\n  --vyd-icon-checkbox-check: ${CHECK(t.control.checkGlyph)};\n}`;
+const iconsCss = [
+  '/* Ícones de controle derivados dos tokens control.* (gerados pelo build) */',
+  iconBlock(':root,\n[data-vyd-theme="dark"]', resolveTheme(THEMES[0].overrides)),
+  iconBlock('[data-vyd-theme="light"]', resolveTheme(THEMES[1].overrides)),
+  iconBlock('[data-vyd-theme="high-contrast"]', resolveTheme(THEMES[2].overrides)),
+].join('\n');
+
+/* ---------------------------------------------------------------------
+   Densidade — as vars de MODO (--vyd-control-h, --vyd-control-pad-x,
+   --vyd-row-pad-y) apontam para a variante do component token conforme
+   [data-vyd-density]. Gerado dos tokens component.* (antes vivia à mão
+   em primitives.css).
+   --------------------------------------------------------------------- */
+const DENSITY_VARS = [
+  ['vyd-control-h', 'vyd-control-h'],
+  ['vyd-control-pad-x', 'vyd-control-pad-x'],
+  ['vyd-row-pad-y', 'vyd-row-pad-y'],
+];
+const densityBlock = (selector, variant) =>
+  `${selector} {\n` +
+  DENSITY_VARS.map(([pub, base]) => `  --${pub}: var(--${base}-${variant});`).join('\n') +
+  '\n}';
+const densityCss = [
+  '/* Densidade (gerada de component.*): default | compact | comfortable */',
+  densityBlock(':root', 'default'),
+  densityBlock('[data-vyd-density="compact"]', 'compact'),
+  densityBlock('[data-vyd-density="comfortable"]', 'comfortable'),
+].join('\n');
+
+/* ---------------------------------------------------------------------
+   Wide-gamut P3 — em telas modernas, o acento de MARCA e a paleta viz
+   ficam levemente mais vivos (OKLCH, chroma +8%; L e matiz intactos).
+   Redefinir --vyd-blueprint-* basta: a cadeia brand-accent -> action/border/
+   text.accent propaga sozinha. sRGB (fallback) permanece byte-idêntico.
+   --------------------------------------------------------------------- */
+const P3_BOOST = 1.08;
+const p3Tokens = [];
+{
+  const src = JSON.parse(readFileSync(join(TOKENS, 'tokens.json'), 'utf8'));
+  for (const [step, node] of Object.entries(src.color.brand.blueprint)) {
+    if (node && node.$value && !String(node.$value).includes('{')) {
+      p3Tokens.push([`vyd-blueprint-${step}`, oklchCss(node.$value, P3_BOOST)]);
+    }
+  }
+  for (const [n, node] of Object.entries(src.color.viz.cat)) {
+    if (node && node.$value && !String(node.$value).includes('{')) {
+      p3Tokens.push([`vyd-viz-${n}`, oklchCss(node.$value, P3_BOOST)]);
+    }
+  }
+}
+const p3Css = [
+  '/* Wide-gamut P3 (gerado pelo motor OKLCH; sRGB continua o fallback pinado) */',
+  '@media (color-gamut: p3) {',
+  '  :root {',
+  ...p3Tokens.map(([n, v]) => `    --${n}: ${v};`),
+  '  }',
+  '}',
+].join('\n');
+
+const vars = baseCss + '\n\n' + lightCss + '\n\n' + hcCss + '\n\n' + iconsCss + '\n\n' + densityCss + '\n\n' + p3Css;
+/* ---------------------------------------------------------------------
+   Cascade layers: estilos do VYD vivem em @layer (vyd.tokens < vyd.
+   components). Estilos NÃO-layered do app consumidor vencem os layered
+   por definição — override previsível, sem guerra de especificidade.
+   Escape hatch de transição: dist/theme.unlayered.css (1 ciclo).
+   --------------------------------------------------------------------- */
+const LAYER_DECL = '@layer vyd.tokens, vyd.components;';
+const inLayer = (name, css) => `@layer ${name} {\n${css}\n}`;
+
+const variablesCss = header('variables.css') + '\n\n' + FONT_IMPORT + '\n\n'
+  + LAYER_DECL + '\n\n' + inLayer('vyd.tokens', vars) + '\n';
 writeFileSync(join(DIST, 'variables.css'), variablesCss);
 
-const themeCss = header('theme.css') + '\n\n' + FONT_IMPORT + '\n\n' + vars + '\n\n' + primitives + '\n';
+const themeCss = header('theme.css') + '\n\n' + FONT_IMPORT + '\n\n'
+  + LAYER_DECL + '\n\n' + inLayer('vyd.tokens', vars) + '\n\n'
+  + inLayer('vyd.components', primitives) + '\n';
 writeFileSync(join(DIST, 'theme.css'), themeCss);
+
+const themeUnlayeredCss = header('theme.unlayered.css') + '\n'
+  + '/* ESCAPE HATCH de transição p/ 3.x: idêntico ao theme.css, SEM @layer.\n'
+  + '   Use apenas se o seu app dependia de vencer .vyd-* por ordem/especificidade.\n'
+  + '   Será removido em um major futuro — migre para theme.css. */\n\n'
+  + FONT_IMPORT + '\n\n' + vars + '\n\n' + primitives + '\n';
+writeFileSync(join(DIST, 'theme.unlayered.css'), themeUnlayeredCss);
 
 rmSync(PARTS, { recursive: true, force: true });
 rmSync(CLEAN, { recursive: true, force: true });

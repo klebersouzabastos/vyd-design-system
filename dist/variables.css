@@ -1,11 +1,14 @@
 /* =====================================================================
-   VYD DESIGN SYSTEM - variables.css  v2.1.0
+   VYD DESIGN SYSTEM - variables.css  v3.0.0
    GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
    Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
    ===================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
+@layer vyd.tokens, vyd.components;
+
+@layer vyd.tokens {
 :root {
   --vyd-blueprint-50: #EAF1FB;
   --vyd-blueprint-100: #CBDDF5;
@@ -17,6 +20,16 @@
   --vyd-blueprint-700: #143F86;
   --vyd-blueprint-800: #102F63;
   --vyd-blueprint-900: #0B2245;
+  --vyd-brand-accent-50: var(--vyd-blueprint-50);
+  --vyd-brand-accent-100: var(--vyd-blueprint-100);
+  --vyd-brand-accent-200: var(--vyd-blueprint-200);
+  --vyd-brand-accent-300: var(--vyd-blueprint-300);
+  --vyd-brand-accent-400: var(--vyd-blueprint-400);
+  --vyd-brand-accent-500: var(--vyd-blueprint-500);
+  --vyd-brand-accent-600: var(--vyd-blueprint-600);
+  --vyd-brand-accent-700: var(--vyd-blueprint-700);
+  --vyd-brand-accent-800: var(--vyd-blueprint-800);
+  --vyd-brand-accent-900: var(--vyd-blueprint-900);
   --vyd-neutral-0: #0D1117;
   --vyd-neutral-50: #161B22;
   --vyd-neutral-100: #1F2630;
@@ -31,19 +44,22 @@
   --vyd-neutral-1000: #FFFFFF;
   --vyd-success: #2E9E6B;
   --vyd-warning: #D9920A;
+  --vyd-on-warning: var(--vyd-neutral-0);
   --vyd-danger: #D24545;
-  --vyd-info: var(--vyd-blueprint-400);
+  --vyd-info: var(--vyd-brand-accent-400);
+  --vyd-control-glyph: var(--vyd-neutral-500);
+  --vyd-control-check-glyph: var(--vyd-neutral-1000);
   --vyd-viz-1: #3E7BD4;
   --vyd-viz-2: #2AA6A0;
   --vyd-viz-3: #D9920A;
   --vyd-viz-4: #2E9E6B;
   --vyd-viz-5: #D24545;
   --vyd-viz-6: #9AA5B1;
-  --vyd-viz-seq-1: var(--vyd-blueprint-200);
-  --vyd-viz-seq-2: var(--vyd-blueprint-400);
-  --vyd-viz-seq-3: var(--vyd-blueprint-500);
-  --vyd-viz-seq-4: var(--vyd-blueprint-700);
-  --vyd-viz-seq-5: var(--vyd-blueprint-900);
+  --vyd-viz-seq-1: var(--vyd-brand-accent-200);
+  --vyd-viz-seq-2: var(--vyd-brand-accent-400);
+  --vyd-viz-seq-3: var(--vyd-brand-accent-500);
+  --vyd-viz-seq-4: var(--vyd-brand-accent-700);
+  --vyd-viz-seq-5: var(--vyd-brand-accent-900);
   --vyd-font-sans: 'Inter Tight', 'Inter', system-ui, sans-serif;
   --vyd-font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
   --vyd-text-xs: 11px;
@@ -85,7 +101,7 @@
   --vyd-shadow-sm: 0 1px 2px rgba(0,0,0,0.25);
   --vyd-shadow-md: 0 2px 6px rgba(0,0,0,0.30);
   --vyd-shadow-lg: 0 8px 24px rgba(0,0,0,0.40);
-  --vyd-shadow-focus: 0 0 0 2px var(--vyd-blueprint-500);
+  --vyd-shadow-focus: 0 0 0 2px var(--vyd-brand-accent-500);
   --vyd-layout-topbar-h: 44px;
   --vyd-layout-ribbon-h: 88px;
   --vyd-layout-ribbon-tabs-h: 34px;
@@ -94,6 +110,20 @@
   --vyd-duration-fast: 120ms;
   --vyd-duration-normal: 200ms;
   --vyd-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --vyd-control-h-default: var(--vyd-size-control-md);
+  --vyd-control-h-compact: var(--vyd-size-control-sm);
+  --vyd-control-h-comfortable: var(--vyd-size-control-lg);
+  --vyd-control-pad-x-default: var(--vyd-space-5);
+  --vyd-control-pad-x-compact: var(--vyd-space-4);
+  --vyd-control-pad-x-comfortable: var(--vyd-space-6);
+  --vyd-row-pad-y-default: var(--vyd-space-2);
+  --vyd-row-pad-y-compact: var(--vyd-space-1);
+  --vyd-row-pad-y-comfortable: var(--vyd-space-3);
+  --vyd-state-hover-mix: 60;
+  --vyd-state-selected-mix: 16;
+  --vyd-state-zebra-mix: 70;
+  --vyd-state-gridline-mix: 55;
+  --vyd-state-skeleton-mix: 55;
   --vyd-z-base: 0;
   --vyd-z-raised: 1;
   --vyd-z-sticky: 100;
@@ -125,18 +155,20 @@
   --vyd-bg-panel: var(--vyd-neutral-50);
   --vyd-bg-canvas: var(--vyd-neutral-100);
   --vyd-bg-elevated: var(--vyd-neutral-200);
+  --vyd-bg-tooltip: var(--vyd-neutral-0);
   --vyd-text-primary: var(--vyd-neutral-800);
   --vyd-text-secondary: var(--vyd-neutral-700);
   --vyd-text-disabled: var(--vyd-neutral-500);
   --vyd-text-inverse: var(--vyd-neutral-0);
   --vyd-text-on-accent: var(--vyd-neutral-1000);
-  --vyd-text-accent: var(--vyd-blueprint-200);
+  --vyd-text-accent: var(--vyd-brand-accent-200);
+  --vyd-text-tooltip: var(--vyd-neutral-800);
   --vyd-border-default: var(--vyd-neutral-400);
   --vyd-border-strong: var(--vyd-neutral-500);
-  --vyd-border-accent: var(--vyd-blueprint-500);
-  --vyd-action-primary: var(--vyd-blueprint-500);
-  --vyd-action-primary-hover: var(--vyd-blueprint-400);
-  --vyd-action-primary-active: var(--vyd-blueprint-600);
+  --vyd-border-accent: var(--vyd-brand-accent-500);
+  --vyd-action-primary: var(--vyd-brand-accent-500);
+  --vyd-action-primary-hover: var(--vyd-brand-accent-400);
+  --vyd-action-primary-active: var(--vyd-brand-accent-600);
 }
 
 [data-vyd-theme="light"] {
@@ -144,18 +176,20 @@
   --vyd-bg-panel: var(--vyd-neutral-1000);
   --vyd-bg-canvas: var(--vyd-neutral-1000);
   --vyd-bg-elevated: var(--vyd-neutral-1000);
+  --vyd-bg-tooltip: var(--vyd-neutral-100);
   --vyd-text-primary: var(--vyd-neutral-100);
   --vyd-text-secondary: var(--vyd-neutral-300);
   --vyd-text-disabled: var(--vyd-neutral-400);
   --vyd-text-inverse: var(--vyd-neutral-1000);
   --vyd-text-on-accent: var(--vyd-neutral-1000);
-  --vyd-text-accent: var(--vyd-blueprint-600);
+  --vyd-text-accent: var(--vyd-brand-accent-600);
+  --vyd-text-tooltip: var(--vyd-neutral-1000);
   --vyd-border-default: var(--vyd-neutral-700);
   --vyd-border-strong: var(--vyd-neutral-600);
-  --vyd-border-accent: var(--vyd-blueprint-500);
-  --vyd-action-primary: var(--vyd-blueprint-500);
-  --vyd-action-primary-hover: var(--vyd-blueprint-600);
-  --vyd-action-primary-active: var(--vyd-blueprint-700);
+  --vyd-border-accent: var(--vyd-brand-accent-500);
+  --vyd-action-primary: var(--vyd-brand-accent-500);
+  --vyd-action-primary-hover: var(--vyd-brand-accent-600);
+  --vyd-action-primary-active: var(--vyd-brand-accent-700);
 }
 
 [data-vyd-theme="high-contrast"] {
@@ -163,18 +197,20 @@
   --vyd-bg-panel: #000000;
   --vyd-bg-canvas: #000000;
   --vyd-bg-elevated: var(--vyd-neutral-100);
+  --vyd-bg-tooltip: var(--vyd-neutral-100);
   --vyd-text-primary: var(--vyd-neutral-1000);
   --vyd-text-secondary: var(--vyd-neutral-800);
   --vyd-text-disabled: var(--vyd-neutral-600);
   --vyd-text-inverse: #000000;
   --vyd-text-on-accent: var(--vyd-neutral-1000);
-  --vyd-text-accent: var(--vyd-blueprint-200);
+  --vyd-text-accent: var(--vyd-brand-accent-200);
+  --vyd-text-tooltip: var(--vyd-neutral-1000);
   --vyd-border-default: var(--vyd-neutral-500);
   --vyd-border-strong: var(--vyd-neutral-700);
-  --vyd-border-accent: var(--vyd-blueprint-300);
-  --vyd-action-primary: var(--vyd-blueprint-500);
-  --vyd-action-primary-hover: var(--vyd-blueprint-400);
-  --vyd-action-primary-active: var(--vyd-blueprint-600);
+  --vyd-border-accent: var(--vyd-brand-accent-300);
+  --vyd-action-primary: var(--vyd-brand-accent-500);
+  --vyd-action-primary-hover: var(--vyd-brand-accent-400);
+  --vyd-action-primary-active: var(--vyd-brand-accent-600);
 }
 
 @media (prefers-contrast: more) {
@@ -183,17 +219,74 @@
     --vyd-bg-panel: #000000;
     --vyd-bg-canvas: #000000;
     --vyd-bg-elevated: var(--vyd-neutral-100);
+    --vyd-bg-tooltip: var(--vyd-neutral-100);
     --vyd-text-primary: var(--vyd-neutral-1000);
     --vyd-text-secondary: var(--vyd-neutral-800);
     --vyd-text-disabled: var(--vyd-neutral-600);
     --vyd-text-inverse: #000000;
     --vyd-text-on-accent: var(--vyd-neutral-1000);
-    --vyd-text-accent: var(--vyd-blueprint-200);
+    --vyd-text-accent: var(--vyd-brand-accent-200);
+    --vyd-text-tooltip: var(--vyd-neutral-1000);
     --vyd-border-default: var(--vyd-neutral-500);
     --vyd-border-strong: var(--vyd-neutral-700);
-    --vyd-border-accent: var(--vyd-blueprint-300);
-    --vyd-action-primary: var(--vyd-blueprint-500);
-    --vyd-action-primary-hover: var(--vyd-blueprint-400);
-    --vyd-action-primary-active: var(--vyd-blueprint-600);
+    --vyd-border-accent: var(--vyd-brand-accent-300);
+    --vyd-action-primary: var(--vyd-brand-accent-500);
+    --vyd-action-primary-hover: var(--vyd-brand-accent-400);
+    --vyd-action-primary-active: var(--vyd-brand-accent-600);
   }
+}
+
+/* Ícones de controle derivados dos tokens control.* (gerados pelo build) */
+:root,
+[data-vyd-theme="dark"] {
+  --vyd-icon-select-arrow: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%237B8794%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M6%209l6%206%206-6%27%2F%3E%3C%2Fsvg%3E");
+  --vyd-icon-checkbox-check: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23FFFFFF%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012l5%205L20%206%27%2F%3E%3C%2Fsvg%3E");
+}
+[data-vyd-theme="light"] {
+  --vyd-icon-select-arrow: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%237B8794%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M6%209l6%206%206-6%27%2F%3E%3C%2Fsvg%3E");
+  --vyd-icon-checkbox-check: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23FFFFFF%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012l5%205L20%206%27%2F%3E%3C%2Fsvg%3E");
+}
+[data-vyd-theme="high-contrast"] {
+  --vyd-icon-select-arrow: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%237B8794%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M6%209l6%206%206-6%27%2F%3E%3C%2Fsvg%3E");
+  --vyd-icon-checkbox-check: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23FFFFFF%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012l5%205L20%206%27%2F%3E%3C%2Fsvg%3E");
+}
+
+/* Densidade (gerada de component.*): default | compact | comfortable */
+:root {
+  --vyd-control-h: var(--vyd-control-h-default);
+  --vyd-control-pad-x: var(--vyd-control-pad-x-default);
+  --vyd-row-pad-y: var(--vyd-row-pad-y-default);
+}
+[data-vyd-density="compact"] {
+  --vyd-control-h: var(--vyd-control-h-compact);
+  --vyd-control-pad-x: var(--vyd-control-pad-x-compact);
+  --vyd-row-pad-y: var(--vyd-row-pad-y-compact);
+}
+[data-vyd-density="comfortable"] {
+  --vyd-control-h: var(--vyd-control-h-comfortable);
+  --vyd-control-pad-x: var(--vyd-control-pad-x-comfortable);
+  --vyd-row-pad-y: var(--vyd-row-pad-y-comfortable);
+}
+
+/* Wide-gamut P3 (gerado pelo motor OKLCH; sRGB continua o fallback pinado) */
+@media (color-gamut: p3) {
+  :root {
+    --vyd-blueprint-50: oklch(95.58% 0.0166 257.2);
+    --vyd-blueprint-100: oklch(89.16% 0.0414 255.6);
+    --vyd-blueprint-200: oklch(79.29% 0.0815 256.1);
+    --vyd-blueprint-300: oklch(68.64% 0.1232 256.8);
+    --vyd-blueprint-400: oklch(58.70% 0.1627 258.0);
+    --vyd-blueprint-500: oklch(50.51% 0.1847 259.5);
+    --vyd-blueprint-600: oklch(44.57% 0.1637 259.7);
+    --vyd-blueprint-700: oklch(38.31% 0.1385 260.1);
+    --vyd-blueprint-800: oklch(31.54% 0.1072 260.2);
+    --vyd-blueprint-900: oklch(25.60% 0.0777 258.8);
+    --vyd-viz-1: oklch(58.70% 0.1627 258.0);
+    --vyd-viz-2: oklch(65.91% 0.1124 190.0);
+    --vyd-viz-3: oklch(71.35% 0.1613 74.0);
+    --vyd-viz-4: oklch(62.40% 0.1365 159.1);
+    --vyd-viz-5: oklch(59.00% 0.1918 24.4);
+    --vyd-viz-6: oklch(71.70% 0.0232 250.5);
+  }
+}
 }

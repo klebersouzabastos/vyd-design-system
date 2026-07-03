@@ -22,6 +22,10 @@
        .vyd-statusbar
    ===================================================================== */
 
+/* Todo o shell vive em @layer vyd.components (mesma camada do theme.css):
+   estilos não-layered do app vencem sem guerra de especificidade. */
+@layer vyd.components {
+
 .vyd-app {
   display: grid;
   /* A faixa de abas (ribbontabs) é opcional: sem um .vyd-ribbon-tabs no markup,
@@ -189,8 +193,8 @@
 }
 .vyd-canvas--grid {
   background-image:
-    linear-gradient(color-mix(in srgb, var(--vyd-border-default) 55%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--vyd-border-default) 55%, transparent) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--vyd-border-default) calc(var(--vyd-state-gridline-mix) * 1%), transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--vyd-border-default) calc(var(--vyd-state-gridline-mix) * 1%), transparent) 1px, transparent 1px);
   background-size: var(--vyd-space-7) var(--vyd-space-7);
 }
 
@@ -220,4 +224,5 @@
    --------------------------------------------------------------------- */
 @media (max-width: 640px) {
   .vyd-ribbon-group__label { display: none; }
+}
 }

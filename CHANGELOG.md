@@ -11,6 +11,46 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - —
 
+## [3.0.0] — 2026-07-03
+
+> **Fundação 3.0** (programa VYD 3.0, Fase 9). O motor do design system sobe ao
+> estado-da-arte 2026: tokens **DTCG**, **cascade layers**, tier de **marca**
+> white-label, **state layers**, motor **OKLCH + P3** e **densidade** por component
+> tokens. Aparência padrão **pixel-idêntica** à 2.1 (provado por regressão visual);
+> nomes `--vyd-*`/`.vyd-*` 100% preservados. Guia: [MIGRATION-3.md](MIGRATION-3.md).
+
+### ⚠️ BREAKING CHANGES
+
+- **`@layer vyd.tokens, vyd.components`** no CSS emitido (e `shell.css`): CSS
+  não-layered do app agora SEMPRE vence o VYD — override previsível. Quem dependia
+  de perder para o VYD por especificidade usa `theme.unlayered.css` (transição).
+- **`tokens.json` em DTCG 2025.10** (`$value`/`$type`/`$description`): quebra só
+  quem parseava o arquivo cru (`value` → `$value`). CSS/Tailwind/JS inalterados.
+
+### Adicionado
+
+- **Tier de marca (white-label):** `--vyd-brand-accent-{50..900}` entre os
+  semânticos e a escala blueprint. Rebrand = sobrescrever só o tier; todo o acento
+  (ação, foco, links, viz-seq) re-tinge em cadeia.
+- **State layers:** `--vyd-state-{hover,selected,zebra,gridline,skeleton}-mix` +
+  derivadas prontas (`--vyd-state-selected-bg`, `--vyd-state-hover-bg`). Receita
+  única de color-mix; fim dos números mágicos (cmdk unificado 18→16%,
+  sub-perceptual).
+- **Motor OKLCH + wide-gamut P3** (`build/color.mjs`): em telas P3, acento de marca
+  e paleta viz levemente mais vivos (`@media (color-gamut: p3)`, chroma +8%); sRGB
+  pinado byte-idêntico.
+- **Densidade por component tokens:** `component.control.h/padX` + `component.row.padY`
+  (default/compact/comfortable) emitidos pelo build com os blocos `[data-vyd-density]`.
+- **Tokens novos:** `bg.tooltip`/`text.tooltip` (conserta tooltip preto-no-preto no
+  light), `feedback.onWarning`, `control.glyph/checkGlyph` (seta/check gerados pelo
+  build como `--vyd-icon-*` — zero cor crua no CSS).
+- **Gates novos no `verify`:** semantic-only (proíbe hex/escala bruta em `css/`),
+  cobertura de reduced-motion, presença/ordem das layers, cadeia de marca, bloco P3,
+  anti-legado DTCG. Contraste agora com 36 pares.
+- **Reduced-motion global:** `prefers-reduced-motion` zera `--vyd-duration-*` e
+  desliga TODAS as transições de uma vez (spinner desacelera; skeleton para).
+- Export novo: `./theme.unlayered.css` (escape hatch de transição, 1 ciclo).
+
 ## [2.1.0] — 2026-07-03
 
 > **Pré-fase do programa VYD 3.0 — rede de segurança.** Antes dos refactors da
@@ -341,7 +381,8 @@ Primeira versão estruturada do design system como pacote publicável.
   Apps que já importavam `theme.css` continuam funcionando ao trocar para
   `dist/theme.css`. As únicas adições são os tokens citados acima.
 
-[Não lançado]: https://github.com/klebersouzabastos/vyd-design-system/compare/v2.1.0...HEAD
+[Não lançado]: https://github.com/klebersouzabastos/vyd-design-system/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v3.0.0
 [2.1.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v2.1.0
 [2.0.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v2.0.0
 [1.0.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v1.0.0

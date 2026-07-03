@@ -1,14 +1,14 @@
 /* =====================================================================
-   VYD DESIGN SYSTEM - theme.css  v3.0.0
+   VYD DESIGN SYSTEM - theme.unlayered.css  v3.0.0
    GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
    Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
    ===================================================================== */
+/* ESCAPE HATCH de transição p/ 3.x: idêntico ao theme.css, SEM @layer.
+   Use apenas se o seu app dependia de vencer .vyd-* por ordem/especificidade.
+   Será removido em um major futuro — migre para theme.css. */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-@layer vyd.tokens, vyd.components;
-
-@layer vyd.tokens {
 :root {
   --vyd-blueprint-50: #EAF1FB;
   --vyd-blueprint-100: #CBDDF5;
@@ -289,9 +289,7 @@
     --vyd-viz-6: oklch(71.70% 0.0232 250.5);
   }
 }
-}
 
-@layer vyd.components {
 /* =====================================================================
    VYD DESIGN SYSTEM — css/primitives.css
    Hand-authored component primitives. SOURCE OF TRUTH for these classes.
@@ -1010,4 +1008,3 @@ body {
 .vyd-chart { display: block; }
 .vyd-chart-grid { stroke: var(--vyd-border-default); stroke-width: 1; }
 .vyd-chart-axis { stroke: var(--vyd-border-strong); stroke-width: 1; }
-}

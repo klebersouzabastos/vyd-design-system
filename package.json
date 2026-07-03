@@ -1,6 +1,6 @@
 {
   "name": "vyd-design-system",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "VYD Design System — fonte única de verdade visual do ecossistema VYD (apps de engenharia). Estilo técnico, sóbrio, denso. Acento azul-blueprint.",
   "license": "MIT",
   "author": "K2+ / VYD",
@@ -19,6 +19,7 @@
       "require": "./dist/tokens.js"
     },
     "./theme.css": "./dist/theme.css",
+    "./theme.unlayered.css": "./dist/theme.unlayered.css",
     "./variables.css": "./dist/variables.css",
     "./shell.css": "./css/shell.css",
     "./tailwind": "./dist/tokens.tailwind.js",
@@ -42,6 +43,7 @@
     "AGENTS.md",
     "llms.txt",
     "README.md",
+    "MIGRATION-3.md",
     "CHANGELOG.md",
     "LICENSE"
   ],
