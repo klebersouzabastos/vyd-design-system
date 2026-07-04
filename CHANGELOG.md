@@ -11,6 +11,18 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - —
 
+## [3.1.1] — 2026-07-04
+
+### Corrigido
+
+- **`.vyd-cmdk`: `<dialog>` fechado ficava visível.** O `display: flex` da
+  classe é estilo de autor e vencia o `dialog:not([open]) { display: none }`
+  do user-agent, então um `<dialog class="vyd-cmdk vyd-cmdk--dialog">` montado
+  fechado (como o `CommandPalette` do `vyd-react` faz via `useNativeDialog`)
+  aparecia na tela. Novo guard `dialog.vyd-cmdk:not([open]) { display: none }`
+  restaura o comportamento nativo; o uso não-dialog e o dialog aberto seguem
+  `flex`. Apps que adotaram o workaround equivalente podem removê-lo.
+
 ## [3.1.0] — 2026-07-04
 
 > **A11y & interação de elite** (programa VYD 3.0, Fase 10). Motor interativo
@@ -433,7 +445,9 @@ Primeira versão estruturada do design system como pacote publicável.
   Apps que já importavam `theme.css` continuam funcionando ao trocar para
   `dist/theme.css`. As únicas adições são os tokens citados acima.
 
-[Não lançado]: https://github.com/klebersouzabastos/vyd-design-system/compare/v3.0.0...HEAD
+[Não lançado]: https://github.com/klebersouzabastos/vyd-design-system/compare/v3.1.1...HEAD
+[3.1.1]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v3.1.1
+[3.1.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v3.1.0
 [3.0.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v3.0.0
 [2.1.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v2.1.0
 [2.0.0]: https://github.com/klebersouzabastos/vyd-design-system/releases/tag/v2.0.0
