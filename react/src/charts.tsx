@@ -27,15 +27,18 @@ export function BarChart({
   height = 160,
   showValues = false,
   className,
+  label = 'Gráfico de barras',
 }: {
   data: BarDatum[];
   height?: number;
   showValues?: boolean;
   className?: string;
+  /** Rótulo acessível do gráfico (role="img"). */
+  label?: string;
 }) {
   const max = Math.max(...data.map((d) => d.value), 1);
   return (
-    <div className={cx('vyd-barchart', className)} style={{ height }} role="img">
+    <div className={cx('vyd-barchart', className)} style={{ height }} role="img" aria-label={label}>
       {data.map((d, i) => (
         <div className="vyd-barchart__col" key={i}>
           {showValues ? <span className="vyd-barchart__val">{d.value}</span> : null}
@@ -61,12 +64,14 @@ export function LineChart({
   area = false,
   grid = true,
   className,
+  label = 'Gráfico de linhas',
 }: {
   series: Series[];
   height?: number;
   area?: boolean;
   grid?: boolean;
   className?: string;
+  label?: string;
 }) {
   const all = series.flatMap((s) => s.points);
   const max = Math.max(...all, 0);
@@ -84,7 +89,9 @@ export function LineChart({
       width="100%"
       height={height}
       role="img"
+      aria-label={label}
     >
+      <title>{label}</title>
       {grid
         ? [0, 0.25, 0.5, 0.75, 1].map((g, i) => (
             <line key={i} className="vyd-chart-grid" x1={0} x2={W} y1={g * height} y2={g * height} vectorEffect="non-scaling-stroke" />
@@ -111,12 +118,14 @@ export function Sparkline({
   height = 28,
   color,
   className,
+  label = 'Tendência',
 }: {
   points: number[];
   width?: number;
   height?: number;
   color?: string;
   className?: string;
+  label?: string;
 }) {
   const max = Math.max(...points, 0);
   const min = Math.min(...points, 0);
@@ -124,7 +133,8 @@ export function Sparkline({
   const len = points.length;
   const pts = points.map((v, i) => `${len <= 1 ? 0 : (i / (len - 1)) * width},${height - ((v - min) / span) * height}`).join(' ');
   return (
-    <svg className={cx('vyd-chart', className)} viewBox={`0 0 ${width} ${height}`} width={width} height={height} preserveAspectRatio="none">
+    <svg className={cx('vyd-chart', className)} viewBox={`0 0 ${width} ${height}`} width={width} height={height} preserveAspectRatio="none" role="img" aria-label={label}>
+      <title>{label}</title>
       <polyline points={pts} fill="none" stroke={color ?? vizColor(0)} strokeWidth={1.5} vectorEffect="non-scaling-stroke" />
     </svg>
   );

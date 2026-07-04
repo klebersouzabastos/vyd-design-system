@@ -64,16 +64,16 @@
     <h2 class="vyd-heading">Text · Select · Textarea</h2>
     <div class="vyd-field">
       <label class="vyd-field__label">Código da obra <span class="vyd-field__req">*</span></label>
-      <input class="vyd-input vyd-mono" value="VYD-OBR-0421">
+      <input class="vyd-input vyd-mono" value="VYD-OBR-0421" aria-label="Código da obra">
       <span class="vyd-field__help">Formato VYD-XXX-0000.</span>
     </div>
     <div class="vyd-field">
       <label class="vyd-field__label">Disciplina</label>
-      <select class="vyd-select"><option>Arquitetura</option><option>Estrutura</option><option>Hidráulica</option></select>
+      <select class="vyd-select" aria-label="Disciplina"><option>Arquitetura</option><option>Estrutura</option><option>Hidráulica</option></select>
     </div>
     <div class="vyd-field">
       <label class="vyd-field__label">E-mail</label>
-      <input class="vyd-input" aria-invalid="true" value="kleber@">
+      <input class="vyd-input" aria-invalid="true" value="kleber@" aria-label="E-mail">
       <span class="vyd-field__error"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-alert-triangle"/></svg>E-mail inválido.</span>
     </div>
     <div class="vyd-field">
@@ -86,7 +86,7 @@
     </div>
     <div class="vyd-field">
       <label class="vyd-field__label">ID (somente leitura)</label>
-      <input class="vyd-input vyd-mono" value="VYD-OBR-0421" readonly>
+      <input class="vyd-input vyd-mono" value="VYD-OBR-0421" aria-label="Código da obra" readonly aria-label="Somente leitura">
     </div>
   </div>
 
@@ -104,7 +104,7 @@
     <label class="vyd-choice"><input type="checkbox" class="vyd-switch"> Modo alto contraste</label>
     <div class="vyd-field">
       <label class="vyd-field__label">Opacidade do modelo</label>
-      <input type="range" class="vyd-range" min="0" max="100" value="70">
+      <input type="range" class="vyd-range" aria-label="Escala" min="0" max="100" value="70">
     </div>
     <div class="row">
       <button class="vyd-btn">Salvar</button>

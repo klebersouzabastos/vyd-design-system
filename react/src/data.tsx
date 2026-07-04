@@ -52,7 +52,7 @@ export function Th({ numeric, sortable, sortDir = null, onSort, className, child
   if (sortable) {
     return (
       <th className={cx(numeric && 'vyd-num', className)} aria-sort={ariaSort} {...rest}>
-        <button type="button" className="vyd-table__sort" aria-sort={ariaSort} onClick={onSort}>
+        <button type="button" className="vyd-table__sort" onClick={onSort}>
           {children}
           <Icon name="chevron-up" size="sm" />
         </button>
@@ -86,8 +86,9 @@ export type ListItemProps = HTMLAttributes<HTMLDivElement> & {
   selected?: boolean;
 };
 export function ListItem({ icon, title, subtitle, trailing, selected, className, children, ...rest }: ListItemProps) {
+  // aria-current (global) em vez de aria-selected: div sem role não aceita aria-selected (axe aria-allowed-attr)
   return (
-    <div className={cx('vyd-list__item', className)} aria-selected={selected || undefined} {...rest}>
+    <div className={cx('vyd-list__item', className)} aria-current={selected ? 'true' : undefined} {...rest}>
       {icon ? <Icon name={icon} className="vyd-list__icon" /> : null}
       <div className="vyd-list__body">
         {title != null ? <span className="vyd-list__title">{title}</span> : null}
@@ -130,6 +131,7 @@ export function TreeItem({ label, icon, level = 0, leaf, expanded, selected, onT
         type="button"
         className={cx('vyd-tree__toggle', leaf && 'vyd-tree__toggle--leaf')}
         aria-hidden={leaf || undefined}
+        aria-label={leaf ? undefined : expanded ? 'Recolher' : 'Expandir'}
         tabIndex={leaf ? -1 : 0}
         onClick={(e) => {
           e.stopPropagation();

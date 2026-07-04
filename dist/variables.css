@@ -1,5 +1,5 @@
 /* =====================================================================
-   VYD DESIGN SYSTEM - variables.css  v3.0.0
+   VYD DESIGN SYSTEM - variables.css  v3.1.0
    GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
    Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
    ===================================================================== */
@@ -42,11 +42,6 @@
   --vyd-neutral-800: #E1E6EB;
   --vyd-neutral-900: #F2F5F8;
   --vyd-neutral-1000: #FFFFFF;
-  --vyd-success: #2E9E6B;
-  --vyd-warning: #D9920A;
-  --vyd-on-warning: var(--vyd-neutral-0);
-  --vyd-danger: #D24545;
-  --vyd-info: var(--vyd-brand-accent-400);
   --vyd-control-glyph: var(--vyd-neutral-500);
   --vyd-control-check-glyph: var(--vyd-neutral-1000);
   --vyd-viz-1: #3E7BD4;
@@ -169,6 +164,16 @@
   --vyd-action-primary: var(--vyd-brand-accent-500);
   --vyd-action-primary-hover: var(--vyd-brand-accent-400);
   --vyd-action-primary-active: var(--vyd-brand-accent-600);
+  --vyd-success: #2E9E6B;
+  --vyd-on-success: var(--vyd-neutral-0);
+  --vyd-warning: #D9920A;
+  --vyd-on-warning: var(--vyd-neutral-0);
+  --vyd-danger: #D04343;
+  --vyd-on-danger: var(--vyd-neutral-1000);
+  --vyd-danger-text: #EB7A7A;
+  --vyd-success-text: #3FB37E;
+  --vyd-warning-text: #E3A32C;
+  --vyd-info: var(--vyd-brand-accent-400);
 }
 
 [data-vyd-theme="light"] {
@@ -190,6 +195,16 @@
   --vyd-action-primary: var(--vyd-brand-accent-500);
   --vyd-action-primary-hover: var(--vyd-brand-accent-600);
   --vyd-action-primary-active: var(--vyd-brand-accent-700);
+  --vyd-success: #2E9E6B;
+  --vyd-on-success: var(--vyd-neutral-0);
+  --vyd-warning: #D9920A;
+  --vyd-on-warning: var(--vyd-neutral-0);
+  --vyd-danger: #D04343;
+  --vyd-on-danger: var(--vyd-neutral-1000);
+  --vyd-danger-text: #C23A3A;
+  --vyd-success-text: #1E7A50;
+  --vyd-warning-text: #8A5B00;
+  --vyd-info: var(--vyd-brand-accent-400);
 }
 
 [data-vyd-theme="high-contrast"] {
@@ -211,6 +226,16 @@
   --vyd-action-primary: var(--vyd-brand-accent-500);
   --vyd-action-primary-hover: var(--vyd-brand-accent-400);
   --vyd-action-primary-active: var(--vyd-brand-accent-600);
+  --vyd-success: #2E9E6B;
+  --vyd-on-success: var(--vyd-neutral-0);
+  --vyd-warning: #D9920A;
+  --vyd-on-warning: var(--vyd-neutral-0);
+  --vyd-danger: #D04343;
+  --vyd-on-danger: var(--vyd-neutral-1000);
+  --vyd-danger-text: #EB7A7A;
+  --vyd-success-text: #3FB37E;
+  --vyd-warning-text: #E3A32C;
+  --vyd-info: var(--vyd-brand-accent-400);
 }
 
 @media (prefers-contrast: more) {
@@ -233,6 +258,16 @@
     --vyd-action-primary: var(--vyd-brand-accent-500);
     --vyd-action-primary-hover: var(--vyd-brand-accent-400);
     --vyd-action-primary-active: var(--vyd-brand-accent-600);
+    --vyd-success: #2E9E6B;
+    --vyd-on-success: var(--vyd-neutral-0);
+    --vyd-warning: #D9920A;
+    --vyd-on-warning: var(--vyd-neutral-0);
+    --vyd-danger: #D04343;
+    --vyd-on-danger: var(--vyd-neutral-1000);
+    --vyd-danger-text: #EB7A7A;
+    --vyd-success-text: #3FB37E;
+    --vyd-warning-text: #E3A32C;
+    --vyd-info: var(--vyd-brand-accent-400);
   }
 }
 

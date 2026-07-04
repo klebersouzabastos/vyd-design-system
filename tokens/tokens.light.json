@@ -72,6 +72,20 @@
         "primaryActive": {
           "$value": "{color.brand.accent.700}"
         }
+      },
+      "feedback": {
+        "dangerText": {
+          "$value": "#C23A3A",
+          "$description": "texto de erro sobre branco (5.30)"
+        },
+        "successText": {
+          "$value": "#1E7A50",
+          "$description": "texto de status positivo sobre branco (5.31)"
+        },
+        "warningText": {
+          "$value": "#8A5B00",
+          "$description": "texto de atencao sobre branco (5.87)"
+        }
       }
     }
   }

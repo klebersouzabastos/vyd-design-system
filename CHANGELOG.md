@@ -11,6 +11,58 @@ o respectivo bump de versão. Apps fixam a versão que consomem.
 
 - —
 
+## [3.1.0] — 2026-07-04
+
+> **A11y & interação de elite** (programa VYD 3.0, Fase 10). Motor interativo
+> **Base UI** encapsulado, a11y de teclado completa, **axe e vitest viram gates**
+> no CI: zero violações serious/critical em 8 páginas × 3 temas.
+
+### Adicionado
+
+- **`vyd-react` — motor interativo Base UI (encapsulado):** `Menu` e `Popover`
+  agora rodam sobre `@base-ui-components/react` (posicionamento, teclado, ESC,
+  click-fora, portal) mantendo as classes `.vyd-*` e API própria
+  (`open`/`defaultOpen`/`onOpenChange` — tipos Base UI nunca vazam). `Tooltip`
+  segue CSS-first com `aria-describedby` automático.
+- **`Button asChild`** (Slot próprio, sem dependência Radix) + **`forwardRef` em
+  todos os primitivos** (`Button`, `Input`, `Card`, `Text`, `Mono`, controles de
+  formulário).
+- **`Field` com contexto ARIA:** injeta `id`, `aria-describedby`, `aria-invalid` e
+  `aria-required` automaticamente em `Input`/`Textarea`/`Select` filhos (props
+  explícitas sempre vencem).
+- **Tabs de verdade:** `TabsRoot` (modo controlado/não-controlado) + `TabPanel`
+  novos; setas ←/→ Home/End com roving tabindex e `aria-controls`. API antiga
+  (`selected`) continua funcionando.
+- **`CommandPalette` sobre `<dialog>` nativo:** focus-trap/ESC/inert do browser,
+  input `role="combobox"` com `aria-activedescendant`, itens `role="option"`.
+- **Ribbon operável por teclado:** `RibbonTabs` com setas, `RibbonTab`/`RibbonItem`
+  com Enter/Space; item ativo usa **`aria-pressed`** (`aria-selected` era inválido
+  em `role="button"`; o CSS aceita ambos por compat).
+- **Tokens novos de TEXTO de feedback:** `feedback.successText`/`warningText`
+  (`--vyd-success-text`/`--vyd-warning-text`) — verde/âmbar legíveis (AA ≥ 4.5)
+  sobre panel/canvas/elevated nos 3 temas, com override light. Complementam
+  `dangerText`; contraste agora com **69 pares** no gate.
+- **CSS aditivo:** suporte à **Popover API nativa** para HTML puro
+  (`.vyd-menu:popover-open` + `position-area` sob `@supports`),
+  `.vyd-menu__item[data-highlighted]`, `.vyd-cmdk--dialog` (+`::backdrop`),
+  `.vyd-list__item[aria-current="true"]` (canônico; `aria-selected` mantido).
+- **Testes unitários (Vitest + Testing Library)** em `react/src/__tests__/` —
+  teclado/ARIA de Menu, Tabs, CmdK, Ribbon, Field, Dialog. **Job `unit` = gate.**
+- **Axe vira GATE** no CI (era report-only): 0 violações serious/critical.
+
+### Corrigido
+
+- Contraste AA dos badges: `feedback.onSuccess`/`onDanger` novos;
+  `feedback.danger` escurecido 2 passos (`#D24545` → `#D04343`) p/ rótulo branco
+  passar 4.5:1; `.vyd-field__error`, `.vyd-menu__item--danger` e
+  `.vyd-stat__delta--down` usam `--vyd-danger-text`; `.vyd-stat__delta--up` usa
+  `--vyd-success-text` (o verde-superfície reprovava como texto no light).
+- `ListItem` (React) emite `aria-current` em vez de `aria-selected` (inválido em
+  div sem role); `TreeItem` publica `aria-expanded` no próprio `role="treeitem"`
+  (padrão APG) com botão de toggle rotulado (Expandir/Recolher).
+- Demos: rótulos/nome acessível em todos os controles, `role="tree"`/`treeitem`,
+  listbox do cmdk estático, contraste do chrome do brand-guide nos 3 temas.
+
 ## [3.0.0] — 2026-07-03
 
 > **Fundação 3.0** (programa VYD 3.0, Fase 9). O motor do design system sobe ao

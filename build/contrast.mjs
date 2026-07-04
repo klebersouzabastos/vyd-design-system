@@ -72,7 +72,13 @@ export function resolveTheme(overrideFiles = []) {
     },
     action: { primary: sem('action.primary') },
     border: { default: sem('border.default') },
-    feedback: { warning: sem('feedback.warning'), onWarning: sem('feedback.onWarning') },
+    feedback: {
+      warning: sem('feedback.warning'), onWarning: sem('feedback.onWarning'),
+      success: sem('feedback.success'), onSuccess: sem('feedback.onSuccess'),
+      danger: sem('feedback.danger'), onDanger: sem('feedback.onDanger'),
+      dangerText: sem('feedback.dangerText'),
+      successText: sem('feedback.successText'), warningText: sem('feedback.warningText'),
+    },
     control: { glyph: sem('control.glyph'), checkGlyph: sem('control.checkGlyph') },
   };
 }
@@ -99,6 +105,15 @@ export function checkTheme(t) {
   add('onAccent on action.primary', t.text.onAccent, t.action.primary, AA);
   add('text.tooltip on bg.tooltip', t.text.tooltip, t.bg.tooltip, AAA);
   add('onWarning on feedback.warning', t.feedback.onWarning, t.feedback.warning, AA);
+  add('onSuccess on feedback.success', t.feedback.onSuccess, t.feedback.success, AA);
+  add('onDanger on feedback.danger', t.feedback.onDanger, t.feedback.danger, AA);
+  for (const [k, fg] of [['dangerText', t.feedback.dangerText],
+                         ['successText', t.feedback.successText],
+                         ['warningText', t.feedback.warningText]]) {
+    add(`${k} on bg.panel`, fg, t.bg.panel, AA);
+    add(`${k} on bg.canvas`, fg, t.bg.canvas, AA);
+    add(`${k} on bg.elevated`, fg, t.bg.elevated, AA);
+  }
   add('control.glyph on bg.panel', t.control.glyph, t.bg.panel, UI);
   add('border.default on bg.panel', t.border.default, t.bg.panel, UI, false); // info
   return rows.map((r) => ({ ...r, pass: !r.gated || r.ratio >= r.min }));

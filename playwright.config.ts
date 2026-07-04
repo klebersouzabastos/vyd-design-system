@@ -26,6 +26,11 @@ export default defineConfig({
     baseURL: 'http://127.0.0.1:4321',
     ...devices['Desktop Chrome'],
     viewport: { width: 1280, height: 800 },
+    // Ambientes com Chromium pré-instalado (ex.: sandbox de dev) apontam o
+    // binário via VYD_CHROMIUM; no CI fica indefinido e o Playwright usa o seu.
+    launchOptions: process.env.VYD_CHROMIUM
+      ? { executablePath: process.env.VYD_CHROMIUM }
+      : undefined,
   },
   expect: {
     // Tolerância a diferenças mínimas de antialiasing entre execuções.

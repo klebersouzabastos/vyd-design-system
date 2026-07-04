@@ -68,9 +68,14 @@ const vyd = {
     },
     "feedback": {
       "success": "var(--vyd-success)",
+      "onSuccess": "var(--vyd-on-success)",
       "warning": "var(--vyd-warning)",
       "onWarning": "var(--vyd-on-warning)",
       "danger": "var(--vyd-danger)",
+      "onDanger": "var(--vyd-on-danger)",
+      "dangerText": "var(--vyd-danger-text)",
+      "successText": "var(--vyd-success-text)",
+      "warningText": "var(--vyd-warning-text)",
       "info": "var(--vyd-info)"
     },
     "control": {

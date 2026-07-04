@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import type { HTMLAttributes, KeyboardEvent, ReactNode } from 'react';
 import { cx } from './cx';
 import { CubeMark } from './CubeMark';
 
@@ -69,9 +69,29 @@ export function Avatar({ children, title }: { children: ReactNode; title?: strin
 }
 
 /* ---- Ribbon tabs (optional strip above the command groups) ---- */
-export function RibbonTabs({ className, children, ...rest }: HTMLAttributes<HTMLDivElement>) {
+function onRibbonTablistKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+  if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+  const tabs = Array.from(e.currentTarget.querySelectorAll<HTMLElement>('[role="tab"]'));
+  if (!tabs.length) return;
+  const i = tabs.indexOf(document.activeElement as HTMLElement);
+  let n = i;
+  if (e.key === 'ArrowRight') n = (i + 1) % tabs.length;
+  else if (e.key === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+  else if (e.key === 'Home') n = 0;
+  else n = tabs.length - 1;
+  tabs[n]?.focus();
+  tabs[n]?.click();
+  e.preventDefault();
+}
+
+export function RibbonTabs({ className, children, onKeyDown, ...rest }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cx('vyd-ribbon-tabs', className)} role="tablist" {...rest}>
+    <div
+      className={cx('vyd-ribbon-tabs', className)}
+      role="tablist"
+      onKeyDown={(e) => { onRibbonTablistKeyDown(e); onKeyDown?.(e); }}
+      {...rest}
+    >
       {children}
     </div>
   );
@@ -81,10 +101,26 @@ export function RibbonTabs({ className, children, ...rest }: HTMLAttributes<HTML
 export function RibbonTab({
   selected = false,
   children,
+  onClick,
+  onKeyDown,
   ...rest
 }: HTMLAttributes<HTMLSpanElement> & { selected?: boolean }) {
   return (
-    <span className="vyd-ribbon-tab" role="tab" tabIndex={0} aria-selected={selected} {...rest}>
+    <span
+      className="vyd-ribbon-tab"
+      role="tab"
+      tabIndex={selected ? 0 : -1}
+      aria-selected={selected}
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          (e.currentTarget as HTMLElement).click();
+        }
+        onKeyDown?.(e);
+      }}
+      {...rest}
+    >
       {children}
     </span>
   );
@@ -130,8 +166,16 @@ export function RibbonItem({
       className="vyd-ribbon-item"
       role="button"
       tabIndex={disabled ? -1 : 0}
-      aria-selected={selected}
+      aria-pressed={selected}
       aria-disabled={disabled || undefined}
+      onClickCapture={(e) => { if (disabled) { e.preventDefault(); e.stopPropagation(); } }}
+      onKeyDown={(e) => {
+        if (disabled) return;
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          (e.currentTarget as HTMLElement).click();
+        }
+      }}
       {...rest}
     >
       <span className="glyph">{glyph}</span>

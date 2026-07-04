@@ -93,7 +93,7 @@ export function cssValue(token) {
 /** Theme-dependent tokens that live in the [data-vyd-theme=...] blocks. */
 export function isSemantic(path) {
   return path[0] === 'color' && path[1] === 'semantic'
-    && ['bg', 'text', 'border', 'action'].includes(path[2]);
+    && ['bg', 'text', 'border', 'action', 'feedback'].includes(path[2]);
 }
 
 /** Render a `selector { --name: value; ... }` block from a token list. */
