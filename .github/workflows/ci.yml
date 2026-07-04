@@ -78,13 +78,28 @@ jobs:
           if-no-files-found: warn
 
   # ---------------------------------------------------------------------
+  # Testes unitários dos componentes React (Vitest + Testing Library).
+  # GATE: teclado/ARIA de Menu, Tabs, CmdK, Ribbon, Field, Dialog.
+  # ---------------------------------------------------------------------
+  unit:
+    name: unit (vitest · vyd-react)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Vitest
+        run: npm test --workspace react
+
+  # ---------------------------------------------------------------------
   # Acessibilidade automatizada (axe-core sobre demo/ nos 3 temas).
-  # REPORT-ONLY nesta fase (vira gate na Fase 10, após corrigir os achados).
+  # GATE desde a 3.1.0: zero violações serious/critical.
   # ---------------------------------------------------------------------
   a11y:
-    name: axe (report-only)
+    name: axe (gate)
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -94,5 +109,5 @@ jobs:
       - run: npm run build
       - name: Instalar Playwright + Chromium
         run: npx --yes playwright install --with-deps chromium
-      - name: Rodar axe
+      - name: Rodar axe (gate)
         run: npm run test:a11y

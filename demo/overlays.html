@@ -67,7 +67,7 @@
     <dialog class="vyd-dialog static-dialog" open>
       <div class="vyd-dialog__head">
         <span class="vyd-dialog__title">Gerar memorial</span>
-        <button class="vyd-dialog__close"><svg class="vyd-icon"><use href="#vyd-icon-close"/></svg></button>
+        <button class="vyd-dialog__close" aria-label="Fechar"><svg class="vyd-icon"><use href="#vyd-icon-close"/></svg></button>
       </div>
       <div class="vyd-dialog__body vyd-body" style="color:var(--vyd-text-secondary)">
         Confirma a geração do memorial descritivo para <b style="color:var(--vyd-text-primary)">VYD-OBR-0421</b>? Isso pode levar alguns segundos.
@@ -83,12 +83,12 @@
     <h2 class="vyd-heading">Menu / Dropdown</h2>
     <div class="vyd-menu static-float" role="menu" style="min-width:220px">
       <div class="vyd-menu__label">Ações</div>
-      <button class="vyd-menu__item"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-edit"/></svg> Editar</button>
-      <button class="vyd-menu__item"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-download"/></svg> Exportar</button>
-      <button class="vyd-menu__item"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-eye"/></svg> Visualizar</button>
+      <button class="vyd-menu__item" role="menuitem"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-edit"/></svg> Editar</button>
+      <button class="vyd-menu__item" role="menuitem"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-download"/></svg> Exportar</button>
+      <button class="vyd-menu__item" role="menuitem"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-eye"/></svg> Visualizar</button>
       <div class="vyd-menu__sep"></div>
-      <button class="vyd-menu__item vyd-menu__item--danger"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-close"/></svg> Excluir</button>
-      <button class="vyd-menu__item" disabled>Indisponível</button>
+      <button class="vyd-menu__item vyd-menu__item--danger" role="menuitem"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-close"/></svg> Excluir</button>
+      <button class="vyd-menu__item" role="menuitem" disabled>Indisponível</button>
     </div>
 
     <h2 class="vyd-heading" style="margin-top:20px">Popover</h2>
@@ -106,20 +106,20 @@
       <span class="vyd-tooltip-wrap"><button class="vyd-btn vyd-btn--ghost">passe o mouse</button><span class="vyd-tooltip" role="tooltip">Tooltip on hover</span></span>
     </div>
     <div class="vyd-toolbar" style="margin-top:16px">
-      <button class="vyd-btn vyd-btn--ghost vyd-btn--sm"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-model"/></svg></button>
-      <button class="vyd-btn vyd-btn--ghost vyd-btn--sm"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-measure"/></svg></button>
+      <button class="vyd-btn vyd-btn--ghost vyd-btn--sm" aria-label="Ação"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-model"/></svg></button>
+      <button class="vyd-btn vyd-btn--ghost vyd-btn--sm" aria-label="Ação"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-measure"/></svg></button>
       <span class="vyd-toolbar__sep"></span>
-      <button class="vyd-btn vyd-btn--ghost vyd-btn--sm"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-eye"/></svg></button>
-      <button class="vyd-btn vyd-btn--ghost vyd-btn--sm"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-settings"/></svg></button>
+      <button class="vyd-btn vyd-btn--ghost vyd-btn--sm" aria-label="Ação"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-eye"/></svg></button>
+      <button class="vyd-btn vyd-btn--ghost vyd-btn--sm" aria-label="Ação"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-settings"/></svg></button>
     </div>
   </div>
 
   <div class="panel">
     <h2 class="vyd-heading">Drawer (superfície)</h2>
     <dialog class="vyd-dialog vyd-drawer static-dialog" open style="height:auto;width:320px">
-      <div class="vyd-dialog__head"><span class="vyd-dialog__title">Propriedades</span><button class="vyd-dialog__close"><svg class="vyd-icon"><use href="#vyd-icon-close"/></svg></button></div>
+      <div class="vyd-dialog__head"><span class="vyd-dialog__title">Propriedades</span><button class="vyd-dialog__close" aria-label="Fechar"><svg class="vyd-icon"><use href="#vyd-icon-close"/></svg></button></div>
       <div class="vyd-dialog__body">
-        <div class="vyd-field"><label class="vyd-field__label">Seção</label><input class="vyd-input vyd-mono" value="30×60"></div>
+        <div class="vyd-field"><label class="vyd-field__label" for="ov-secao">Seção</label><input id="ov-secao" class="vyd-input vyd-mono" value="30×60"></div>
       </div>
     </dialog>
   </div>

@@ -3,8 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 /**
  * Acessibilidade automatizada (axe-core) sobre as páginas de demo/ nos 3 temas.
- * Report-only na 2.1.0 (job com continue-on-error) — vira GATE na Fase 10,
- * quando os achados forem corrigidos. Falha em violações serious/critical.
+ * GATE desde a 3.1.0: falha o CI em qualquer violação serious/critical.
  */
 
 const PAGES = ['index', 'brand-guide', 'forms', 'feedback', 'overlays', 'data', 'nav', 'dataviz'];

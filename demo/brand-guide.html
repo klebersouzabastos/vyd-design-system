@@ -49,7 +49,7 @@
     .g-panel { background: var(--vyd-bg-panel); border: 1px solid var(--vyd-border-default); border-radius: var(--vyd-radius-md); overflow: hidden; }
     .g-head { display: flex; justify-content: space-between; align-items: center; padding: 11px 16px; border-bottom: 1px solid var(--vyd-border-default); }
     .g-title { font-size: var(--vyd-text-xs); font-weight: 600; letter-spacing: 0.14em; color: var(--vyd-text-secondary); text-transform: uppercase; }
-    .g-num { font-family: var(--vyd-font-mono); font-size: var(--vyd-text-xs); color: var(--vyd-border-default); }
+    .g-num { font-family: var(--vyd-font-mono); font-size: var(--vyd-text-xs); color: var(--vyd-text-secondary); }
     .g-body { padding: 16px; }
     .g-eyebrow { font-family: var(--vyd-font-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--vyd-text-secondary); margin-bottom: 11px; }
     .g-split { display: grid; gap: 1px; background: var(--vyd-border-default); }
@@ -58,11 +58,12 @@
     .g-logo3 { grid-template-columns: 1fr 1fr 1fr; }
     .g-cell { padding: 36px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
     .g-cell--pos { background: var(--vyd-bg-chrome); }
-    .g-cell--neg { background: var(--vyd-text-primary); }
+    .g-cell--neg { background: var(--vyd-neutral-900); }
     .g-cell--con { background: var(--vyd-bg-canvas); }
     .g-lockup { display: flex; align-items: center; gap: 14px; }
     .g-lockup .g-word { font-size: 30px; }
-    .g-cell--neg .g-word { color: var(--vyd-blueprint-900); }
+    .g-cell--neg .g-word { color: var(--vyd-neutral-100); }
+    .g-cell--neg .g-cap { color: var(--vyd-neutral-300); }
     .g-cap { font-family: var(--vyd-font-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--vyd-text-secondary); text-align: center; line-height: 1.6; }
 
     /* 02 palette */
@@ -118,7 +119,7 @@
     .g-shell-frame { width: 100%; height: 520px; border: 1px solid var(--vyd-border-default); border-radius: var(--vyd-radius-md); background: var(--vyd-bg-chrome); display: block; }
     .g-shell-bar { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; font-family: var(--vyd-font-mono); font-size: 10px; color: var(--vyd-text-secondary); }
 
-    .g-foot { display: flex; justify-content: space-between; margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--vyd-border-default); font-family: var(--vyd-font-mono); font-size: 10px; color: var(--vyd-border-default); letter-spacing: 0.06em; }
+    .g-foot { display: flex; justify-content: space-between; margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--vyd-border-default); font-family: var(--vyd-font-mono); font-size: 10px; color: var(--vyd-text-secondary); letter-spacing: 0.06em; }
 
     a.g-link { color: var(--vyd-text-accent); text-decoration: none; }
     a.g-link:hover { text-decoration: underline; }
@@ -232,7 +233,7 @@
           <div class="row"><span class="k">ID-ELEMENTO</span><span>VYD-OBR-0421</span></div>
           <div class="row"><span class="k">COTA</span><span>+12.450 m</span></div>
           <div class="row"><span class="k">ÁREA</span><span>1.284,07 m²</span></div>
-          <div class="row"><span class="k">PROGRESSO</span><span style="color:var(--vyd-success)">87,5 %</span></div>
+          <div class="row"><span class="k">PROGRESSO</span><span style="color:var(--vyd-success-text)">87,5 %</span></div>
         </div>
       </div>
     </section>
@@ -283,7 +284,7 @@
         <div class="cell">
           <div class="g-eyebrow" style="margin-bottom:14px">INPUT</div>
           <label class="g-field-label">Código da obra</label>
-          <input class="vyd-input g-mono" style="width:100%" value="VYD-OBR-0421">
+          <input class="vyd-input g-mono" style="width:100%" value="VYD-OBR-0421" aria-label="Código da obra">
           <div style="height:14px"></div>
           <label class="g-field-label">Responsável</label>
           <input class="vyd-input" style="width:100%" placeholder="Selecione…">
@@ -294,12 +295,12 @@
           <div class="vyd-card" style="padding:0;overflow:hidden">
             <div class="g-minicard__head">
               <span style="font-size:12px;font-weight:600">Fundação · Bloco B</span>
-              <span class="g-mono" style="font-size:10px;color:var(--vyd-success)">ATIVA</span>
+              <span class="g-mono" style="font-size:10px;color:var(--vyd-success-text)">ATIVA</span>
             </div>
             <div style="padding:11px 12px;font-family:var(--vyd-font-mono);font-variant-numeric:tabular-nums;font-size:12px;line-height:1.95">
               <div style="display:flex;justify-content:space-between"><span style="color:var(--vyd-text-secondary)">Cota</span><span>−2.300 m</span></div>
               <div style="display:flex;justify-content:space-between"><span style="color:var(--vyd-text-secondary)">Volume</span><span>318,4 m³</span></div>
-              <div style="display:flex;justify-content:space-between"><span style="color:var(--vyd-text-secondary)">Prazo</span><span style="color:var(--vyd-warning)">−3 dias</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--vyd-text-secondary)">Prazo</span><span style="color:var(--vyd-warning-text)">−3 dias</span></div>
             </div>
           </div>
           <div class="g-hint" style="margin-top:12px">.vyd-card</div>
@@ -311,7 +312,7 @@
             <div class="g-ri is-hover"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--vyd-blueprint-300)" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg><span class="g-ri__lb">Modelo</span></div>
             <div class="g-ri is-active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--vyd-blueprint-300)" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg><span class="g-ri__lb">Modelo</span></div>
           </div>
-          <div class="g-ri-legend"><span>normal</span><span>hover</span><span style="color:var(--vyd-blueprint-300)">ativo</span></div>
+          <div class="g-ri-legend"><span>normal</span><span>hover</span><span style="color:var(--vyd-text-accent)">ativo</span></div>
           <div class="g-hint" style="margin-top:12px;line-height:1.6">.vyd-ribbon-item · ativo = barra de acento 2px<br>(estados normal / hover / aria-selected)</div>
         </div>
       </div>

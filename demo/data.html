@@ -63,19 +63,19 @@
     <div class="vyd-table-wrap" style="max-height:240px">
       <table class="vyd-table vyd-table--zebra">
         <thead><tr>
-          <th style="width:32px"><input type="checkbox" class="vyd-checkbox"></th>
-          <th><button class="vyd-table__sort" aria-sort="ascending">Elemento <svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-chevron-up"/></svg></button></th>
+          <th style="width:32px"><input type="checkbox" class="vyd-checkbox" aria-label="Selecionar linha"></th>
+          <th aria-sort="ascending"><button class="vyd-table__sort">Elemento <svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-chevron-up"/></svg></button></th>
           <th><button class="vyd-table__sort">Tipo <svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-chevron-up"/></svg></button></th>
           <th class="vyd-num">Cota</th>
           <th class="vyd-num">Volume</th>
           <th>Status</th>
         </tr></thead>
         <tbody>
-          <tr aria-selected="true"><td><input type="checkbox" class="vyd-checkbox" checked></td><td>P-12</td><td>Pilar</td><td class="vyd-num">−2.300</td><td class="vyd-num">318,4</td><td><span class="vyd-badge vyd-badge--success">Aprovado</span></td></tr>
-          <tr><td><input type="checkbox" class="vyd-checkbox"></td><td>P-14</td><td>Pilar</td><td class="vyd-num">−2.300</td><td class="vyd-num">290,1</td><td><span class="vyd-badge vyd-badge--warning">Revisão</span></td></tr>
-          <tr><td><input type="checkbox" class="vyd-checkbox"></td><td>V-03</td><td>Viga</td><td class="vyd-num">+0.000</td><td class="vyd-num">120,7</td><td><span class="vyd-badge vyd-badge--success">Aprovado</span></td></tr>
-          <tr><td><input type="checkbox" class="vyd-checkbox"></td><td>L-01</td><td>Laje</td><td class="vyd-num">+0.000</td><td class="vyd-num">1.284,0</td><td><span class="vyd-badge vyd-badge--danger">Colisão</span></td></tr>
-          <tr><td><input type="checkbox" class="vyd-checkbox"></td><td>F-B</td><td>Fundação</td><td class="vyd-num">−3.100</td><td class="vyd-num">612,9</td><td><span class="vyd-badge">Rascunho</span></td></tr>
+          <tr aria-selected="true"><td><input type="checkbox" class="vyd-checkbox" aria-label="Selecionar linha" checked></td><td>P-12</td><td>Pilar</td><td class="vyd-num">−2.300</td><td class="vyd-num">318,4</td><td><span class="vyd-badge vyd-badge--success">Aprovado</span></td></tr>
+          <tr><td><input type="checkbox" class="vyd-checkbox" aria-label="Selecionar linha"></td><td>P-14</td><td>Pilar</td><td class="vyd-num">−2.300</td><td class="vyd-num">290,1</td><td><span class="vyd-badge vyd-badge--warning">Revisão</span></td></tr>
+          <tr><td><input type="checkbox" class="vyd-checkbox" aria-label="Selecionar linha"></td><td>V-03</td><td>Viga</td><td class="vyd-num">+0.000</td><td class="vyd-num">120,7</td><td><span class="vyd-badge vyd-badge--success">Aprovado</span></td></tr>
+          <tr><td><input type="checkbox" class="vyd-checkbox" aria-label="Selecionar linha"></td><td>L-01</td><td>Laje</td><td class="vyd-num">+0.000</td><td class="vyd-num">1.284,0</td><td><span class="vyd-badge vyd-badge--danger">Colisão</span></td></tr>
+          <tr><td><input type="checkbox" class="vyd-checkbox" aria-label="Selecionar linha"></td><td>F-B</td><td>Fundação</td><td class="vyd-num">−3.100</td><td class="vyd-num">612,9</td><td><span class="vyd-badge">Rascunho</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -84,7 +84,7 @@
   <div class="panel">
     <h2 class="vyd-heading">List</h2>
     <div class="vyd-list">
-      <div class="vyd-list__item" aria-selected="true"><svg class="vyd-icon vyd-list__icon"><use href="#vyd-icon-document"/></svg><div class="vyd-list__body"><span class="vyd-list__title">Memorial descritivo</span><span class="vyd-list__sub">VYD-OBR-0421 · 12 páginas</span></div><span class="vyd-list__trailing vyd-mono">2 min</span></div>
+      <div class="vyd-list__item" aria-current="true"><svg class="vyd-icon vyd-list__icon"><use href="#vyd-icon-document"/></svg><div class="vyd-list__body"><span class="vyd-list__title">Memorial descritivo</span><span class="vyd-list__sub">VYD-OBR-0421 · 12 páginas</span></div><span class="vyd-list__trailing vyd-mono">2 min</span></div>
       <div class="vyd-list__item"><svg class="vyd-icon vyd-list__icon"><use href="#vyd-icon-sheet"/></svg><div class="vyd-list__body"><span class="vyd-list__title">Prancha estrutural</span><span class="vyd-list__sub">A1 · rev. C</span></div><span class="vyd-list__trailing vyd-mono">1 h</span></div>
       <div class="vyd-list__item"><svg class="vyd-icon vyd-list__icon"><use href="#vyd-icon-model"/></svg><div class="vyd-list__body"><span class="vyd-list__title">Modelo BIM</span><span class="vyd-list__sub">Bloco B</span></div><span class="vyd-list__trailing vyd-mono">3 h</span></div>
     </div>
@@ -92,12 +92,12 @@
 
   <div class="panel">
     <h2 class="vyd-heading">Tree</h2>
-    <div class="vyd-tree">
-      <div class="vyd-tree__item" aria-expanded="true"><button class="vyd-tree__toggle"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-chevron-right"/></svg></button><svg class="vyd-icon vyd-icon--sm vyd-tree__icon"><use href="#vyd-icon-structure"/></svg> Bloco B</div>
-      <div class="vyd-tree__item" aria-expanded="true" style="padding-left:24px"><button class="vyd-tree__toggle"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-chevron-right"/></svg></button><svg class="vyd-icon vyd-icon--sm vyd-tree__icon"><use href="#vyd-icon-layers"/></svg> Pavimento Térreo</div>
-      <div class="vyd-tree__item" aria-selected="true" style="padding-left:48px"><button class="vyd-tree__toggle vyd-tree__toggle--leaf"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-chevron-right"/></svg></button><svg class="vyd-icon vyd-icon--sm vyd-tree__icon"><use href="#vyd-icon-column"/></svg> Pilar P-12</div>
-      <div class="vyd-tree__item" style="padding-left:48px"><button class="vyd-tree__toggle vyd-tree__toggle--leaf"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-chevron-right"/></svg></button><svg class="vyd-icon vyd-icon--sm vyd-tree__icon"><use href="#vyd-icon-wall"/></svg> Parede A-103</div>
-      <div class="vyd-tree__item" style="padding-left:24px"><button class="vyd-tree__toggle"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-chevron-right"/></svg></button><svg class="vyd-icon vyd-icon--sm vyd-tree__icon"><use href="#vyd-icon-layers"/></svg> Pavimento Tipo</div>
+    <div class="vyd-tree" role="tree" aria-label="Estrutura do modelo">
+      <div class="vyd-tree__item" role="treeitem" aria-expanded="true"><button class="vyd-tree__toggle" aria-label="Recolher"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-chevron-right"/></svg></button><svg class="vyd-icon vyd-icon--sm vyd-tree__icon"><use href="#vyd-icon-structure"/></svg> Bloco B</div>
+      <div class="vyd-tree__item" role="treeitem" aria-expanded="true" style="padding-left:24px"><button class="vyd-tree__toggle" aria-label="Recolher"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-chevron-right"/></svg></button><svg class="vyd-icon vyd-icon--sm vyd-tree__icon"><use href="#vyd-icon-layers"/></svg> Pavimento Térreo</div>
+      <div class="vyd-tree__item" role="treeitem" aria-selected="true" style="padding-left:48px"><button class="vyd-tree__toggle vyd-tree__toggle--leaf"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-chevron-right"/></svg></button><svg class="vyd-icon vyd-icon--sm vyd-tree__icon"><use href="#vyd-icon-column"/></svg> Pilar P-12</div>
+      <div class="vyd-tree__item" role="treeitem" style="padding-left:48px"><button class="vyd-tree__toggle vyd-tree__toggle--leaf"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-chevron-right"/></svg></button><svg class="vyd-icon vyd-icon--sm vyd-tree__icon"><use href="#vyd-icon-wall"/></svg> Parede A-103</div>
+      <div class="vyd-tree__item" role="treeitem" aria-expanded="false" style="padding-left:24px"><button class="vyd-tree__toggle" aria-label="Expandir"><svg class="vyd-icon vyd-icon--sm"><use href="#vyd-icon-chevron-right"/></svg></button><svg class="vyd-icon vyd-icon--sm vyd-tree__icon"><use href="#vyd-icon-layers"/></svg> Pavimento Tipo</div>
     </div>
   </div>
 
@@ -117,7 +117,7 @@
       <span class="vyd-kv__key">Altura</span><span class="vyd-kv__val">2,80 m</span>
       <span class="vyd-kv__key">fck</span><span class="vyd-kv__val">30 MPa</span>
       <span class="vyd-kv__key">Aço</span><span class="vyd-kv__val">CA-50</span>
-      <span class="vyd-kv__key">Status</span><span class="vyd-kv__val" style="color:var(--vyd-success)">Aprovado</span>
+      <span class="vyd-kv__key">Status</span><span class="vyd-kv__val" style="color:var(--vyd-success-text)">Aprovado</span>
     </div>
   </div>
 </div>

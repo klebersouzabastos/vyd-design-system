@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import type { ButtonHTMLAttributes, CSSProperties, HTMLAttributes, ReactNode } from 'react';
+import { isValidElement, useEffect, useId, useRef } from 'react';
+import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
+import { Menu as BaseMenu } from '@base-ui-components/react/menu';
+import { Popover as BasePopover } from '@base-ui-components/react/popover';
 import { cx } from './cx';
 import { Icon, type IconName } from './Icon';
 
@@ -9,7 +11,7 @@ import { Icon, type IconName } from './Icon';
    Dialog / Drawer — <dialog> nativo (foco-trap, ESC e backdrop de graça).
    ===================================================================== */
 
-function useNativeDialog(open: boolean, onClose?: () => void) {
+export function useNativeDialog(open: boolean, onClose?: () => void) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const d = ref.current;
@@ -72,116 +74,98 @@ export function Drawer({ side = 'right', className, ...rest }: DrawerProps) {
 }
 
 /* =====================================================================
-   Menu / Popover — flutuante ancorado (fecha por clique-fora e ESC).
+   Menu / Popover — motor Base UI (WAI-ARIA completo: setas, typeahead,
+   foco gerenciado, aria-haspopup/expanded, light-dismiss, reposição).
+   O Base UI é DETALHE INTERNO: a API pública é do VYD (não re-exportamos
+   tipos) e o visual continua vindo das classes .vyd-*.
    ===================================================================== */
 
-function useAnchoredPopup(align: 'start' | 'end') {
-  const [open, setOpen] = useState(false);
-  const triggerRef = useRef<HTMLSpanElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState({ top: 0, left: 0 });
+type FloatingProps = {
+  trigger: ReactNode;
+  children: ReactNode;
+  align?: 'start' | 'end';
+  className?: string;
+  /** Controlado (opcional): estado externo do aberto/fechado. */
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+};
 
-  useLayoutEffect(() => {
-    if (!open || !triggerRef.current) return;
-    const update = () => {
-      const r = triggerRef.current!.getBoundingClientRect();
-      setPos({ top: r.bottom + 4, left: align === 'end' ? r.right : r.left });
-    };
-    update();
-    window.addEventListener('scroll', update, true);
-    window.addEventListener('resize', update);
-    return () => {
-      window.removeEventListener('scroll', update, true);
-      window.removeEventListener('resize', update);
-    };
-  }, [open, align]);
-
-  useEffect(() => {
-    if (!open) return;
-    const onDoc = (e: MouseEvent) => {
-      const t = e.target as Node;
-      if (!panelRef.current?.contains(t) && !triggerRef.current?.contains(t)) setOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
-    };
-    document.addEventListener('mousedown', onDoc);
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('mousedown', onDoc);
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [open]);
-
-  const style: CSSProperties = {
-    position: 'fixed',
-    top: pos.top,
-    left: pos.left,
-    transform: align === 'end' ? 'translateX(-100%)' : undefined,
-  };
-  return { open, setOpen, triggerRef, panelRef, style };
+/** Trigger: se for um elemento, o comportamento é MESCLADO nele (sem wrapper);
+ *  senão, vira um botão focável (a11y correta por padrão).
+ *  `toggle` cobre o modo CONTROLADO: o Base UI 1.0.0-rc.0 não dispara
+ *  onOpenChange no clique do trigger quando `open` é controlado — compomos
+ *  o toggle aqui (os caminhos ESC/clique-fora já disparam corretamente). */
+function triggerRender(trigger: ReactNode, toggle?: () => void) {
+  const extra = toggle ? { onClick: toggle } : null;
+  return isValidElement(trigger)
+    ? { render: trigger as React.ReactElement<Record<string, unknown>>, ...extra }
+    : { children: trigger, ...extra };
 }
 
-export type MenuProps = { trigger: ReactNode; children: ReactNode; align?: 'start' | 'end'; className?: string };
+export type MenuProps = FloatingProps;
 
-export function Menu({ trigger, children, align = 'start', className }: MenuProps) {
-  const { open, setOpen, triggerRef, panelRef, style } = useAnchoredPopup(align);
+export function Menu({ trigger, children, align = 'start', className, open, defaultOpen, onOpenChange }: MenuProps) {
+  const controlled = open !== undefined;
   return (
-    <>
-      <span ref={triggerRef} style={{ display: 'inline-flex' }} onClick={() => setOpen((o) => !o)}>
-        {trigger}
-      </span>
-      {open ? (
-        <div ref={panelRef} className={cx('vyd-menu', className)} role="menu" style={style} onClick={() => setOpen(false)}>
-          {children}
-        </div>
-      ) : null}
-    </>
+    <BaseMenu.Root open={open} defaultOpen={defaultOpen} onOpenChange={(o) => onOpenChange?.(o)}>
+      <BaseMenu.Trigger {...triggerRender(trigger, controlled ? () => onOpenChange?.(!open) : undefined)} />
+      <BaseMenu.Portal>
+        <BaseMenu.Positioner align={align} sideOffset={4} className="vyd-positioner vyd-positioner--dropdown">
+          <BaseMenu.Popup className={cx('vyd-menu', className)}>{children}</BaseMenu.Popup>
+        </BaseMenu.Positioner>
+      </BaseMenu.Portal>
+    </BaseMenu.Root>
   );
 }
 
 export type MenuItemProps = ButtonHTMLAttributes<HTMLButtonElement> & { icon?: IconName; danger?: boolean };
-export function MenuItem({ icon, danger, className, children, ...rest }: MenuItemProps) {
+export function MenuItem({ icon, danger, className, children, disabled, onClick, ...rest }: MenuItemProps) {
   return (
-    <button type="button" role="menuitem" className={cx('vyd-menu__item', danger && 'vyd-menu__item--danger', className)} {...rest}>
+    <BaseMenu.Item
+      disabled={disabled}
+      onClick={onClick as (e: React.MouseEvent) => void}
+      className={cx('vyd-menu__item', danger && 'vyd-menu__item--danger', className)}
+      render={<button type="button" {...rest} />}
+    >
       {icon ? <Icon name={icon} size="sm" /> : null}
       {children}
-    </button>
+    </BaseMenu.Item>
   );
 }
 export function MenuSeparator() {
-  return <div className="vyd-menu__sep" role="separator" />;
+  return <BaseMenu.Separator className="vyd-menu__sep" />;
 }
 export function MenuLabel({ children }: { children: ReactNode }) {
   return <div className="vyd-menu__label">{children}</div>;
 }
 
-export type PopoverProps = { trigger: ReactNode; children: ReactNode; align?: 'start' | 'end'; className?: string };
-export function Popover({ trigger, children, align = 'start', className }: PopoverProps) {
-  const { open, setOpen, triggerRef, panelRef, style } = useAnchoredPopup(align);
+export type PopoverProps = FloatingProps;
+export function Popover({ trigger, children, align = 'start', className, open, defaultOpen, onOpenChange }: PopoverProps) {
+  const controlled = open !== undefined;
   return (
-    <>
-      <span ref={triggerRef} style={{ display: 'inline-flex' }} onClick={() => setOpen((o) => !o)}>
-        {trigger}
-      </span>
-      {open ? (
-        <div ref={panelRef} className={cx('vyd-popover', className)} style={style}>
-          {children}
-        </div>
-      ) : null}
-    </>
+    <BasePopover.Root open={open} defaultOpen={defaultOpen} onOpenChange={(o) => onOpenChange?.(o)}>
+      <BasePopover.Trigger {...triggerRender(trigger, controlled ? () => onOpenChange?.(!open) : undefined)} />
+      <BasePopover.Portal>
+        <BasePopover.Positioner align={align} sideOffset={4} className="vyd-positioner vyd-positioner--popover">
+          <BasePopover.Popup className={cx('vyd-popover', className)}>{children}</BasePopover.Popup>
+        </BasePopover.Positioner>
+      </BasePopover.Portal>
+    </BasePopover.Root>
   );
 }
 
 /* =====================================================================
-   Tooltip (CSS: hover/focus-within) · Toolbar.
+   Tooltip (CSS: hover/focus-within, zero-JS) · Toolbar.
+   Mantido CSS-first de propósito; ganha o wiring aria-describedby.
    ===================================================================== */
 
 export function Tooltip({ content, children, className }: { content: ReactNode; children: ReactNode; className?: string }) {
+  const id = useId();
   return (
-    <span className={cx('vyd-tooltip-wrap', className)}>
+    <span className={cx('vyd-tooltip-wrap', className)} aria-describedby={id}>
       {children}
-      <span className="vyd-tooltip" role="tooltip">
+      <span className="vyd-tooltip" role="tooltip" id={id}>
         {content}
       </span>
     </span>

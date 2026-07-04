@@ -166,6 +166,9 @@ body {
   color: var(--vyd-text-primary);
 }
 .vyd-ribbon-item:focus-visible { outline: none; box-shadow: var(--vyd-shadow-focus); }
+/* Ativo: aria-pressed é o ARIA correto p/ role="button" (aria-selected era
+   INVÁLIDO — axe critical). aria-selected mantido por compat (deprecado). */
+.vyd-ribbon-item[aria-pressed="true"],
 .vyd-ribbon-item[aria-selected="true"] {
   color: var(--vyd-text-accent);
   border-bottom-color: var(--vyd-border-accent);
@@ -194,7 +197,7 @@ body {
 .vyd-field__req { color: var(--vyd-danger); margin-inline-start: 2px; }
 .vyd-field__help { font-size: var(--vyd-text-sm); color: var(--vyd-text-secondary); }
 .vyd-field__error {
-  font-size: var(--vyd-text-sm); color: var(--vyd-danger);
+  font-size: var(--vyd-text-sm); color: var(--vyd-danger-text);
   display: inline-flex; align-items: center; gap: var(--vyd-space-2);
 }
 
@@ -394,9 +397,9 @@ body {
   font-size: var(--vyd-text-xs); font-weight: var(--vyd-weight-semibold); line-height: 1;
 }
 .vyd-badge--primary { background: var(--vyd-action-primary); color: var(--vyd-text-on-accent); }
-.vyd-badge--success { background: var(--vyd-success); color: var(--vyd-text-on-accent); }
+.vyd-badge--success { background: var(--vyd-success); color: var(--vyd-on-success); }
 .vyd-badge--warning { background: var(--vyd-warning); color: var(--vyd-on-warning); }
-.vyd-badge--danger  { background: var(--vyd-danger);  color: var(--vyd-text-on-accent); }
+.vyd-badge--danger  { background: var(--vyd-danger);  color: var(--vyd-on-danger); }
 .vyd-badge--dot { min-width: 8px; width: 8px; height: 8px; padding: 0; }
 
 /* ---- Tag / chip ---- */
@@ -485,9 +488,36 @@ body {
 }
 .vyd-menu__item:hover,
 .vyd-menu__item:focus-visible { outline: none; background: var(--vyd-state-hover-bg); }
-.vyd-menu__item--danger { color: var(--vyd-danger); }
-.vyd-menu__item[disabled] { color: var(--vyd-text-disabled); cursor: not-allowed; }
-.vyd-menu__item[disabled]:hover { background: none; }
+.vyd-menu__item--danger { color: var(--vyd-danger-text); }
+.vyd-menu__item[disabled],
+.vyd-menu__item[aria-disabled="true"],
+.vyd-menu__item[data-disabled] { color: var(--vyd-text-disabled); cursor: not-allowed; }
+.vyd-menu__item[disabled]:hover,
+.vyd-menu__item[aria-disabled="true"]:hover,
+.vyd-menu__item[data-disabled]:hover { background: none; }
+/* item realçado por teclado (motor de foco do overlay) */
+.vyd-menu__item[data-highlighted] { background: var(--vyd-state-hover-bg); outline: none; }
+
+/* wrapper de posicionamento dos overlays flutuantes (React) */
+.vyd-positioner--dropdown { z-index: var(--vyd-z-dropdown); }
+.vyd-positioner--popover  { z-index: var(--vyd-z-popover); }
+
+/* ---- Popover API nativa (HTML puro, sem JS): <div popover id=...> +
+   <button popovertarget=...>. Baseline 2024; anchor positioning
+   (position-area) Baseline 2026 — fallback: posicione via CSS próprio. ---- */
+.vyd-menu:popover-open,
+.vyd-popover:popover-open {
+  position: fixed;
+  inset: auto;
+  margin: var(--vyd-space-1);
+}
+@supports (position-area: bottom span-right) {
+  .vyd-menu:popover-open,
+  .vyd-popover:popover-open {
+    position-area: bottom span-right;
+    position-try-fallbacks: flip-block, flip-inline;
+  }
+}
 .vyd-menu__sep { height: 1px; background: var(--vyd-border-default); margin: var(--vyd-space-2) 0; }
 .vyd-menu__label { font-size: var(--vyd-text-xs); text-transform: uppercase; letter-spacing: var(--vyd-ls-wide); color: var(--vyd-text-secondary); padding: var(--vyd-space-2) var(--vyd-space-3); }
 
@@ -571,7 +601,8 @@ body {
 }
 .vyd-list__item:last-child { border-bottom: 0; }
 .vyd-list__item:hover { background: var(--vyd-bg-elevated); }
-.vyd-list__item[aria-selected="true"] { color: var(--vyd-text-accent); background: var(--vyd-bg-elevated); }
+/* aria-current é o atributo canônico (global, válido sem role); aria-selected mantido por compat */
+.vyd-list__item[aria-selected="true"], .vyd-list__item[aria-current="true"] { color: var(--vyd-text-accent); background: var(--vyd-bg-elevated); }
 .vyd-list__icon { color: var(--vyd-text-secondary); flex: none; }
 .vyd-list__body { display: flex; flex-direction: column; min-width: 0; }
 .vyd-list__title { color: var(--vyd-text-primary); }
@@ -601,8 +632,8 @@ body {
 .vyd-stat__label { font-size: var(--vyd-text-xs); font-weight: var(--vyd-weight-semibold); letter-spacing: var(--vyd-ls-wide); text-transform: uppercase; color: var(--vyd-text-secondary); }
 .vyd-stat__value { font-family: var(--vyd-font-mono); font-variant-numeric: tabular-nums; font-size: var(--vyd-text-2xl); font-weight: var(--vyd-weight-semibold); color: var(--vyd-text-primary); line-height: 1.1; }
 .vyd-stat__delta { display: inline-flex; align-items: center; gap: var(--vyd-space-1); font-size: var(--vyd-text-sm); color: var(--vyd-text-secondary); }
-.vyd-stat__delta--up { color: var(--vyd-success); }
-.vyd-stat__delta--down { color: var(--vyd-danger); }
+.vyd-stat__delta--up { color: var(--vyd-success-text); }
+.vyd-stat__delta--down { color: var(--vyd-danger-text); }
 
 /* ---- Key-value (painel de propriedades) ---- */
 .vyd-kv { display: grid; grid-template-columns: auto 1fr; gap: var(--vyd-space-2) var(--vyd-space-5); font-size: var(--vyd-text-sm); align-items: baseline; }
@@ -678,6 +709,15 @@ body {
   background: var(--vyd-bg-elevated); border: var(--vyd-border-hairline) solid var(--vyd-border-default);
   border-radius: var(--vyd-radius-lg); box-shadow: var(--vyd-shadow-lg); overflow: hidden;
 }
+/* variante <dialog> nativo (foco-trap/ESC/inert de graça) — usada pelo React */
+.vyd-cmdk--dialog {
+  position: fixed;
+  margin: 12vh auto auto;
+  padding: 0;
+  width: min(560px, calc(100vw - 2 * var(--vyd-space-4)));
+  color: var(--vyd-text-primary);
+}
+.vyd-cmdk--dialog::backdrop { background: rgb(0 0 0 / var(--vyd-opacity-backdrop)); }
 .vyd-cmdk__search { display: flex; align-items: center; gap: var(--vyd-space-3); padding: var(--vyd-space-3) var(--vyd-space-4); border-bottom: var(--vyd-border-hairline) solid var(--vyd-border-default); color: var(--vyd-text-secondary); }
 .vyd-cmdk__input { flex: 1; background: none; border: 0; outline: none; color: var(--vyd-text-primary); font: inherit; font-size: var(--vyd-text-md); }
 .vyd-cmdk__input::placeholder { color: var(--vyd-text-secondary); }

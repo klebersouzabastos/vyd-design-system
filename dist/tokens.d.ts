@@ -67,9 +67,14 @@ declare const vyd: {
     };
     feedback: {
       success: string;
+      onSuccess: string;
       warning: string;
       onWarning: string;
       danger: string;
+      onDanger: string;
+      dangerText: string;
+      successText: string;
+      warningText: string;
       info: string;
     };
     control: {

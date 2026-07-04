@@ -1,6 +1,6 @@
 {
   "name": "vyd-react",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Componentes React (wrappers finos) do VYD Design System sobre as classes .vyd-* e o app shell. Consome o CSS de vyd-design-system.",
   "license": "MIT",
   "type": "module",
@@ -22,7 +22,8 @@
     "build": "tsc -p tsconfig.build.json",
     "prepack": "npm run build",
     "prepare": "npm run build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -36,9 +37,14 @@
     }
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "typescript": "^5.6.0"
+    "jsdom": "^29.1.1",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.9"
   },
   "repository": {
     "type": "git",
@@ -57,5 +63,8 @@
   ],
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "@base-ui-components/react": "1.0.0-rc.0"
   }
 }

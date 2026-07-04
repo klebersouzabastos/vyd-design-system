@@ -13,13 +13,14 @@ export { Icon } from './Icon';
 export type { IconName, IconProps } from './Icon';
 export { ICONS as icons, ICON_NAMES } from './icons.generated';
 
-export { Button, Input, Card, Mono, Text } from './primitives';
-export type { ButtonProps, InputProps, CardProps, TextProps, TextVariant, ControlSize } from './primitives';
+export { Button, Card, Mono, Text } from './primitives';
+export type { ButtonProps, CardProps, TextProps, TextVariant, ControlSize } from './primitives';
+export { Slot } from './Slot';
 
 export {
-  Field, Textarea, Select, Checkbox, Radio, Switch, Range, Choice, InputGroup, SearchInput,
+  Field, Input, Textarea, Select, Checkbox, Radio, Switch, Range, Choice, InputGroup, SearchInput,
 } from './forms';
-export type { FieldProps } from './forms';
+export type { InputProps, FieldProps } from './forms';
 
 export {
   Alert, Toast, Toaster, Progress, Spinner, Skeleton, EmptyState, Badge, Tag,
@@ -38,8 +39,8 @@ export {
 } from './data';
 export type { ThProps, SortDir, ListItemProps, TreeItemProps, StatProps } from './data';
 
-export { Tabs, Tab, Breadcrumbs, Pagination, Steps, Kbd } from './nav';
-export type { TabProps, Crumb } from './nav';
+export { TabsRoot, Tabs, Tab, TabPanel, Breadcrumbs, Pagination, Steps, Kbd } from './nav';
+export type { TabsProps, TabProps, Crumb } from './nav';
 export { CommandPalette } from './command';
 export type { Command, CommandPaletteProps } from './command';
 

@@ -1,6 +1,7 @@
 # VYD — Testes & regressão
 
-Duas camadas, com papéis diferentes. Introduzido na **v1.0.0**.
+Quatro camadas, com papéis diferentes. Introduzido na **v1.0.0**; unit + axe viram
+gates na **v3.1.0**.
 
 ## 1. Gate determinístico (obrigatório) — `npm test`
 
@@ -54,15 +55,26 @@ git checkout -b baselines/minha-mudanca && git push -u origin HEAD
 ## 3. Acessibilidade automatizada (axe) — `npm run test:a11y`
 
 `test/a11y.spec.ts` roda o axe-core (WCAG 2.1 A/AA) em todas as páginas de `demo/`
-nos 3 temas e falha em violações **serious/critical**. Na 2.1.0 o job `a11y` do CI é
-**report-only** (`continue-on-error`) — vira gate na Fase 10, quando os achados
-conhecidos de teclado/ARIA forem corrigidos.
+nos 3 temas e falha em violações **serious/critical**. **GATE desde a 3.1.0** —
+o job `a11y` do CI falha a PR em qualquer violação (era report-only na 2.1.0).
+
+Dica local (sandbox/offline): aponte um Chromium já instalado com
+`VYD_CHROMIUM=/caminho/para/chromium npm run test:a11y`.
+
+## 4. Testes unitários de interação (Vitest) — `npm test --workspace react`
+
+`react/src/__tests__/` cobre o comportamento de teclado/ARIA dos componentes
+interativos com Testing Library + jsdom: Menu (setas/ESC/modo controlado), Tabs
+(roving tabindex, `aria-controls`), CommandPalette (`aria-activedescendant`),
+Ribbon (Enter/Space, `aria-pressed`), Field (injeção de `id`/`aria-describedby`/
+`aria-invalid` via contexto), Dialog nativo e `Button asChild`/refs.
+**GATE desde a 3.1.0** (job `unit` do CI).
 
 ## Escopo de teste por camada
 
-- **Tokens/CSS** → verify (contrato) + visual (aparência).
-- **`vyd-react`** → typecheck (tipos) + visual (as demos exercitam as classes que
-  os componentes emitem).
+- **Tokens/CSS** → verify (contrato) + visual (aparência) + axe (a11y efetiva).
+- **`vyd-react`** → typecheck (tipos) + vitest (interação/ARIA) + visual (as demos
+  exercitam as classes que os componentes emitem).
 - **Apps consumidores** → responsáveis pelos próprios testes; fixam a versão do VYD
   (SemVer, ver [GOVERNANCE.md](GOVERNANCE.md)).
 

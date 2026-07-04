@@ -1,19 +1,103 @@
-import { Fragment } from 'react';
-import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
+'use client';
+
+import { Fragment, createContext, useContext, useId } from 'react';
+import type { ButtonHTMLAttributes, HTMLAttributes, KeyboardEvent, ReactNode } from 'react';
 import { cx } from './cx';
 import { Icon, type IconName } from './Icon';
 
-/* ---- Tabs (standalone) ---- */
-export function Tabs({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-  return <div className={cx('vyd-tabs', className)} role="tablist" {...rest} />;
+/* ---- Tabs (standalone) — padrão WAI-ARIA Tabs ----
+   Modo simples (compat): <Tab selected onClick> soltos dentro de <Tabs>.
+   Modo controlado: <Tabs value onChange> + <Tab value> + <TabPanel value> —
+   ganha setas ←/→ Home/End (roving tabindex) e aria-controls/labelledby. */
+
+type TabsCtx = { value?: string; onChange?: (v: string) => void; baseId: string } | null;
+const TabsContext = createContext<TabsCtx>(null);
+
+/** Raiz do modo controlado — envolve <Tabs> (tablist) E os <TabPanel>. */
+export function TabsRoot({ value, onChange, children }: { value: string; onChange?: (v: string) => void; children: ReactNode }) {
+  const baseId = useId();
+  return <TabsContext.Provider value={{ value, onChange, baseId }}>{children}</TabsContext.Provider>;
 }
-export type TabProps = ButtonHTMLAttributes<HTMLButtonElement> & { selected?: boolean; icon?: IconName };
-export function Tab({ selected, icon, className, children, ...rest }: TabProps) {
+
+/** Navegação por setas dentro do tablist (roving focus). */
+function onTablistKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+  const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+  if (!keys.includes(e.key)) return;
+  const tabs = Array.from(e.currentTarget.querySelectorAll<HTMLElement>('[role="tab"]:not([disabled])'));
+  if (!tabs.length) return;
+  const i = tabs.indexOf(document.activeElement as HTMLElement);
+  let next = i;
+  if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+  else if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+  else if (e.key === 'Home') next = 0;
+  else next = tabs.length - 1;
+  tabs[next]?.focus();
+  tabs[next]?.click();
+  e.preventDefault();
+}
+
+export type TabsProps = HTMLAttributes<HTMLDivElement>;
+export function Tabs({ className, onKeyDown, ...rest }: TabsProps) {
   return (
-    <button type="button" role="tab" aria-selected={!!selected} className={cx('vyd-tab', className)} {...rest}>
+    <div
+      className={cx('vyd-tabs', className)}
+      role="tablist"
+      onKeyDown={(e) => {
+        onTablistKeyDown(e);
+        onKeyDown?.(e);
+      }}
+      {...rest}
+    />
+  );
+}
+
+export type TabProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  selected?: boolean;
+  icon?: IconName;
+  /** Modo controlado: identidade da aba (casa com <TabPanel value>). */
+  value?: string;
+};
+export function Tab({ selected, icon, value, className, children, onClick, ...rest }: TabProps) {
+  const ctx = useContext(TabsContext);
+  const controlled = ctx?.value !== undefined && value !== undefined;
+  const isSelected = controlled ? ctx!.value === value : !!selected;
+  return (
+    <button
+      type="button"
+      role="tab"
+      aria-selected={isSelected}
+      tabIndex={isSelected ? 0 : -1}
+      id={controlled ? `${ctx!.baseId}-tab-${value}` : undefined}
+      aria-controls={controlled ? `${ctx!.baseId}-panel-${value}` : undefined}
+      className={cx('vyd-tab', className)}
+      onClick={(e) => {
+        if (controlled) ctx!.onChange?.(value!);
+        onClick?.(e);
+      }}
+      {...rest}
+    >
       {icon ? <Icon name={icon} size="sm" /> : null}
       {children}
     </button>
+  );
+}
+
+/** Painel do modo controlado — renderiza só quando a aba ativa casa com `value`. */
+export function TabPanel({ value, className, children, ...rest }: HTMLAttributes<HTMLDivElement> & { value: string }) {
+  const ctx = useContext(TabsContext);
+  const active = ctx?.value === value;
+  if (!active) return null;
+  return (
+    <div
+      role="tabpanel"
+      id={`${ctx!.baseId}-panel-${value}`}
+      aria-labelledby={`${ctx!.baseId}-tab-${value}`}
+      tabIndex={0}
+      className={className}
+      {...rest}
+    >
+      {children}
+    </div>
   );
 }
 

@@ -39,8 +39,67 @@ import { Button, Input, Card, Mono, CubeMark } from 'vyd-react';
 ```
 
 `Button`/`Input` repassam todas as props nativas (`onClick`, `disabled`, `type`,
-`value`…). Em Next.js (App Router), use-os dentro de um componente `'use client'`
-quando precisar de handlers.
+`value`…) e **aceitam `ref`** (todos os primitivos usam `forwardRef`). Em Next.js
+(App Router), use-os dentro de um componente `'use client'` quando precisar de
+handlers.
+
+### `asChild` (composição sem wrapper)
+
+`Button` aceita `asChild` para aplicar o estilo VYD a outro elemento (ex.: `Link`
+do Next), sem `<button>` extra no DOM:
+
+```tsx
+<Button asChild variant="ghost">
+  <a href="/obras">Ver obras</a>
+</Button>
+```
+
+### `Field` injeta ARIA automaticamente
+
+Dentro de `Field`, os controles VYD (`Input`, `Textarea`, `Select`) recebem `id`,
+`aria-describedby` (hint/erro), `aria-invalid` e `aria-required` sem você ligar
+nada à mão — props explícitas sempre vencem:
+
+```tsx
+<Field label="Cota" help="metros" error={erro} required>
+  <Input value={cota} onChange={…} />   {/* já sai com id + aria-* corretos */}
+</Field>
+```
+
+### Menu / Popover (motor Base UI, encapsulado)
+
+Posicionamento, teclado (setas/ESC), click-fora e portal vêm do
+[Base UI](https://base-ui.com) — mas a API é do VYD e as classes continuam
+`.vyd-*`. Modo controlado opcional:
+
+```tsx
+<Menu open={open} onOpenChange={setOpen} trigger={<Button>Ações</Button>}>
+  <MenuItem onClick={…}>Duplicar</MenuItem>
+  <MenuItem danger>Excluir</MenuItem>
+</Menu>
+```
+
+### Tabs controladas + TabPanel
+
+```tsx
+<TabsRoot value={tab} onChange={setTab}>
+  <Tabs aria-label="Seções">
+    <Tab value="geral">Geral</Tab>
+    <Tab value="estrutura">Estrutura</Tab>
+  </Tabs>
+  <TabPanel value="geral">…</TabPanel>
+  <TabPanel value="estrutura">…</TabPanel>
+</TabsRoot>
+```
+
+Setas ←/→, Home/End e `aria-controls` já funcionam (WAI-ARIA Tabs). A API antiga
+(`<Tab selected onClick>`) continua válida.
+
+### CommandPalette
+
+Roda sobre `<dialog>` nativo (focus-trap/ESC/inert do browser) com
+`role="combobox"` + `aria-activedescendant` no input — leitores de tela anunciam
+o item ativo enquanto você navega com as setas.
 
 ## App shell invariante (ribbon-only)
 
