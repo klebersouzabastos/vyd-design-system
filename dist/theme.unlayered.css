@@ -1,5 +1,5 @@
 /* =====================================================================
-   VYD DESIGN SYSTEM - theme.unlayered.css  v3.1.0
+   VYD DESIGN SYSTEM - theme.unlayered.css  v3.1.1
    GENERATED from /tokens/tokens.json - DO NOT EDIT. Run: npm run build
    Source of truth: /tokens/tokens.json. Consume SEMANTIC tokens only.
    ===================================================================== */
@@ -1036,6 +1036,10 @@ body {
   background: var(--vyd-bg-elevated); border: var(--vyd-border-hairline) solid var(--vyd-border-default);
   border-radius: var(--vyd-radius-lg); box-shadow: var(--vyd-shadow-lg); overflow: hidden;
 }
+/* o display:flex acima venceria o `dialog:not([open]) { display:none }` do
+   user-agent (autor > UA), deixando o <dialog> FECHADO visível; este guard
+   restaura o comportamento nativo quando fechado */
+dialog.vyd-cmdk:not([open]) { display: none; }
 /* variante <dialog> nativo (foco-trap/ESC/inert de graça) — usada pelo React */
 .vyd-cmdk--dialog {
   position: fixed;
